@@ -1,0 +1,34 @@
+<div class="list">
+
+    <label class="item item-radio">
+        <input type="radio" ng-model="periodo.months" value=1 ng-disabled="periodo.personalized" />
+        <div class="item-content">
+            Ultimo mese
+        </div>
+        <i class="radio-icon ion-checkmark calm"></i>
+    </label>
+    <label class="item item-radio">
+        <input type="radio" ng-model="periodo.months" value=3 ng-disabled="periodo.personalized" />
+        <div class="item-content">
+            Ultimi 3 mesi
+        </div>
+        <i class="radio-icon ion-checkmark calm"></i>
+    </label>
+    <label class="item item-radio">
+        <input type="radio" ng-model="periodo.months" value=6 ng-disabled="periodo.personalized" />
+        <div class="item-content">
+            Ultimi 6 mesi
+        </div>
+        <i class="radio-icon ion-checkmark calm"></i>
+    </label>
+    <div class="item item-checkbox">
+        <label class="checkbox checkbox-calm">
+            <input type="checkbox" ng-model="periodo.personalized" />
+        </label>
+        <span>Personalizzato</span>
+    </div>
+
+    <label class="item item-input" ng-if="periodo.personalized">
+        <input type="number" ng-model="periodo.months" min="1" placeholder="Definisci il numero di mesi da visualizzare" />
+    </label>
+</div>

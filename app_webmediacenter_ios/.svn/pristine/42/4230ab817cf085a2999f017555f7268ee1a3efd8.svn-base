@@ -1,0 +1,5 @@
+dependencies: \
+  /Users/admin/Documents/siti_web_sorgente/app_webmediacenter_ios/platforms/ios/WebMediaCenter/Plugins/de.appplant.cordova.plugin.local-notification/UIApplication+APPLocalNotification.m \
+  /Users/admin/Documents/siti_web_sorgente/app_webmediacenter_ios/platforms/ios/WebMediaCenter/Plugins/de.appplant.cordova.plugin.local-notification/UIApplication+APPLocalNotification.h \
+  /Users/admin/Documents/siti_web_sorgente/app_webmediacenter_ios/platforms/ios/WebMediaCenter/Plugins/de.appplant.cordova.plugin.local-notification/UILocalNotification+APPLocalNotification.h \
+  /Users/admin/Documents/siti_web_sorgente/app_webmediacenter_ios/platforms/ios/WebMediaCenter/Plugins/de.appplant.cordova.plugin.local-notification/APPLocalNotificationOptions.h

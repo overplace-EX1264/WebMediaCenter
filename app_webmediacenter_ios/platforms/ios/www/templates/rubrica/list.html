@@ -1,0 +1,72 @@
+<ion-view view-title="Rubrica" ng-click="openPopover($event)">
+
+	<ion-nav-buttons side="right" ng-show="contatti.length > 0">
+		<button class="button button icon button-clear ion-android-more-vertical" ng-click="showOptions($event)"></button>
+	</ion-nav-buttons>
+	
+	<button 
+		ng-if="contatti.length > 0"
+		class="button button-calm icon ion-upload" 
+		ng-click="uploadContact()" 
+		ng-disabled="contact_selected.length == 0"
+		style="position:fixed;width:62px;height:62px;bottom:20px;right:20px;border-radius:50%;box-shadow:0px 2px 10px -2px #000;z-index:10000">
+	</button>
+	
+	<ion-content class="rubrica-content">
+		
+		<ion-refresher pulling-text="Trascina per aggiornare..." on-refresh="refresh()"></ion-refresher>
+		
+		<div class="card" ng-if="contatti.length == 0">
+			<div class="item item-text-wrap text-center">
+				<i class="icon ion-android-people stable"></i>
+				<p class="stable">
+					Carica nuovi contatti direttamente dalla tua rubrica
+				</p>
+				<br />
+				<p class="stable">
+					In riferimento all&apos;anagrafica da te inserita ti ricordiamo che Overplace &egrave; semplice fornitrice del servizio di comunicazione 
+					verso i destinatari da te individuati. Overplace non ha alcuna responsabilit&agrave; derivante dalle modalit&agrave; adottate per 
+					l&apos;inserimento dei dati nel database messi a disposizione per l&apos;utilizzo del servizio, nonch&egrave; delle modalit&agrave; di acquisizione 
+					del consenso per l&apos;utilizzo di tali strumenti. 
+				</p>
+			</div>
+		</div>
+		
+		<div class="row" ng-if="contatti.length == 0">
+        	<div class="col col-50 col-offset-25">
+        		<button class="button button-block button-calm icon-left ion-android-sync" ng-click="sincronizza()">Sincronizza</button>
+        	</div>
+ 		</div>
+	
+		<ion-list ng-if="contatti.length > 0">
+			<div class="item item-divider">
+				Contatti
+			</div>
+			<ion-item class="item item-remove-animate item-icon-left rubrica-list" ng-repeat="i in contatti | keys"  ng-click="selectContact(contatti[i])">
+				<div class="icon">
+					<label class="checkbox checkbox-calm">
+						<input type="checkbox" ng-model="contatti[i].checked" ng-checked="contatti[i].checked" ng-click="selectContact(contatti[i])" />
+					</label>
+				</div>
+				<div>
+					<h2 ng-if="contatti[i].name != ''">{{contatti[i].name}}</h2>
+					<h2 ng-if="contatti[i].name == ''">Sconosciuto</h2>
+					<p ng-if="contatti[i].numbers.length > 0">
+						<span ng-repeat="numero in contatti[i].numbers">
+							<i class="ion-ios-telephone-outline"></i>
+							{{numero}}
+						</span>
+					</p>
+					<p ng-if="contatti[i].emails.length > 0">
+						<span ng-repeat="email in contatti[i].emails">
+							<i class="ion-ios-email-outline"></i>
+							{{email}}
+						</span>
+					</p>
+				</div>
+			</ion-item>
+		</ion-list>
+		
+		<ion-infinite-scroll ng-if="hasMoreContact" on-infinite="loadMoreContact()" distance="5%"></ion-infinite-scroll>
+	</ion-content>
+</ion-view>

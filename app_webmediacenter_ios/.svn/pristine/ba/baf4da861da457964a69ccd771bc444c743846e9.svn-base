@@ -1,0 +1,11 @@
+<ion-list>
+    <ion-item nav-clear menu-close class="item item-icon-left item-icon-right" ng-repeat="menu in menu_professional | filter: {visible: true} | orderBy:['section','-active','order']" href="{{menu.link}}" ng-if="menu.active || showModuliInattivi">
+        <i class="icon fa fa-fw" ng-class="[menu.icon, menu.active ? 'energized' : 'dark']"></i>{{menu.name}}<span ng-if="menu.type == 'badge'" ng-show="badges[menu.id] > 0" class="badge badge-energized">{{badges[menu.id]}}</span>
+        <i class="icon ion-chevron-right icon-accessory"></i>
+    </ion-item>
+
+    <ion-item nav-clear class="item item-divider" ng-if="(menu_professional | filter:{active:false}).length > 0">Impostazioni</ion-item>
+    <ion-toggle ng-model="showModuliInattivi" ng-change="showModuliChange()" ng-if="(menu_professional | filter:{active:false}).length > 0">
+        Mostra moduli inattivi
+    </ion-toggle>
+</ion-list>

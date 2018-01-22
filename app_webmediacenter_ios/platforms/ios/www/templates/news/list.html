@@ -1,0 +1,43 @@
+<ion-view view-title="News">
+    <ion-content class="news-content" afkl-image-container>
+
+        <ion-refresher pulling-text="Trascina per aggiornare..." on-refresh="refresh()"></ion-refresher>
+
+        <div class="card">
+            <div class="item item-text-wrap">
+                <p>Crea e gestisci i tuoi post. Condividili sui social ed invia un messaggio ai tuoi contatti.</p>
+            </div>
+        </div>
+        
+        <div class="row">
+        	<div class="col col-50 col-offset-25">
+        		<a class="button button-block button-calm icon-left ion-plus" href="#/app/news/create">Scrivi una news</a>
+        	</div>
+ 		</div>
+
+        <ion-list can-swipe="true" show-delete="showDelete" ng-show="news_list.length > 0">
+
+            <ion-item class="item-remove-animate item-thumbnail-left item-icon-right" ng-repeat="news in news_list | orderBy:'-data_inizio_pubblicazione'" href="#/app/news/{{news.id}}">
+				
+				<div afkl-lazy-image="{{news.filename}}" class="afkl-lazy-wrapper item-thumbnail-img"></div>
+                <h2>{{news.titolo}}</h2>
+                <p>{{news.testo}}</p>
+                <p>{{news.data_inizio_pubblicazione | date:'dd/MM/yyyy - HH:mm'}}</p>
+                <span class="item-note">Social:
+                	<i class="fa fa-facebook-square fa-fw" ng-class="{'calm': news.facebook == 1}"></i>
+                	<i class="fa fa-twitter-square fa-fw" ng-class="{'calm': news.twitter == 1}"></i>
+                	<i class="fa fa-linkedin-square fa-fw" ng-class="{'calm': news.linkedin == 1}"></i>
+                </span>
+                <i class="icon ion-chevron-right icon-accessory"></i>
+								
+				<ion-option-button class="button-energized ion-edit" ng-click="edit(news.id)"></ion-option-button>
+                <ion-option-button class="button-assertive ion-trash-a" ng-click="delete(news)" ng-if="!news.notifiche.pendenti.sms && !news.notifiche.pendenti.email"></ion-option-button>
+                
+            </ion-item>
+
+        </ion-list>
+
+        <ion-infinite-scroll ng-if="isAvailable" on-infinite="loadNews()" distance="5%"></ion-infinite-scroll>
+
+    </ion-content>
+</ion-view>

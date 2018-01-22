@@ -1,0 +1,28 @@
+<ion-side-menus enable-menu-with-back-views="false">
+	
+	<ion-side-menu-content drag-content="true">
+		
+		<ion-nav-bar class="bar-header bar-calm" align-title="center">
+     		<ion-nav-back-button class="button-white"></ion-nav-back-button>
+           	<ion-nav-buttons side="left">
+               	<button class="button button-icon button-clear ion-navicon" menu-toggle="left"></button>
+           	</ion-nav-buttons>
+       	</ion-nav-bar>
+   		
+   		<ion-nav-view name="navContent" animation="slide-left-right"></ion-nav-view>
+	
+   	</ion-side-menu-content>
+
+   	<ion-side-menu side="left">
+       	<ion-header-bar class="bar-energized" align-title="center">
+           	<h1 class="title" ng-bind-html="titolo"></h1>
+       	</ion-header-bar>
+       	
+       	<ion-content>
+    
+			<ng-include src="'templates/nav_menu/menu_'+menu_version+'.html'"
+       		
+		</ion-content>
+		
+	</ion-side-menu>
+</ion-side-menus>

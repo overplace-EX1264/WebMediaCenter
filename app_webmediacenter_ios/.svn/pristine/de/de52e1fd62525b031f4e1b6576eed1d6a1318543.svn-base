@@ -1,0 +1,17 @@
+
+<div class="card notifica-element">
+    <div class="item item-icon-left">
+        <i class="icon fa fa-eur fa-fw dark"></i>
+        <h2>{{notifica.titolo}}</h2>
+        <p>{{notifica.testo}}</p>
+    </div>
+
+</div>
+
+<div class="card notifica-detail">
+
+    <div class="item item-text-wrap">
+        <p ng-bind-html="notifica.dettaglio.text"></p>
+    </div>
+
+</div>

@@ -1,0 +1,25 @@
+<ion-view view-title="Contatti" >
+    <ion-content class="contatti-content">
+    	
+    	<div class="card">
+		    <div class="item item-text-wrap" ng-if="support_filename !== null || support_description !== null">
+				<img class="full-image" src="{{support_filename}}" ng-if="support_filename !== null" />
+				<p class="angular-with-newlines" ng-if="support_description !== null" ng-bind-html="support_description"></p>
+            </div>
+            <div class="item item-text-wrap" >
+				<p>Ti consigliamo di visitare la sezion Help per ottenere informazioni sull&apos;utilizzo di questa App e di tutte le sue funzionalit&agrave;. Usa i collegamenti sottostanti per informazioni di carattere tecnico e commerciale.</p>
+			</div>
+        </div>
+		<ion-list class="list-inset">
+			<ion-item nav-clear menu-close class="item item-icon-left item-icon-right" href="tel:{{support_phone}}" ng-if="support_phone !== null">            	
+				<i class="icon fa fa-fw fa-phone calm"></i>Chiama
+				<i class="icon ion-chevron-right icon-accessory"></i>
+			</ion-item>
+			<ion-item nav-clear menu-close class="item item-icon-left item-icon-right" href="mailto:{{support_email}}" ng-if="support_email !== null">            	
+				<i class="icon fa fa-fw fa-envelope calm"></i>Invia una mail
+				<i class="icon ion-chevron-right icon-accessory"></i>
+			</ion-item>
+		</ion-list>
+
+    </ion-content>
+</ion-view>

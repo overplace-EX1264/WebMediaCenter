@@ -1,0 +1,47 @@
+<ion-view view-title="Home" >
+    <ion-content class="home-content">
+
+		<div class="row">
+			<div class="image-cropper">
+				<div class="rounded" style="background-image:url({{filename}});"></div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="moustache">
+				<img src="img/moustache.png"/>
+			</div>
+		</div>
+		
+		<div class="row">
+			<h3 ng-bind-html="titolo"></h3>
+		</div>
+		<div class="row">
+			<p>{{username}}</p>
+		</div>
+		
+		<div class="row row-toggle">
+			<div id="triangle-divider"></div>
+		</div>
+		
+		<ion-toggle ng-model="settings.enablePushNotifications" ng-change="pushNotificationChange()" ng-disabled="logout_disabled">
+			Notifiche push
+		</ion-toggle>
+		<ion-toggle ng-model="settings.chatAvailable" ng-change="chatAvailableChange()" ng-disabled="chat_disabled">
+			Chat online
+		</ion-toggle>
+        
+        <ion-list class="list-inset" >
+			<ion-item nav-clear menu-close class="item item-icon-left item-icon-right" ng-repeat="menu in menu_home_list | filter: {visible: true} | orderBy:['section','-active','order']" href="{{menu.link}}" ng-if="menu.active || settings.showModuliInattivi">            	
+				<i class="icon fa fa-fw" ng-class="[menu.icon, menu.active ? 'energized' : 'dark']"></i>{{menu.name}}<span ng-if="menu.type == 'badge'" ng-show="badges[menu.id] > 0" class="badge badge-energized">{{badges[menu.id]}}</span>
+				<i class="icon ion-chevron-right icon-accessory"></i>
+			</ion-item>
+		</ion-list>
+        
+        <div class="row">
+           	<div class="col col-50 col-offset-25">
+               	<ion-button class="button button-block button-calm icon-right ion-log-out" ng-click="logout()" ng-disabled="logout_disabled">Esci</ion-button>
+           	</div>
+       	</div>
+
+    </ion-content>
+</ion-view>

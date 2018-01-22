@@ -1,0 +1,47 @@
+<ion-view view-title="Promozioni">
+	<ion-content ng-switch="moduloPromozioni" class="promozione-detail-content">
+        <div ng-switch-when="false">
+            <ng-include src="'templates/promozioni/inactive.html'" ></ng-include>
+		</div>
+
+    	<div ng-switch-default>
+            <ion-refresher pulling-text="Trascina per aggiornare..." on-refresh="refresh()" ></ion-refresher>
+			
+			<div class="card">
+            	<div class="item item-text-wrap">
+                	<p>Modifica la tua offerta standard. Condividila sui social ed invia un messaggio ai tuoi contatti.</p>
+            	</div>
+        	</div>
+			
+			<div ng-repeat="promozione in promozioni_list">
+			
+	            <div class="list card">
+		            <div class="item item-icon-left">
+	                    <i class="icon ion-trophy assertive"></i>
+		                <h2>Gestisci l&apos;offerta standard</h2>
+	                </div>
+		
+		            <div class="item item-body">
+		                <p class="angular-with-newlines" ng-bind-html="promozione.descrizione" ></p>
+		            </div>
+		
+					<div class="item tabs tabs-secondary tabs-icon-top">
+			    		<p class="tab-item positive" ng-click="openInBrowser(promozione, 'promozione', 'overplace')"><img src="img/social_ovp.png">Pubblicato</p>
+			    		<p class="tab-item" ng-class="{'positive': promozione.facebook == 1}" ng-click="openInBrowser(promozione, 'promozione', 'facebook')"><i class="icon ion-social-facebook"></i>{{promozione.facebook == 1 ? 'Pubblicato' : 'Non pubblicato'}}</p>
+			    		<p class="tab-item" ng-class="{'positive': promozione.twitter == 1}" ng-click="openInBrowser(promozione, 'promozione', 'twitter')"><i class="icon ion-social-twitter"></i>{{promozione.twitter == 1 ? 'Pubblicato' : 'Non pubblicato'}}</p>
+					</div>
+					
+		        </div>
+	
+		        <div class="row">
+	                <div class="col col-50 col-offset-25">
+	                    <a class="button button-block button-energized icon-left ion-edit" href="#/app/promozioni/{{promozione.id}}/edit" >
+	                        Modifica
+	                    </a>
+		            </div>
+		        </div>
+		        
+	        </div>
+		</div>
+    </ion-content>
+</ion-view>

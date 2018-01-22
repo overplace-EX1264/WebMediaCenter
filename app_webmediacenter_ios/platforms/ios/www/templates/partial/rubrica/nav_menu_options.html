@@ -1,0 +1,28 @@
+<ion-popover-view class="options-popover">
+	<ion-content class="container">
+		<div class='list'>
+			<!-- 
+			<div class='item item-text-wrap item-icon-left'>
+				<i class='icon ion-android-person-add stable'></i>
+				<p>Nuovo contatto</p>
+			</div>
+			-->
+			<div class='item item-text-wrap item-icon-left' ng-click="sincronizza()">
+				<i class='icon ion-android-sync stable'></i>
+				<p>Aggiorna</p>
+			</div>
+			<div ng-show="contatti.length > 0 && allSelected" class='item item-text-wrap item-icon-left' ng-click="deselectAll()">
+				<i class="icon ion-android-checkbox-outline-blank stable"></i>
+				<p>Deseleziona tutti</p>
+			</div>
+			<div ng-show="contatti.length > 0 && !allSelected" class='item item-text-wrap item-icon-left' ng-click="selectAll()">
+				<i class='icon ion-android-checkbox-outline stable'></i>
+				<p>Seleziona tutti</p>
+			</div>
+			<div class='item item-text-wrap item-icon-left' ng-click="showFilter()">
+				<i class='icon ion-funnel stable'></i>
+				<p>Filtra</p>
+			</div>
+		</div>
+	</ion-content>
+</ion-popover-view>

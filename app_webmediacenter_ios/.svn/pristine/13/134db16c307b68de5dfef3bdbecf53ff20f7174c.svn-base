@@ -1,0 +1,19 @@
+dependencies: \
+  /Users/admin/Documents/siti_web_sorgente/app_webmediacenter_ios/platforms/ios/WebMediaCenter/Plugins/de.appplant.cordova.plugin.local-notification/APPLocalNotification.m \
+  /Users/admin/Documents/siti_web_sorgente/app_webmediacenter_ios/platforms/ios/WebMediaCenter/Plugins/de.appplant.cordova.plugin.local-notification/APPLocalNotification.h \
+  /Users/admin/Documents/siti_web_sorgente/app_webmediacenter_ios/platforms/ios/build/emulator/include/Cordova/CDVPlugin.h \
+  /Users/admin/Documents/siti_web_sorgente/app_webmediacenter_ios/platforms/ios/build/emulator/include/Cordova/CDVPluginResult.h \
+  /Users/admin/Documents/siti_web_sorgente/app_webmediacenter_ios/platforms/ios/build/emulator/include/Cordova/CDVAvailability.h \
+  /Users/admin/Documents/siti_web_sorgente/app_webmediacenter_ios/platforms/ios/build/emulator/include/Cordova/CDVAvailabilityDeprecated.h \
+  /Users/admin/Documents/siti_web_sorgente/app_webmediacenter_ios/platforms/ios/build/emulator/include/Cordova/NSMutableArray+QueueAdditions.h \
+  /Users/admin/Documents/siti_web_sorgente/app_webmediacenter_ios/platforms/ios/build/emulator/include/Cordova/CDVCommandDelegate.h \
+  /Users/admin/Documents/siti_web_sorgente/app_webmediacenter_ios/platforms/ios/build/emulator/include/Cordova/CDVInvokedUrlCommand.h \
+  /Users/admin/Documents/siti_web_sorgente/app_webmediacenter_ios/platforms/ios/WebMediaCenter/Plugins/de.appplant.cordova.plugin.local-notification/APPLocalNotificationOptions.h \
+  /Users/admin/Documents/siti_web_sorgente/app_webmediacenter_ios/platforms/ios/WebMediaCenter/Plugins/de.appplant.cordova.plugin.local-notification/AppDelegate+APPLocalNotification.h \
+  /Users/admin/Documents/siti_web_sorgente/app_webmediacenter_ios/platforms/ios/WebMediaCenter/Classes/AppDelegate.h \
+  /Users/admin/Documents/siti_web_sorgente/app_webmediacenter_ios/platforms/ios/build/emulator/include/Cordova/CDVViewController.h \
+  /Users/admin/Documents/siti_web_sorgente/app_webmediacenter_ios/platforms/ios/build/emulator/include/Cordova/CDVCommandQueue.h \
+  /Users/admin/Documents/siti_web_sorgente/app_webmediacenter_ios/platforms/ios/build/emulator/include/Cordova/CDVWhitelist.h \
+  /Users/admin/Documents/siti_web_sorgente/app_webmediacenter_ios/platforms/ios/build/emulator/include/Cordova/CDVScreenOrientationDelegate.h \
+  /Users/admin/Documents/siti_web_sorgente/app_webmediacenter_ios/platforms/ios/WebMediaCenter/Plugins/de.appplant.cordova.plugin.local-notification/UIApplication+APPLocalNotification.h \
+  /Users/admin/Documents/siti_web_sorgente/app_webmediacenter_ios/platforms/ios/WebMediaCenter/Plugins/de.appplant.cordova.plugin.local-notification/UILocalNotification+APPLocalNotification.h

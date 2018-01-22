@@ -1,0 +1,17 @@
+<ion-list>
+    <ion-item nav-clear menu-close class="item item-icon-left item-icon-right" ng-repeat="menu_base in menu_trial.base | filter: {visible: true} | orderBy:['section','-active','order']" href="{{menu_base.link}}" ng-if="menu_base.active || showModuliInattivi">
+        <i class="icon fa fa-fw" ng-class="[menu_base.icon, menu_base.active ? 'energized' : 'dark']"></i>{{menu_base.name}}<span ng-if="menu_base.type == 'badge'" ng-show="badges[menu_base.id] > 0" class="badge badge-energized">{{badges[menu_base.id]}}</span>
+        <i class="icon ion-chevron-right icon-accessory"></i>
+    </ion-item>
+
+    <ion-item nav-clear class="item item-divider">Scade il {{data_scadenza_app | date: "dd/MM/yyyy"}}</ion-item>
+    <ion-item nav-clear menu-close class="item item-icon-left item-icon-right" ng-repeat="menu_professional in menu_trial.professional | filter: {visible: true} | orderBy:['section','-active','order']" href="{{menu_professional.link}}" ng-if="menu_professional.active || showModuliInattivi">
+        <i class="icon fa fa-fw" ng-class="[menu_professional.icon, menu_professional.active ? 'energized' : 'dark']"></i>{{menu_professional.name}}<span ng-if="menu_professional.type == 'badge'" ng-show="badges[menu_professional.id] > 0" class="badge badge-energized">{{badges[menu_professional.id]}}</span>
+        <i class="icon ion-chevron-right icon-accessory"></i>
+    </ion-item>
+
+    <ion-item nav-clear class="item item-divider" ng-if="(menu_trial.professional | filter:{active:false}).length > 0">Impostazioni</ion-item>
+    <ion-toggle ng-model="showModuliInattivi" ng-change="showModuliChange()" ng-if="(menu_trial.base | filter:{active:false}).length > 0 || (menu_trial.professional | filter:{active:false}).length > 0">
+        Mostra moduli inattivi
+    </ion-toggle>
+</ion-list>

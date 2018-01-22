@@ -1,0 +1,47 @@
+<ion-view view-title="{{helpDetail.name}}">
+    <ion-content class="help-detail">
+
+        <div class="item header-item" ng-style="{'background-color': helpDetail.color}">
+            <span class="center fa fa-3x fa-fw light" ng-class="helpDetail.icon"></span>
+        </div>
+
+        <div class="card">
+
+            <div class="item item-text-wrap">
+
+                <p ng-bind-html="helpDetail.longDescription"></p>
+
+            </div>
+
+            <div class="item help-detail-list">
+
+                <p class="item item-divider">Vantaggi</p>
+
+                <div class="item item-text-wrap item-icon-left help-detail-list-item" ng-repeat="vantage in helpDetail.detail.vantage">
+                    <i class="icon ion-ios-checkmark-empty"></i>
+                    <p ng-bind-html="vantage"></p>
+                </div>
+            </div>
+
+            <div class="item help-detail-list">
+
+                <p class="item item-divider">Caratteristiche</p>
+
+                <div class="item item-text-wrap item-icon-left help-detail-list-item" ng-repeat="feature in helpDetail.detail.features">
+                    <i class="icon ion-ios-checkmark-empty"></i>
+                    <p ng-bind-html="feature"></p>
+                </div>
+            </div>
+
+            <div class="item help-detail-list" ng-if="helpDetail.detail.extra.length">
+
+                <p class="item item-divider">Extra</p>
+
+                <div class="item item-text-wrap item-icon-left help-detail-list-item" ng-repeat="extra in helpDetail.detail.extra">
+                    <i class="icon ion-ios-checkmark-empty"></i>
+                    <p ng-bind-html="extra"></p>
+                </div>
+            </div>
+        </div>
+    </ion-content>
+</ion-view>

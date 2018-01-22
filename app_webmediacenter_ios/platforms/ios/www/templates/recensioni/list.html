@@ -1,0 +1,36 @@
+<ion-view view-title="Recensioni">
+    <ion-content afkl-image-container class="recensioni-list">
+        <ion-refresher pulling-text="Trascina per aggiornare..." on-refresh="refresh()"></ion-refresher>
+
+        <div class="card">
+            <div class="item item-text-wrap">
+                <p>Leggi o rispondi alle recensioni dei tuoi utenti.</p>
+            </div>
+        </div>
+
+
+        <ion-list ng-show="recensioni_list.length > 0">
+
+            <ion-item class="item-remove-animate item-thumbnail-left item-icon-right" ng-repeat="recensione in recensioni_list | orderBy:'-timestamp'" href="#/app/recensioni/{{recensione.id}}">
+                <div check-avatar afkl-lazy-image="{{recensione.avatar}}" class="afkl-lazy-wrapper item-thumbnail-img recensione-thumbnail"></div>
+                
+                <h2>{{recensione.autore}}</h2>
+                <p ng-bind-html="recensione.commento"></p>
+				
+				<ng-include src="'templates/partial/recensioni/voto_'+recensione.voto+'.html'"></ng-include>
+	            <p>{{recensione.timestamp+'000' | date:'dd/MM/yyyy - HH:mm'}}</p>
+                
+                <span class="item-note" ng-if="recensione.risposta == undefined">Nessuna risposta</span>
+                <span class="item-note balanced" ng-if="recensione.risposta.id_tipologia_stato == 1">Hai risposto al commento</span>                
+                <span class="item-note assertive" ng-if="recensione.risposta.id_tipologia_stato == 2">Risposta non approvata</span>
+                <span class="item-note energized" ng-if="recensione.risposta.id_tipologia_stato == 3">Risposta in validazione</span>
+                
+                <i class="icon ion-chevron-right icon-accessory"></i>
+            </ion-item>
+
+        </ion-list>
+
+        <ion-infinite-scroll ng-if="isAvailable" on-infinite="loadMoreList()" distance="5%"></ion-infinite-scroll>
+
+    </ion-content>
+</ion-view>

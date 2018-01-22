@@ -1,0 +1,75 @@
+<ion-view view-title="Passa a Professional">
+    <ion-content class="professional-content">
+
+        <div class="card">
+            <p class="item text-center item-text-wrap"><strong>Passa alla versione Professional!</strong><br />Sarai in grado di relazionarti al meglio con i tuoi clienti, migliorando gli affari come mai prima d'ora.</p>
+        </div>
+
+        <div class="padding">
+            <div class="item item-text-wrap professional-text">
+                <p>La versione Professional ti permetter&agrave; di creare con assoluta semplicit&agrave; i seguenti contenuti:</p>
+
+                <div class="item professional-detail-list">
+
+                    <div class="item item-text-wrap item-icon-left professional-detail-list-item">
+                        <i class="icon ion-ios-checkmark-empty"></i>
+                        <p>News</p>
+                    </div>
+
+                    <div class="item item-text-wrap item-icon-left professional-detail-list-item">
+                        <i class="icon ion-ios-checkmark-empty"></i>
+                        <p>Eventi</p>
+                    </div>
+
+                    <div class="item item-text-wrap item-icon-left professional-detail-list-item">
+                        <i class="icon ion-ios-checkmark-empty"></i>
+                        <p>Coupon</p>
+                    </div>
+                    <div class="item item-text-wrap item-icon-left professional-detail-list-item">
+                        <i class="icon ion-ios-checkmark-empty"></i>
+                        <p>Promozioni</p>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="item item-text-wrap">
+                <p>Potrai subito pubblicarli sul tuo sito, sui social Facebook e Twitter e sulla tua vetrina Overplace.
+                    <br />
+                    Inoltre, con un semplice click, avrai la possibilità di inviare il contenuto creato alla tua lista clienti!</p>
+                <p class="professional-header-list">Infine sarai in grado di:</p>
+                <div class="item professional-detail-list">
+
+                    <div class="item item-text-wrap item-icon-left professional-detail-list-item">
+                        <i class="icon ion-ios-checkmark-empty"></i>
+                        <p>consultare la lista delle recensioni ricevute e rispondere prontamente ai tuoi clienti tramite l'app</p>
+                    </div>
+
+                    <div class="item item-text-wrap item-icon-left professional-detail-list-item">
+                        <i class="icon ion-ios-checkmark-empty"></i>
+                        <p>caricare foto direttamente dalla gallery e dalla fotocamera del tuo smartphone</p>
+                    </div>
+
+                    <div class="item item-text-wrap item-icon-left professional-detail-list-item">
+                        <i class="icon ion-ios-checkmark-empty"></i>
+                        <p>consultare report intuitivi per verificare l'andamento delle attivit&agrave; svolte</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <hr />
+
+        <p class="professional-text-footer" ng-if="isSupport" >Contattaci subito per maggiori informazioni e per passare alla versione Professional!</p>
+
+
+        <div class="row text-center" ng-if="isSupport">
+            <div class="col col-50">
+                <button class="button button-block button-calm icon-left ion-ios-telephone" ng-click="call(support_phone)">Chiama</button>
+            </div>
+            <div class="col col-50">
+                <button class="button button-block button-calm icon-left ion-ios-email" ng-click="email(support_email)">Email</button>
+            </div>
+        </div>
+    </ion-content>
+</ion-view>

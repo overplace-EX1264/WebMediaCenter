@@ -1,0 +1,9 @@
+<ion-view view-title="Dettaglio notifica">
+
+    <ion-content>
+
+        <div ng-include="'templates/notifiche/'+notifica.type+'/'+notifica.action+'.html'"></div>
+
+    </ion-content>
+
+</ion-view>

@@ -1,0 +1,25 @@
+<ion-popover-view class="rubrica-popover">
+	<ion-content>
+		<div class="container">
+			<div class="item">
+				<h2>{{dettaglio_contatto.name}}</h2>
+				<p ng-if="dettaglio_contatto.birthday != null" class="item-note"><i class="fa fa-birthday-cake"></i> {{dettaglio_contatto.birthday | date: "dd/MM/yyyy"}}</p>
+			</div>
+			
+			<div class="item item-text-wrap" ng-if="dettaglio_contatto.addresses != null">
+				<p><i class="fa fa-map-marker"></i> {{dettaglio_contatto.addresses[0].formatted}}</p>
+			</div>
+			
+			<div class="list">
+				<div class="item item-text-wrap item-icon-left" ng-repeat="phone in dettaglio_contatto.numbers">
+					<i class="icon ion-ios-telephone-outline"></i>
+					<p>{{phone}}</p>
+				</div>
+				<div class="item item-text-wrap item-icon-left" ng-repeat="email in dettaglio_contatto.emails">
+					<i class="icon ion-ios-email-outline"></i>
+					<p>{{email}}</p>
+				</div>
+			</div>
+		</div>
+	</ion-content>
+</ion-popover-view>

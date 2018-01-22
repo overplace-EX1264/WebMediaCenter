@@ -1,0 +1,87 @@
+{
+    "prepare_queue": {
+        "installed": [],
+        "uninstalled": []
+    },
+    "config_munge": {
+        "files": {}
+    },
+    "installed_plugins": {
+        "com.phonegap.plugins.PushPlugin": {
+            "PACKAGE_NAME": "com.overplace.webmediacenter"
+        },
+        "cordova-plugin-datepicker": {
+            "PACKAGE_NAME": "com.overplace.webmediacenter"
+        },
+        "cordova-plugin-device": {
+            "PACKAGE_NAME": "com.overplace.webmediacenter"
+        },
+        "cordova-plugin-file-transfer": {
+            "PACKAGE_NAME": "com.overplace.webmediacenter"
+        },
+        "cordova-plugin-inappbrowser": {
+            "PACKAGE_NAME": "com.overplace.webmediacenter"
+        },
+        "cordova-plugin-media": {
+            "PACKAGE_NAME": "com.overplace.webmediacenter"
+        },
+        "cordova-plugin-network-information": {
+            "PACKAGE_NAME": "com.overplace.webmediacenter"
+        },
+        "cordova-plugin-splashscreen": {
+            "PACKAGE_NAME": "com.overplace.webmediacenter"
+        },
+        "cordova-plugin-vibration": {
+            "PACKAGE_NAME": "com.overplace.webmediacenter"
+        },
+        "cordova-plugin-whitelist": {
+            "PACKAGE_NAME": "com.overplace.webmediacenter"
+        },
+        "de.appplant.cordova.plugin.local-notification": {
+            "PACKAGE_NAME": "com.overplace.webmediacenter"
+        },
+        "ionic-plugin-keyboard": {
+            "PACKAGE_NAME": "com.overplace.webmediacenter"
+        },
+        "nl.x-services.plugins.toast": {
+            "PACKAGE_NAME": "com.overplace.webmediacenter"
+        },
+        "org.apache.cordova.statusbar": {
+            "PACKAGE_NAME": "com.overplace.webmediacenter"
+        },
+        "phonegap-plugin-mobile-accessibility": {
+            "PACKAGE_NAME": "com.overplace.webmediacenter"
+        },
+        "cordova-plugin-camera": {
+            "CAMERA_USAGE_DESCRIPTION": " ",
+            "PHOTOLIBRARY_USAGE_DESCRIPTION": " ",
+            "PACKAGE_NAME": "com.overplace.webmediacenter"
+        }
+    },
+    "dependent_plugins": {
+        "com.verso.cordova.clipboard": {
+            "PACKAGE_NAME": "com.overplace.webmediacenter"
+        },
+        "cordova-instagram-plugin": {
+            "PACKAGE_NAME": "com.overplace.webmediacenter"
+        },
+        "cordova-plugin-console": {
+            "PACKAGE_NAME": "com.overplace.webmediacenter"
+        },
+        "cordova-plugin-contacts": {
+            "PACKAGE_NAME": "com.overplace.webmediacenter"
+        },
+        "cordova-plugin-file": {
+            "PACKAGE_NAME": "com.overplace.webmediacenter"
+        },
+        "cordova-plugin-x-socialsharing": {
+            "PACKAGE_NAME": "com.overplace.webmediacenter"
+        },
+        "cordova-sqlite-storage": {
+            "PACKAGE_NAME": "com.overplace.webmediacenter"
+        },
+        "cordova-plugin-compat": {
+            "PACKAGE_NAME": "com.overplace.webmediacenter"
+        }
+    }
+}

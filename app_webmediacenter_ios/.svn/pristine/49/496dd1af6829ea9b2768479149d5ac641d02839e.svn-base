@@ -1,0 +1,46 @@
+<ion-view view-title="Modifica promozione">
+    <ion-content class="promozione-operation-content">
+    	        
+		<div class="card assertive" ng-if="promozione.notifiche.pendenti.email">
+			<div class="item item-divider assertive">
+				Attenzione!
+			</div>
+			<div class="item item-text-wrap">
+				<p>La promozione non pu&ograve; essere modificata finch&egrave; non sar&agrave; terminato l&apos;invio della notifica email.</p>
+				<p ng-if="social.facebook || social.twitter">Potrai comunque effettuare la condivisione sui social.</p>
+			</div>
+		</div>
+   
+    	
+    	<form name="$parent.promozioneForm" class="promozione-form" unsaved-warning-form novalidate>
+    	    
+			<label class="item item-input item-stacked-label">
+	   			<span class="input-label">Descrizione</span><p class="item-note subdued">{{promozione.descrizione.length}}/100</p>
+	   			<textarea name="descrizione" custom-maxlength="100" ng-model="promozione.descrizione" placeholder="Inserisci la descrizione" ng-disabled="promozione.notifiche.pendenti.email" msd-elastic required resettable></textarea>
+	 		</label>
+
+			<social-checkbox
+                social-assign="social"
+                hide-alert-twitter="true"
+                hide-linkedin="true"
+                controller-assign="promozione" >
+            </social-checkbox>
+
+			<notifiche-checkbox
+                mode="edit"
+                notifiche-messaggi="notifiche.messaggi"
+                status-checkbox="notifiche_checkbox"
+                controller-assign="promozione" >
+            </notifiche-checkbox>
+	       		       	
+	       	<div id="box-action" class="row">
+		        <div class="col col-50 col-offset-25">   				
+		        	<button type="submit" class="button button-full button-balanced icon-left ion-android-checkmark-circle" ng-click="update(promozione)" ng-disabled="promozioneForm.$invalid || (promozioneForm.$dirty && promozioneForm.$invalid) || isEqual()">Salva</button>
+		        </div>
+		    </div>
+		    
+	    </form>
+	    
+				
+	</ion-content>
+</ion-view>

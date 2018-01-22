@@ -1,0 +1,37 @@
+<div class="list list-inset" ng-if="ableMessage">
+    <div class="item item-divider">
+        Invia una notifica tramite
+    </div>
+    <div class="item item-checkbox">
+        <label class="checkbox checkbox-calm">
+            <input type="checkbox" ng-model="statusCheckbox.sms" ng-click="getContactList('sms')" ng-disabled="emptyListaContatti.sms_disabled" resettable>
+        </label>
+        <span ng-if="!emptyListaContatti.sms_disabled">SMS</span>
+        <span ng-if="emptyListaContatti.sms_disabled">SMS (nessuna lista presente)</span>
+    </div>
+    <div class="item item-checkbox">
+        <label class="checkbox checkbox-calm">
+            <input type="checkbox" ng-model="statusCheckbox.email" ng-click="getContactList('email')" ng-disabled="emptyListaContatti.email_disabled" resettable>
+        </label>
+        <span ng-if="!emptyListaContatti.email_disabled">Email</span>
+        <span ng-if="emptyListaContatti.email_disabled">Email (nessuna lista presente)</span>
+    </div>
+</div>
+
+<div class="list list-inset" ng-if="!ableMessage">
+    <div class="item item-divider">
+        Invia una notifica tramite
+    </div>
+    <div class="item item-checkbox">
+        <label class="checkbox checkbox-calm">
+            <input type="checkbox"  ng-click="alertMessage('Attenzione', 'Il modulo sms non è disponibile', 'sms')" ng-disabled="warned.sms" resettable>
+        </label>
+        SMS
+    </div>
+    <div class="item item-checkbox">
+        <label class="checkbox checkbox-calm">
+            <input type="checkbox" ng-click="alertMessage('Attenzione', 'Il modulo email non è disponibile', 'email')" ng-disabled="warned.email" resettable>
+        </label>
+        Email
+    </div>
+</div>

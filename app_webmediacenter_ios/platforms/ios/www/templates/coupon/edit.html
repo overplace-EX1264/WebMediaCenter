@@ -1,0 +1,206 @@
+<ion-view view-title="Modifica coupon">
+    <ion-slide-box ion-wizard show-pager="false">
+        <ion-slide ion-wizard-step condition="(coupon.numero_coupon_erogabili || coupon.coupon_illimitati) && coupon.sconto && isAvailableDate">
+            <ion-wizard-content class="has-header coupon-operation-content">
+
+                <div class="list card">
+
+                    <div class="item item-icon-left">
+                        <i class="icon fa fa-gavel fa-fw calm"></i>
+                        <h2>Modifica il Coupon</h2>
+                        <p>Rivedi e correggi il coupon che hai creato precedentemente. Attenzione! La modifica di alcuni campi comporta una nuova richiesta di approvazione per poter pubblicare il coupon.</p>
+                    </div>
+                </div>
+
+                <form name="$parent.$parent.couponOneForm" class="coupon-form" unsaved-warning-form novalidate>
+
+					<label ng-click="changeDate()" class="item item-input item-stacked-label">
+					    <span class="input-label" ng-disabled="coupon.id_tipologia_stato == 1 && coupon.active == 1">Data di inizio</span>
+					    <p>Il {{coupon.data_inizio_erogazione | date:"dd/MM/yyyy" }}</p>
+					</label>
+					
+					<label class="item item-input item-stacked-label">
+					    <span class="input-label">Durata</span>
+					    <div class="item range range-calm">
+					        <i class="icon ion-clock"></i>
+					        <input type="range" name="durata" min="2" max="30" ng-model="coupon.durata_coupon" ng-change="changeDuration()" ng-disabled="coupon.id_tipologia_stato == 1 && coupon.active == 1" required resettable />
+					        {{coupon.durata_coupon}}
+					    </div>
+					    <p><b>Scadenza del coupon</b>: {{coupon.data_fine_erogazione | date:"dd/MM/yyyy"}}</p>
+					</label>
+					
+					<label class="item item-input item-stacked-label">
+					    <span class="input-label" >Coupon erogabili</span>
+					    <input type="number" min="1" ng-model="coupon.numero_coupon_erogabili" ng-disabled="coupon.coupon_illimitati || (coupon.id_tipologia_stato == 1 && coupon.active == 1)" placeholder="Inserisci quanti coupon possono essere erogati" required resettable />
+					</label>
+					
+					<ion-toggle ng-model="coupon.coupon_illimitati" ng-disabled="coupon.id_tipologia_stato == 1 && coupon.active == 1" ng-click="changeToggle()" required resettable>
+					    o illimitati
+					</ion-toggle>
+					
+					<label class="item item-input item-stacked-label">
+					    <span class="input-label" >Valore del coupon</span>
+					    <input type="text" ng-model="coupon.sconto" placeholder="Inserisci il valore" ng-disabled="coupon.id_tipologia_stato == 1 && coupon.active == 1" required resettable />
+					</label>
+					
+					<input type="hidden" ng-model="coupon.data_inizio_erogazione" required resettable>
+					<input type="hidden" ng-model="coupon.data_fine_erogazione" required resettable>
+					
+                </form>
+
+                <div class="col-50 col-offset-25">
+                    <button class="button button-full button-balanced icon-right ion-chevron-right" ng-click="verificaData()" ion-wizard-next>Avanti</button>
+                </div>
+            </ion-wizard-content>
+        </ion-slide>
+        <ion-slide ion-wizard-step condition="coupon.titolo && coupon.descrizione && coupon.condizioni_legali && coupon.filename">
+            <ion-wizard-content class="has-header coupon-operation-content" afkl-image-container>
+
+                <div class="list card">
+
+                    <div class="item item-icon-left">
+                        <i class="icon fa fa-gavel fa-fw calm"></i>
+                        <h2>Modifica il Coupon</h2>
+                        <p>Rivedi e correggi il coupon che hai creato precedentemente. Attenzione! La modifica di alcuni campi comporta una nuova richiesta di approvazione per poter pubblicare il coupon.</p>
+                    </div>
+                </div>
+
+
+                <div class="coupon-operation-content">
+                    <form name="$parent.$parent.couponTwoForm" class="coupon-form" unsaved-warning-form novalidate>
+
+                        <label class="item item-input item-stacked-label">
+                            <span class="input-label">Titolo</span>
+                            <input type="text" ng-model="coupon.titolo" ng-disabled="coupon.id_tipologia_stato == 1 && coupon.active == 1" placeholder="Dai un titolo al tuo coupon" resettable />
+                        </label>
+
+
+                        <label class="item item-input item-stacked-label">
+                            <span class="input-label">Descrizione</span>
+                            <textarea msd-elastic ng-model="coupon.descrizione" ng-disabled="coupon.id_tipologia_stato == 1 && coupon.active == 1" placeholder="Inserisci una descrizione" resettable></textarea>
+                        </label>
+
+                        <label class="item item-input item-stacked-label">
+                            <span class="input-label">Condizioni di utilizzo</span>
+                            <textarea msd-elastic ng-model="coupon.condizioni_legali" ng-disabled="coupon.id_tipologia_stato == 1 && coupon.active == 1" placeholder="Specifica quali sono le condizioni di utilizzo per questo coupon" resettable></textarea>
+                        </label>
+
+                        <div class="item item-input item-stacked-label">
+                            <span class="input-label">Immagine</span>
+                            <img ng-src="{{coupon.filename}}" class="edit-coupon-image"/>
+                        </div>
+
+                        <div id="box-gallery-action" class="row" ng-if="!(coupon.id_tipologia_stato == 1 && coupon.active == 1)">
+                            <div class="col col-33">
+                                <button class="button button-block button-calm icon-left ion-camera" ng-click="takePhoto()">Scatta</button>
+                            </div>
+                            <div class="col col-33">
+                                <button class="button button-block button-calm icon-left ion-image" ng-click="getPhotoAlbum()">Gallery</button>
+                            </div>
+                            <div class="col col-33">
+                                <button class="button button-block button-calm icon-left ion-android-refresh" ng-click="removePhoto()">Default</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="row">
+                    <div class="col col-50">
+                        <button class="button button-block button-energized icon-left ion-chevron-left" ion-wizard-previous>Indietro</button>
+                    </div>
+                    <div class="col col-50">
+                        <button class="button button-block button-balanced icon-right ion-chevron-right" ion-wizard-next>Avanti</button>
+                    </div>
+                </div>
+            </ion-wizard-content>
+        </ion-slide>
+        <ion-slide ion-wizard-step>
+            <ion-wizard-content class="has-header coupon-operation-content" afkl-image-container>
+
+                <div class="list card">
+                    <div class="item item-icon-left">
+                        <i class="icon fa fa-gavel fa-fw calm"></i>
+                        <h2>Riepilogo del Coupon</h2>
+                        <p>Controlla che il tuo Coupon sia pronto, se si non ti rimane che pubblicarlo</p>
+                    </div>
+                </div>
+
+                <div class="item">
+                    <div afkl-lazy-image="{{coupon.filename}}" class="afkl-lazy-wrapper"></div>
+                </div>
+
+                <div class="item">
+                    <h2>Titolo</h2>
+                    <p>{{coupon.titolo}}</p>
+                </div>
+
+                <div class="item">
+                    <h2>Descrizione</h2>
+                    <p>{{coupon.descrizione}}</p>
+                </div>
+
+                <div class="item">
+                    <h2>Condizioni di utilizzo</h2>
+                    <p>{{coupon.condizioni_legali}}</p>
+                </div>
+
+                <div class="item">
+                    <h2>Data di inizio</h2>
+                    <p>{{coupon.data_inizio_erogazione | date: "dd/MM/yyyy"}}</p>
+                </div>
+
+                <div class="item">
+                    <h2>Data di scadenza</h2>
+                    <p>{{coupon.data_fine_erogazione | date: "dd/MM/yyyy"}}</p>
+                </div>
+
+                <div class="item">
+                    <h2>Coupon erogabili</h2>
+                    <p ng-hide="coupon.coupon_illimitati">{{coupon.numero_coupon_erogabili}}</p>
+                    <p ng-show="coupon.coupon_illimitati">Illimitati</p>
+                </div>
+
+                <div class="item">
+                    <h2>Valore</h2>
+                    <p>{{coupon.sconto}}</p>
+                </div>
+
+                <form name="$parent.$parent.couponThreeForm" class="coupon-form" unsaved-warning-form novalidate>
+
+
+                    <social-checkbox
+                        ng-if="(coupon.id_tipologia_stato == 1 && coupon.active == 1)"
+                        hide-linkedin="true"
+                        social-assign="social"
+                        controller-assign="coupon">
+                    </social-checkbox>
+
+                    <social-checkbox
+                            ng-if="(coupon.id_tipologia_stato != 1 || coupon.active != 1)"
+                            disable-facebook="true"
+                            disable-twitter="true"
+                            hide-linkedin="true"
+                            social-assign="social"
+                            controller-assign="coupon">
+                    </social-checkbox>
+
+                    <notifiche-checkbox
+                        mode="edit"
+                        notifiche-messaggi="notifiche.messaggi"
+                        status-checkbox="notifiche_checkbox"
+                        controller-assign="coupon">
+                    </notifiche-checkbox>
+                </form>
+
+                <div class="row">
+                    <div class="col col-50">
+                        <button class="button button-block button-energized icon-left ion-chevron-left" ion-wizard-previous>Indietro</button>
+                    </div>
+                    <div class="col col-50">
+                        <button ng-click="update(coupon)" class="button button-block button-balanced icon-right ion-checkmark" ng-disabled="!couponOneForm.$dirty && !couponTwoForm.$dirty && !couponThreeForm.$dirty">Salva</button>
+                    </div>
+                </div>
+            </ion-wizard-content>
+        </ion-slide>
+    </ion-slide-box>
+</ion-view>

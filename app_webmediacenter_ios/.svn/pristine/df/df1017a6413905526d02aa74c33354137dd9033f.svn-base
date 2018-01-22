@@ -1,0 +1,13 @@
+dependencies: \
+  /Users/admin/Documents/siti_web_sorgente/app_webmediacenter_ios/platforms/ios/WebMediaCenter/Plugins/cordova-plugin-inappbrowser/CDVInAppBrowser.m \
+  /Users/admin/Documents/siti_web_sorgente/app_webmediacenter_ios/platforms/ios/WebMediaCenter/Plugins/cordova-plugin-inappbrowser/CDVInAppBrowser.h \
+  /Users/admin/Documents/siti_web_sorgente/app_webmediacenter_ios/platforms/ios/build/emulator/include/Cordova/CDVPlugin.h \
+  /Users/admin/Documents/siti_web_sorgente/app_webmediacenter_ios/platforms/ios/build/emulator/include/Cordova/CDVPluginResult.h \
+  /Users/admin/Documents/siti_web_sorgente/app_webmediacenter_ios/platforms/ios/build/emulator/include/Cordova/CDVAvailability.h \
+  /Users/admin/Documents/siti_web_sorgente/app_webmediacenter_ios/platforms/ios/build/emulator/include/Cordova/CDVAvailabilityDeprecated.h \
+  /Users/admin/Documents/siti_web_sorgente/app_webmediacenter_ios/platforms/ios/build/emulator/include/Cordova/NSMutableArray+QueueAdditions.h \
+  /Users/admin/Documents/siti_web_sorgente/app_webmediacenter_ios/platforms/ios/build/emulator/include/Cordova/CDVCommandDelegate.h \
+  /Users/admin/Documents/siti_web_sorgente/app_webmediacenter_ios/platforms/ios/build/emulator/include/Cordova/CDVInvokedUrlCommand.h \
+  /Users/admin/Documents/siti_web_sorgente/app_webmediacenter_ios/platforms/ios/build/emulator/include/Cordova/CDVScreenOrientationDelegate.h \
+  /Users/admin/Documents/siti_web_sorgente/app_webmediacenter_ios/platforms/ios/build/emulator/include/Cordova/CDVWebViewDelegate.h \
+  /Users/admin/Documents/siti_web_sorgente/app_webmediacenter_ios/platforms/ios/build/emulator/include/Cordova/CDVUserAgentUtil.h

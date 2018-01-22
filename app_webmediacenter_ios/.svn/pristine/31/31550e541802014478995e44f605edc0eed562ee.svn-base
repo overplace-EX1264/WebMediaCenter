@@ -1,0 +1,64 @@
+<ion-view view-title="Dettaglio coupon">
+    <ion-content class="coupon-detail-content" afkl-image-container>
+
+        <div class="list card">
+
+            <div class="item item-icon-left item-text-wrap">
+                <i class="icon fa fa-gavel fa-fw calm"></i>
+                <h2>{{coupon.sconto}}</h2>
+                <p>Da {{coupon.data_inizio_erogazione | date:"dd/MM/yyyy"}} a {{coupon.data_fine_erogazione | date:"dd/MM/yyyy"}}</p>
+                <p ng-switch="coupon.id_tipologia_stato">
+                    <span ng-switch-when="1" class="balanced">Approvato</span>
+                    <span ng-switch-when="2" class="assertive">Respinto</span>
+                    <span ng-switch-default class="energized">In approvazione</span>
+                </p>
+            </div>
+
+            <div class="item item-body">
+
+                <div afkl-lazy-image="{{coupon.filename}}" class="afkl-lazy-wrapper image-loader-container"></div>
+
+                <div class="item-text-wrap">
+                    <h2>Titolo</h2>
+                    <p>{{coupon.titolo}}</p>
+                </div>
+
+                <div class="item-text-wrap">
+                    <h2>Descrizione</h2>
+                    <p>{{coupon.descrizione}}</p>
+                </div>
+
+                <div class="item-text-wrap">
+                    <h2>Condizioni di utilizzo</h2>
+                    <p>{{coupon.condizioni_legali}}</p>
+                </div>
+
+                <div class="">
+                    <p><b>Coupon erogabili:</b>
+                        <span ng-hide="coupon.coupon_illimitati">{{coupon.numero_coupon_erogabili}}</span>
+                        <span ng-show="coupon.coupon_illimitati">Illimitati</span>
+                    </p>
+                    <p ng-if="(coupon.active == 1 && coupon.numero_coupon_erogati > 0)"><b>Coupon erogati:</b> {{coupon.numero_coupon_erogati}}</p>
+                </div>
+
+            </div>
+            
+            <div class="item tabs tabs-secondary tabs-icon-top">
+	    		<p class="tab-item positive" ng-click="openInBrowser(coupon, 'coupon', 'overplace')"><img src="img/social_ovp.png">Pubblicato</p>
+	    		<p class="tab-item" ng-class="{'positive': coupon.facebook == 1}" ng-click="openInBrowser(coupon, 'coupon', 'facebook')"><i class="icon ion-social-facebook"></i>{{coupon.facebook == 1 ? 'Pubblicato' : 'Non pubblicato'}}</p>
+	    		<p class="tab-item" ng-class="{'positive': coupon.twitter == 1}" ng-click="openInBrowser(coupon, 'coupon', 'twitter')"><i class="icon ion-social-twitter"></i>{{coupon.twitter == 1 ? 'Pubblicato' : 'Non pubblicato'}}</p>
+			</div>
+			
+        </div>
+
+        <div class="row">
+            <div class="col col-50" ng-class="{'col-offset-25': (coupon.id_tipologia_stato == 1 && coupon.active == 1) || coupon.notifiche.pendenti.sms || coupon.notifiche.pendenti.email}">
+                <a class="button button-block button-energized icon-left ion-edit" href="#/app/coupon/{{coupon.id}}/edit">Modifica</a>
+            </div>
+            <div class="col col-50" ng-if="!(coupon.id_tipologia_stato == 1 && coupon.active == 1) && !coupon.notifiche.pendenti.sms && !coupon.notifiche.pendenti.email">
+                <button class="button button-block button-assertive icon-left ion-trash-a" ng-click="delete(coupon)">Elimina</button>
+            </div>
+        </div>
+
+    </ion-content>
+</ion-view>

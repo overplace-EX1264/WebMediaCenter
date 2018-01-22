@@ -1,0 +1,77 @@
+<ion-view view-title="Modifica news">
+    <ion-content class="news-operation-content" afkl-image-container>
+    	        
+		<div class="card assertive" ng-if="news.notifiche.pendenti.email">
+			<div class="item item-divider assertive">
+				Attenzione!
+			</div>
+			<div class="item item-text-wrap">
+				<p>La news non pu&ograve; essere modificata finch&egrave; non sar&agrave; terminato l&apos;invio della notifica email.</p>
+				<p ng-if="social.facebook || social.twitter">Potrai comunque effettuare la condivisione sui social.</p>
+			</div>
+		</div>
+   
+    	
+    	<form name="$parent.newsForm" class="news-form" unsaved-warning-form novalidate>
+    	    
+			<label class="item item-input item-stacked-label">
+	   			<span class="input-label">Titolo</span>
+	   			<input type="text" ng-model="news.titolo" placeholder="Inserisci il titolo" ng-disabled="news.notifiche.pendenti.email" required resettable>
+			</label>
+			
+			<label class="item item-input item-stacked-label">
+	   			<span class="input-label">Testo</span>
+	   			<textarea msd-elastic ng-model="news.testo" placeholder="Inserisci il testo" ng-disabled="news.notifiche.pendenti.email" required resettable></textarea>
+	 		</label>
+	 		
+	 		<label ng-click="changeDate()" class="item item-input item-stacked-label">
+	   			<span class="input-label">Inizio pubblicazione</span>
+	   			<p>Il {{news.data_inizio_pubblicazione | date:"dd/MM/yyyy 'alle' HH:mm"}}</p>
+	 		</label>
+	 			
+	 		<div class="item item-input item-stacked-label">
+	  			<span class="input-label">Immagine</span>
+	  			<div afkl-lazy-image="{{news.filename}}" class="afkl-lazy-wrapper image-loader-container"></div>
+			</div>
+	
+			<div id="box-gallery-action" class="row" ng-if="!news.notifiche.pendenti.email">
+	          		<div class="col col-33">
+	              		<button class="button button-block button-calm icon-left ion-camera" ng-click="takePhoto()">Scatta</button>
+	          		</div>
+	          		<div class="col col-33">
+	              		<button class="button button-block button-calm icon-left ion-image" ng-click="getPhotoAlbum()">Gallery</button>
+	          		</div>
+	          		<div class="col col-33">
+	              		<button class="button button-block button-calm icon-left ion-android-refresh" ng-click="removePhoto()">Default</button>
+	          		</div>
+	      		</div>
+	       	</div>
+
+            <social-checkbox
+                    social-assign="social"
+                    controller-assign="news"
+                    check-linkedin="news.shared_linkedin">
+            </social-checkbox>
+
+            <notifiche-checkbox
+                    mode="edit"
+                    notifiche-messaggi="notifiche.messaggi"
+                    status-checkbox="notifiche_checkbox"
+                    controller-assign="news" >
+            </notifiche-checkbox>
+
+
+	       	<div id="box-action" class="row">
+		        <div class="col col-50 col-offset-25">
+		        	<input type="hidden" ng-model="news.data_inizio_pubblicazione" required resettable>
+	   				<input type="hidden" ng-model="news.filename" required resettable>
+	   				
+		        	<button type="submit" class="button button-full button-balanced icon-left ion-android-checkmark-circle" ng-click="update(news)" ng-disabled="newsForm.$invalid || (newsForm.$dirty && newsForm.$invalid) || isEqual()">Salva</button>
+		        </div>
+		    </div>
+		    
+	    </form>
+	    
+				
+	</ion-content>
+</ion-view>

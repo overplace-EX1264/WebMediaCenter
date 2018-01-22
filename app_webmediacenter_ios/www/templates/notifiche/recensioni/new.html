@@ -1,0 +1,36 @@
+
+<div class="card notifica-element">
+    <div class="item item-icon-left">
+        <i class="icon fa fa-commenting-o fa-fw calm"></i>
+        <h2>{{notifica.titolo}}</h2>
+        <p>{{notifica.testo}}</p>
+    </div>
+</div>
+
+<div class="row notifica-title">
+    <div class="col text-center">
+        <h4 class="dark">Dettaglio recensione</h4>
+    </div>
+</div>
+
+<div class="card notifica-detail">
+
+    <div class="item item-text-wrap">
+        <p><strong>Autore:</strong> {{notifica.autore_commento}}</p>
+        <div class="item-separator"></div>
+        <p class="notifica-recensione-voto"><strong>Voto:</strong></p>
+        <div class="notifica-recensione-voto-icon calm" ng-switch on="notifica.voto_commento">
+            <div ng-switch-when="1"><span class="ion-android-star"></span><span class="ion-android-star-outline"></span><span class="ion-android-star-outline"></span><span class="ion-android-star-outline"></span><span class="ion-android-star-outline"></span></div>
+            <div ng-switch-when="2"><span class="ion-android-star"></span><span class="ion-android-star"></span><span class="ion-android-star-outline"></span><span class="ion-android-star-outline"></span><span class="ion-android-star-outline"></span></div>
+            <div ng-switch-when="3"><span class="ion-android-star"></span><span class="ion-android-star"></span><span class="ion-android-star"></span><span class="ion-android-star-outline"></span><span class="ion-android-star-outline"></span></div>
+            <div ng-switch-when="4"><span class="ion-android-star"></span><span class="ion-android-star"></span><span class="ion-android-star"></span><span class="ion-android-star"></span><span class="ion-android-star-outline"></span></div>
+            <div ng-switch-when="5"><span class="ion-android-star"></span><span class="ion-android-star"></span><span class="ion-android-star"></span><span class="ion-android-star"></span><span class="ion-android-star"></span></div>
+        </div>
+        <div class="item-separator"></div>
+        <p><strong>Data:</strong> {{notifica.data_commento}}</p>
+        <div class="item-separator"></div>
+        <p><strong>Commento:</strong></p>
+        <p><strong ng-bind-html="notifica.testo_commento"></strong></p>
+    </div>
+
+</div>

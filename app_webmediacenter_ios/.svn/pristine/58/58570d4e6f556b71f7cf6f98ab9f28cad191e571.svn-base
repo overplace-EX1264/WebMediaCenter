@@ -1,0 +1,199 @@
+<ion-view view-title="Crea coupon">
+    <ion-slide-box ion-wizard show-pager="false">
+        <ion-slide ion-wizard-step condition="(coupon.numero_coupon_erogabili || coupon.coupon_illimitati) && coupon.sconto && isAvailableDate">
+            <ion-wizard-content class="has-header coupon-operation-content">
+
+
+                <div class="list card">
+
+                    <div class="item item-icon-left">
+                        <i class="icon fa fa-gavel fa-fw calm"></i>
+                        <h2>Crea un nuovo Coupon</h2>
+                        <p>Segui questi semplici passi per creare un nuovo fantastico Coupon</p>
+                    </div>
+                </div>
+
+                <form name="$parent.$parent.couponForm" class="coupon-form" unsaved-warning-form novalidate>
+                
+					<label ng-click="changeDate()" class="item item-input item-stacked-label">
+					    <span class="input-label">Data di inizio</span>
+					    <p>Il {{coupon.data_inizio_erogazione | date:"dd/MM/yyyy" }}</p>
+					</label>
+					
+					
+					<label class="item item-input item-stacked-label">
+					    <span class="input-label">Durata</span>
+					    <div class="item range range-calm">
+					        <i class="icon ion-clock"></i>
+					        <input type="range" name="durata" min="2" max="30" ng-model="coupon.durata_coupon" ng-change="changeDuration()" />
+					        {{coupon.durata_coupon}}
+					    </div>
+					    <p><b>Scadenza del coupon</b>: {{coupon.data_fine_erogazione | date:"dd/MM/yyyy"}}</p>
+					</label>
+					
+					<label class="item item-input item-stacked-label">
+					    <span class="input-label">Coupon erogabili</span>
+					    <input type="number" min="1" ng-model="coupon.numero_coupon_erogabili" ng-disabled="coupon.coupon_illimitati" placeholder="Inserisci quanti coupon possono essere erogati" resettable/>
+					</label>
+					<ion-toggle ng-model="coupon.coupon_illimitati" >
+					    o illimitati
+					</ion-toggle>
+					
+					<label class="item item-input item-stacked-label">
+					    <span class="input-label">Valore del coupon</span>
+					    <input type="text" ng-model="coupon.sconto" placeholder="Inserisci il valore" resettable/>
+					</label>
+					
+					<input type="hidden" ng-model="coupon.data_inizio_erogazione" required resettable>
+					<input type="hidden" ng-model="coupon.data_fine_erogazione" required resettable>
+					
+                </form>
+
+                <div class="col-50 col-offset-25">
+                    <button class="button button-full button-balanced icon-right ion-chevron-right" ng-click="verificaData()" ion-wizard-next>Avanti</button>
+                </div>
+            </ion-wizard-content>
+        </ion-slide>
+        <ion-slide ion-wizard-step condition="coupon.titolo && coupon.descrizione && coupon.condizioni_legali && coupon.filename">
+            <ion-wizard-content class="has-header coupon-operation-content" afkl-image-container>
+
+                <div class="list card">
+
+                    <div class="item item-icon-left">
+                        <i class="icon fa fa-gavel fa-fw calm"></i>
+                        <h2>Dettaglio del Coupon</h2>
+                        <p>Fornisci un dettagliato Coupon cos&igrave; che i clienti possano capire subito l'offerta che hai creato</p>
+                    </div>
+                </div>
+
+
+                <div class="coupon-operation-content">
+
+                    <label class="item item-input item-stacked-label">
+                        <span class="input-label">Titolo</span>
+                        <input type="text" ng-model="coupon.titolo" placeholder="Dai un titolo al tuo coupon" resettable />
+                    </label>
+
+
+                    <label class="item item-input item-stacked-label">
+                        <span class="input-label">Descrizione</span>
+                        <textarea msd-elastic ng-model="coupon.descrizione" placeholder="Inserisci una descrizione" resettable></textarea>
+                    </label>
+
+                    <label class="item item-input item-stacked-label">
+                        <span class="input-label">Condizioni di utilizzo</span>
+                        <textarea msd-elastic ng-model="coupon.condizioni_legali" placeholder="Specifica quali sono le condizioni di utilizzo per questo coupon" resettable></textarea>
+                    </label>
+
+                    <div class="item item-input item-stacked-label">
+                        <span class="input-label">Immagine</span>
+                        <div afkl-lazy-image="{{coupon.filename}}" class="afkl-lazy-wrapper image-loader-container"></div>
+                    </div>
+
+                    <div id="box-gallery-action" class="row">
+                        <div class="col col-33">
+                            <button class="button button-block button-calm icon-left ion-camera" ng-click="takePhoto()">Scatta</button>
+                        </div>
+                        <div class="col col-33">
+                            <button class="button button-block button-calm icon-left ion-image" ng-click="getPhotoAlbum()">Gallery</button>
+                        </div>
+                        <div class="col col-33">
+                            <button class="button button-block button-calm icon-left ion-android-refresh" ng-click="removePhoto()">Default</button>
+                        </div>
+                    </div>
+
+
+                </div>
+
+                <div class="row">
+                    <div class="col col-50">
+                        <button class="button button-block button-energized icon-left ion-chevron-left" ion-wizard-previous>Indietro</button>
+                    </div>
+                    <div class="col col-50">
+                        <button class="button button-block button-balanced icon-right ion-chevron-right" ion-wizard-next>Avanti</button>
+                    </div>
+                </div>
+            </ion-wizard-content>
+        </ion-slide>
+        <ion-slide ion-wizard-step>
+            <ion-wizard-content class="has-header coupon-operation-content" afkl-image-container>
+
+                <div class="list card">
+                    <div class="item item-icon-left">
+                        <i class="icon fa fa-gavel fa-fw calm"></i>
+                        <h2>Riepilogo del Coupon</h2>
+                        <p>Controlla che il tuo Coupon sia pronto, se si non ti rimane che pubblicarlo</p>
+                    </div>
+                </div>
+
+                <div>
+
+                    <div class="item">
+                        <div afkl-lazy-image="{{coupon.filename}}" class="afkl-lazy-wrapper"></div>
+                    </div>
+
+                    <div class="item item-text-wrap">
+                        <h2>Titolo</h2>
+                        <p>{{coupon.titolo}}</p>
+                    </div>
+
+                    <div class="item item-text-wrap">
+                        <h2>Descrizione</h2>
+                        <p>{{coupon.descrizione}}</p>
+                    </div>
+
+                    <div class="item item-text-wrap">
+                        <h2>Condizioni di utilizzo</h2>
+                        <p>{{coupon.condizioni_legali}}</p>
+                    </div>
+
+                    <div class="item">
+                        <h2>Data di inizio</h2>
+                        <p>{{coupon.data_inizio_erogazione | date: "dd/MM/yyyy"}}</p>
+                    </div>
+
+                    <div class="item">
+                        <h2>Data di scadenza</h2>
+                        <p>{{coupon.data_fine_erogazione | date: "dd/MM/yyyy"}}</p>
+                    </div>
+
+                    <div class="item">
+                        <h2>Coupon erogabili</h2>
+                        <p ng-hide="coupon.coupon_illimitati">{{coupon.numero_coupon_erogabili}}</p>
+                        <p ng-show="coupon.coupon_illimitati">Illimitati</p>
+                    </div>
+
+                    <div class="item item-text-wrap">
+                        <h2>Valore</h2>
+                        <p>{{coupon.sconto}}</p>
+                    </div>
+                    
+					<social-checkbox
+                            disable-facebook="true"
+                            disable-twitter="true"
+                            hide-linkedin="true"
+					        social-assign="social"
+					        controller-assign="coupon">
+					</social-checkbox>
+					
+					<notifiche-checkbox
+					        mode="create"
+					        notifiche-messaggi="notifiche.messaggi"
+					        status-checkbox="notifiche_checkbox"
+					        controller-assign="coupon">
+					</notifiche-checkbox>
+                    
+                </div>
+
+                <div class="row">
+                    <div class="col col-50">
+                        <button class="button button-block button-energized icon-left ion-chevron-left" ion-wizard-previous>Indietro</button>
+                    </div>
+                    <div class="col col-50">
+                        <button class="button button-block button-balanced icon-right ion-checkmark" ng-click="create(coupon)">Pubblica</button>
+                    </div>
+                </div>
+            </ion-wizard-content>
+        </ion-slide>
+    </ion-slide-box>
+</ion-view>
