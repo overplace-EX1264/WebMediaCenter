@@ -1,4 +1,5 @@
-cordova.define("cordova-instagram-plugin.InstagramPlugin", function(require, exports, module) { /*
+cordova.define("cordova-instagram-plugin.InstagramPlugin", function(require, exports, module) {
+/*
     The MIT License (MIT)
     Copyright (c) 2013 - 2014 Vlad Stirbu
 

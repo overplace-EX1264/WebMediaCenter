@@ -381,7 +381,7 @@ angular.module('news.services', [])
         },
         
         useCamera: function(options){
-        	
+        	alert(JSON.stringify(options))
         	var deferred = $q.defer();
         	
         	_this.camera(options)

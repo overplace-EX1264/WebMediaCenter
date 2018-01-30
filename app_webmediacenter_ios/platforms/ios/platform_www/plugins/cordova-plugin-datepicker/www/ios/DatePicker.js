@@ -1,4 +1,5 @@
-cordova.define("cordova-plugin-datepicker.DatePicker", function(require, exports, module) { /**
+cordova.define("cordova-plugin-datepicker.DatePicker", function(require, exports, module) {
+/**
   Phonegap DatePicker Plugin
   https://github.com/sectore/phonegap3-ios-datepicker-plugin
 
