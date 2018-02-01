@@ -65,11 +65,18 @@
           <key>NSExceptionAllowsInsecureHTTPLoads</key>
           <true/>
         </dict>
+        <key>*/*</key>
+        <dict>
+          <key>NSExceptionAllowsInsecureHTTPLoads</key>
+          <true/>
+        </dict>
         <key>192.168.1.157</key>
         <dict>
           <key>NSExceptionAllowsInsecureHTTPLoads</key>
           <true/>
         </dict>
+        <key>accounts.google.com</key>
+        <dict/>
       </dict>
       <key>NSAllowsArbitraryLoads</key>
       <true/>
@@ -88,5 +95,22 @@
     <string/>
     <key>NSLocationWhenInUseUsageDescription</key>
     <string/>
+    <key>ExternalHosts</key>
+    <array>
+      <string>*</string>
+    </array>
+    <key>CFBundleURLTypes</key>
+    <array>
+      <dict>
+        <key>CFBundleTypeRole</key>
+        <string>Editor</string>
+        <key>CFBundleURLName</key>
+        <string>REVERSED_CLIENT_ID</string>
+        <key>CFBundleURLSchemes</key>
+        <array>
+          <string>com.googleusercontent.apps.343547022633-r1m1u5jbnmrcakaem66jrgnlshfonug8</string>
+        </array>
+      </dict>
+    </array>
   </dict>
 </plist>

@@ -525,6 +525,14 @@ module.exports = [
         "id": "cordova-plugin-x-toast.tests",
         "file": "plugins/cordova-plugin-x-toast/test/tests.js",
         "pluginId": "cordova-plugin-x-toast"
+    },
+    {
+        "id": "cordova-plugin-googleplus.GooglePlus",
+        "file": "plugins/cordova-plugin-googleplus/www/GooglePlus.js",
+        "pluginId": "cordova-plugin-googleplus",
+        "clobbers": [
+            "window.plugins.googleplus"
+        ]
     }
 ];
 module.exports.metadata = 
@@ -547,12 +555,13 @@ module.exports.metadata =
     "cordova-plugin-splashscreen": "2.0.0",
     "cordova-plugin-statusbar": "2.2.3",
     "cordova-plugin-vibration": "1.1.0",
-    "cordova-plugin-whitelist": "1.0.0",
     "cordova-plugin-x-socialsharing": "5.1.2",
     "cordova-sqlite-storage": "1.4.6-pre5",
     "ionic-plugin-keyboard": "2.2.1",
     "cordova-plugin-media-capture": "3.0.1",
-    "cordova-plugin-x-toast": "2.6.0"
+    "cordova-plugin-x-toast": "2.6.0",
+    "cordova-plugin-whitelist": "1.3.3",
+    "cordova-plugin-googleplus": "5.2.1"
 };
 // BOTTOM OF METADATA
 });

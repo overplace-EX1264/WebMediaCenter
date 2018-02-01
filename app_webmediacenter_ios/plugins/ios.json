@@ -42,9 +42,6 @@
     "cordova-plugin-vibration": {
       "PACKAGE_NAME": "com.overplace.webmediacenter"
     },
-    "cordova-plugin-whitelist": {
-      "PACKAGE_NAME": "com.overplace.webmediacenter"
-    },
     "ionic-plugin-keyboard": {
       "PACKAGE_NAME": "com.overplace.webmediacenter"
     },
@@ -52,6 +49,16 @@
       "PACKAGE_NAME": "com.overplace.webmediacenter"
     },
     "cordova-plugin-x-toast": {
+      "PACKAGE_NAME": "com.overplace.webmediacenter"
+    },
+    "cordova-plugin-console": {
+      "PACKAGE_NAME": "com.overplace.webmediacenter"
+    },
+    "cordova-plugin-whitelist": {
+      "PACKAGE_NAME": "com.overplace.webmediacenter"
+    },
+    "cordova-plugin-googleplus": {
+      "REVERSED_CLIENT_ID": "com.googleusercontent.apps.343547022633-r1m1u5jbnmrcakaem66jrgnlshfonug8",
       "PACKAGE_NAME": "com.overplace.webmediacenter"
     }
   },
@@ -63,9 +70,6 @@
       "PACKAGE_NAME": "com.overplace.webmediacenter"
     },
     "cordova-plugin-compat": {
-      "PACKAGE_NAME": "com.overplace.webmediacenter"
-    },
-    "cordova-plugin-console": {
       "PACKAGE_NAME": "com.overplace.webmediacenter"
     },
     "cordova-plugin-contacts": {

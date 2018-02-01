@@ -97,27 +97,27 @@ angular.module('youtube.services', [])
 				img.src = imageData;
 				deferred.resolve(imageData);
 				img.onload = function() {
-					// if(this.width < this.height){
-					// 	alert("Inside")
-					// 	var tmpl;
-					// 	if (options.hasOwnProperty("mediaType") && options.mediaType == 1){
-					// 		tmpl = 'La larghezza dell\'immagine deve essere superiore alla sua altezza!<br>Scegli un\'altra immagine.';
-					// 	}else{
-					// 		tmpl = 'La larghezza dell\'immagine deve essere superiore alla sua altezza!<br>Ruota lo smartphone.';
-					// 	}
+					if(this.width < this.height){
+						alert("Inside")
+						var tmpl;
+						if (options.hasOwnProperty("mediaType") && options.mediaType == 1){
+							tmpl = 'La larghezza dell\'immagine deve essere superiore alla sua altezza!<br>Scegli un\'altra immagine.';
+						}else{
+							tmpl = 'La larghezza dell\'immagine deve essere superiore alla sua altezza!<br>Ruota lo smartphone.';
+						}
 
-					// 	var confirmPopup = $ionicPopup.confirm({
-					// 		title: 'Attenzione',
-			        //         template: tmpl,
-			        //         okText: 'OK',
-			        //         cancelText : 'Annulla'
-			        //     });
-			        //     confirmPopup.then(function(ok){
-			        //         if(ok) _this.camera(options);
-			        //     });
-		    	    // }else{
-		    	    	// deferred.resolve(imageData);
-		    	    // }
+						var confirmPopup = $ionicPopup.confirm({
+							title: 'Attenzione',
+			                template: tmpl,
+			                okText: 'OK',
+			                cancelText : 'Annulla'
+			            });
+			            confirmPopup.then(function(ok){
+			                if(ok) _this.camera(options);
+			            });
+		    	    }else{
+		    	    	deferred.resolve(imageData);
+		    	    }
 				}
 			    
 			},function(err){
@@ -129,6 +129,20 @@ angular.module('youtube.services', [])
 				}
 				deferred.reject();
 			});
+	    
+	    return deferred.promise;
+	    
+	};
+	this.videoCamera = function(options){
+    	
+    	var deferred = $q.defer();
+	    navigator.device.capture.captureVideo(onSuccess, onError, options);
+        function onSuccess(mediaFiles) {
+			deferred.resolve(mediaFiles);
+        }
+        function onError(error) {
+			deferred.reject();
+        }
 	    
 	    return deferred.promise;
 	    
@@ -157,7 +171,24 @@ angular.module('youtube.services', [])
 				_this.page = 1;
                 return _this.moreList();
 			}
-        }
+		},
+		usevideoCamera:function (options) {
+			_this.videoCamera(options)
+	        	.then(function(response){
+	        		deferred.resolve(response);
+	        	}, function(error){
+	        		deferred.reject();
+	        	});
+        	return deferred.promise;
+		},		
+		getUser: function(){
+			return JSON.parse(window.localStorage.starter_google_user || '{}');
+		  },
+		setUser: function(user_data) {
+			window.localStorage.starter_google_user = JSON.stringify(user_data);
+		  },
+		removeUser: function(user_data) {
+		window.localStorage.starter_google_user = '';
+		}
     }
-
 });

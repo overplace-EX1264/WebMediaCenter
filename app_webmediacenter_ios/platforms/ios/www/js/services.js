@@ -4,7 +4,9 @@ angular.module('starter.services', [])
     'ApiConfig', {
         wsKey : window.localStorage['restPass'] !== undefined ? window.localStorage['restPass'] : 'mypassword',
         ovpEndpoint : 'http://api.overplace.com/rest/application/',
-        ovpEndpointHmac : 'http://api.overplace.com/rest/v1/'
+        ovpEndpointHmac : 'http://api.overplace.com/rest/v1/',
+        yoClientId: 'AIzaSyBY_wrIco9JZ-3FuAUCtwqF-TF3O70i8qY',
+        yoClientChId: 'UCK9vNiz3fhoEMI6QyIX4q0w'
     }
 )
 

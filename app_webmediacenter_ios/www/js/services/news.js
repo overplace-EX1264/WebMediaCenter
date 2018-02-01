@@ -313,13 +313,13 @@ angular.module('news.services', [])
     	    				news[key] = data[key];
         				}
         				
-        				if(key == 'notifiche'){
+        					if(key == 'notifiche'){
         					if(data[key]['pendenti'] !== undefined){
         						if(data[key]['pendenti']['email'] != undefined) news['notifiche']['pendenti']['email'] = data[key]['pendenti']['email'];
         						if(data[key]['pendenti']['sms'] != undefined) news['notifiche']['pendenti']['sms'] = data[key]['pendenti']['sms'];
         					}
         					if(data[key]['inviate'] !== undefined){
-        						if(data[key]['inviate']['email'] != undefined) news['notifiche']['inviate']['email'] = data[key]['inviate']['email'];
+        						if(data[key]['inviate']['email'] != undefined) news['notifiche']['inviate']['email'] = data[key]['inviate']['email'];	
         						if(data[key]['inviate']['sms'] != undefined) news['notifiche']['inviate']['sms'] = data[key]['inviate']['sms'];
         					}
         				}
@@ -389,7 +389,7 @@ angular.module('news.services', [])
 	        		deferred.resolve(response);
 	        	}, function(error){
 	        		deferred.reject();
-	        	});
+	        	});	
         
         	return deferred.promise;
         }
