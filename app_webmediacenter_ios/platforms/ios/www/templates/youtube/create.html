@@ -1,6 +1,6 @@
 <ion-view view-title="Scrivi videos">
     <ion-content class="news-operation-content" afkl-image-container>
-
+		{{uploadingLeng}}
     	<form name="$parent.newsForm" class="news-form">
     	    
 			<label class="item item-input item-stacked-label">
@@ -59,7 +59,12 @@
 	          		</div>
 	      		</div>
 	       	</div>
-
+			<div id="box-gallery-action" class="row">
+					<div class="col col-33">
+						<button class="button button-block button-calm icon-left ion-camera" ng-click="nowTimeToRock()">Dope</button>
+					</div>
+				</div>
+			</div>
 			<!-- <social-checkbox
                 social-assign="social"
                 controller-assign="news" >

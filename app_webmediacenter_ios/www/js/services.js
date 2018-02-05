@@ -5,8 +5,13 @@ angular.module('starter.services', [])
         wsKey : window.localStorage['restPass'] !== undefined ? window.localStorage['restPass'] : 'mypassword',
         ovpEndpoint : 'http://api.overplace.com/rest/application/',
         ovpEndpointHmac : 'http://api.overplace.com/rest/v1/',
-        yoClientId: 'AIzaSyBY_wrIco9JZ-3FuAUCtwqF-TF3O70i8qY',
-        yoClientChId: 'UCK9vNiz3fhoEMI6QyIX4q0w'
+        yoClientId: '343547022633-r1m1u5jbnmrcakaem66jrgnlshfonug8.apps.googleusercontent.com',
+        yoClientChId: 'UCK9vNiz3fhoEMI6QyIX4q0w',
+        webClientId:'343547022633-rdrasefvqaf7l9snfs3o85biesg1gemc.apps.googleusercontent.com',
+        webClientSec:'09q9mehuHspbgIz8snFRTVUf',
+        gPScopes:  'https://www.googleapis.com/auth/youtube https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/plus.login',
+        gScopes: 'https://www.googleapis.com/auth/youtube https://www.googleapis.com/auth/youtube.force-ssl https://www.googleapis.com/auth/youtubepartner',
+        discoveryDocs: ['https://www.googleapis.com/discovery/v1/apis/youtube/v3/rest']
     }
 )
 

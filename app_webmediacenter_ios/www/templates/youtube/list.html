@@ -19,37 +19,27 @@
         		<a class="button button-block button-calm icon-left ion-plus" style="width: 200px" ng-click="googleSignIn()">Sign in with Google</a>
         	</div>
          </div>
+         <!-- <div class="row" ng-show="user">
+        	<div class="col col-50 col-offset-25">
+        		<a class="button button-block button-calm icon-left ion-plus" style="width: 200px" ng-click="getChannelData()">Google YouWeb</a>
+        	</div>
+         </div> -->
          <div class="row" ng-show="user">
         	<div class="col col-50 col-offset-25">
 				<a class="button button-assertive button-block button-outline" ng-click="showLogOutMenu()">Log Out</a>
         	</div>
- 		</div>
-        <ion-list can-swipe="true" show-delete="showDelete" ng-show="news_list.length > 0 && user" >
-
-            <ion-item class="item-remove-animate item-thumbnail-left item-icon-right" ng-repeat="news in news_list | orderBy:'-data_inizio_pubblicazione'">
-                <!-- <ion-item class="item-remove-animate item-thumbnail-left item-icon-right" ng-repeat="news in news_list | orderBy:'-data_inizio_pubblicazione'" href="#/app/news/{{news.id}}"> -->
-				
-				<div afkl-lazy-image="{{news.filename}}" class="afkl-lazy-wrapper item-thumbnail-img"></div>
-                <h2>{{news.titolo}}</h2>
-                <p>{{news.testo}}</p>
-                <p>{{news.data_inizio_pubblicazione | date:'dd/MM/yyyy - HH:mm'}}</p>
-                <!--<span class="item-note">Social:
-                	<i class="fa fa-facebook-square fa-fw" ng-class="{'calm': news.facebook == 1}"></i>
-                	<i class="fa fa-twitter-square fa-fw" ng-class="{'calm': news.twitter == 1}"></i>
-                	<i class="fa fa-linkedin-square fa-fw" ng-class="{'calm': news.linkedin == 1}"></i>
-                </span>-->
-                <i class="icon ion-chevron-right icon-accessory"></i>
-								
-				<!-- <ion-option-button class="button-energized ion-edit" ng-click="edit(news.id)"></ion-option-button>
-                <ion-option-button class="button-assertive ion-trash-a" ng-click="delete(news)" ng-if="!news.notifiche.pendenti.sms && !news.notifiche.pendenti.email"></ion-option-button> -->
+         </div>
+        <ion-list can-swipe="true" show-delete="showDelete" ng-show="youtubeChannelList.items.length > 0 && user" >
+            <ion-item class="item-remove-animate item-thumbnail-left item-icon-right" ng-repeat="list in youtubeChannelList.items">
+				<div afkl-lazy-image="{{list.snippet.thumbnails.default.url}}" class="afkl-lazy-wrapper item-thumbnail-img"></div>
+                <h2>{{list.snippet.title}}</h2>
+                <!-- <p>{{list.id.videoId}}</p> -->
+                <p>{{list.snippet.description}}</p>                
                 <ion-option-button class="button-energized ion-edit"></ion-option-button>
                 <ion-option-button class="button-assertive ion-trash-a" ng-if="!news.notifiche.pendenti.sms && !news.notifiche.pendenti.email"></ion-option-button>
-                
             </ion-item>
-
         </ion-list>
-
-        <ion-infinite-scroll ng-if="isAvailable" on-infinite="loadYoutube()" distance="5%"></ion-infinite-scroll>
+        <!-- <ion-infinite-scroll ng-if="isAvailable" on-infinite="loadYoutube()" distance="5%"></ion-infinite-scroll> -->
 
     </ion-content>
 </ion-view>

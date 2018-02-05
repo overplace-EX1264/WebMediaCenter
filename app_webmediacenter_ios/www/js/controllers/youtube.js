@@ -4,84 +4,90 @@ angular.module('youtube.controllers', [])
     $scope.news_list = [];
     $scope.isAvailable = true;
     
-    $scope.loadYoutube = function(){
-        Youtube.loadMore().then(function(response){
-            $scope.news_list = response;
-            $scope.$broadcast('scroll.infiniteScrollComplete');
-        }, function(error){
-            $cordovaToast.show('Attenzione! Si è verificato un errore durante il caricamento','short','bottom');
-            $scope.$broadcast('scroll.infiniteScrollComplete');
-        });
-    };
+    var GoogleAuth;
+    $scope.youtubeChannelList = {};
+    $scope.authResult;
+
     $scope.googleSignIn = function() {
-        // $ionicLoading.show({
-        //     template: '<ion-spinner></ion-spinner>',
-        //     noBackdrop: false
-        // });
-    
-        window.plugins.googleplus.login(
-          {},
+        $ionicLoading.show();
+        Youtube.GoogleLogin().then(
           function (user_data) {
-            // For the purpose of this example I will store user data on local storage
-            Youtube.setUser({
-              userID: user_data.userId,
-              name: user_data.displayName,
-              email: user_data.email,
-              picture: user_data.imageUrl,
-              accessToken: user_data.accessToken,
-              idToken: user_data.idToken
-            });
-            $ionicLoading.hide();
+            Youtube.setUser(user_data);
             $scope.user = Youtube.getUser();
+            Youtube.googleAuth().then(
+                function (authResult) {
+                  $scope.authResult = authResult;
+                 Youtube.gapiSetToken($scope.user.accessToken);
+                    Youtube.buildApiRequest('GET',
+                        '/youtube/v3/search',
+                        {
+                            'maxResults': '25',
+                            'forMine': 'true', 
+                            'part': 'snippet', 
+                            'q': '', 
+                            'type': 'video'
+                        }).then(function(listData){ 
+                            $scope.youtubeChannelList = listData;
+                            $ionicLoading.hide();
+                        }, function(error){ 
+                            alert(JSON.stringify(error));
+                            $ionicLoading.hide();
+                    });
+                },
+                function (err) {
+                  alert(JSON.stringify(err));
+                  $ionicLoading.hide();
+                });       
           },
-          function (msg) {
+          function (error) {
+            alert(JSON.stringify(error))
             $ionicLoading.hide();
-          }
-        );
+          });       
       };
       $scope.user = Youtube.getUser();
-
+      $scope.getList = function () {
+        alert("User");          
+        alert(JSON.stringify($scope.user));          
+          if ($scope.authResult && $scope.user) {
+            Youtube.buildApiRequest('GET',
+            '/youtube/v3/search',
+            {
+                'maxResults': '25',
+                'forMine': 'true', 
+                'part': 'snippet', 
+                'q': '', 
+                'type': 'video'
+            }).then(function(listData){ 
+                alert("listData");                
+                alert(JSON.stringify(listData));
+                $scope.youtubeChannelList = listData;
+                $ionicLoading.hide();
+            }, function(error){ 
+                alert(JSON.stringify(error));
+                $ionicLoading.hide();
+            });
+          } else {
+              alert("You are not authorize please login.");
+          }
+      }
       $scope.showLogOutMenu = function() {
         $ionicLoading.show({
             template: '<ion-spinner></ion-spinner>',
             noBackdrop: false
         });
-        window.plugins.googleplus.logout(
+        Youtube.googleLogout().then(
             function (msg) {
                 $ionicLoading.hide();
                 $scope.user = null;
                 Youtube.removeUser();
             },
             function(fail){
+                alert("eee");                
+                alert(JSON.stringify(fail));                
                 console.log(fail);
                 $ionicLoading.hide();
             }
         );
-        //   var hideSheet = $ionicActionSheet.show({
-        //       destructiveText: 'Logout',
-        //       titleText: 'Are you sure you want to logout? This app is awsome so I recommend you to stay.',
-        //       cancelText: 'Cancel',
-        //       cancel: function() {},
-        //       buttonClicked: function(index) {
-        //           return true;
-        //       },
-        //       destructiveButtonClicked: function(){
-        //           $ionicLoading.show({
-        //               template: 'Logging out...'
-        //           });
-        //           // Google logout
-        //           window.plugins.googleplus.logout(
-        //               function (msg) {
-        //                   console.log(msg);
-        //                   $ionicLoading.hide();
-        //                   $state.go('welcome');
-        //               },
-        //               function(fail){
-        //                   console.log(fail);
-        //               }
-        //           );
-        //       }
-        //   });
       };
 })
 

@@ -9,7 +9,7 @@ angular.module('youtube.services', [])
 
     Cache.newsCache = [];
     Cache.newsCacheId = {};
-
+	var deferred = $q.defer();
     _this.moreList = function(){
 
 		var deferred = $q.defer();
@@ -85,8 +85,8 @@ angular.module('youtube.services', [])
     };
     
     this.camera = function(options){
-    	
     	var deferred = $q.defer();
+    	
     	
 	    $cordovaCamera.getPicture(options)
 	    	.then(function(imageData){
@@ -147,12 +147,68 @@ angular.module('youtube.services', [])
 	    return deferred.promise;
 	    
     };
-    
+    this.buildApiRequest = function (requestMethod, path, params, properties) {
+		var deferred = $q.defer();
+		var request;
+          request = gapi.client.request({
+              'method': requestMethod,
+              'path': path,
+              'params': params
+          });
+        // executeRequest(request);
+        request.execute(function(listData) {
+            deferred.resolve(listData);
+        },function(error) {
+			deferred.reject();
+		});
+		return deferred.promise;
+	};
+	this.GoogleLogin = function () {
+		var deferred = $q.defer();
+		window.plugins.googleplus.login(
+			{
+			  'scopes': ApiConfig.gPScopes,
+			  'webClientId': ApiConfig.yoClientId,
+			  'offline': false
+			},
+			function (response){
+				deferred.resolve(response);
+			}, function(error){
+				deferred.reject();
+			});
+			return deferred.promise;
+	};
+	this.googleAuth = function () {
+		var deferred = $q.defer();
+		gapi.auth.init(function() {
+			gapi.auth.authorize({
+				client_id: ApiConfig.yoClientId,
+				scope: ApiConfig.gScopes,
+				discoveryDocs: ApiConfig.discoveryDocs,
+				immediate: true
+			  }, function (authResult) {
+				if (authResult && !authResult.error) {
+					window.localStorage.authResult = JSON.stringify(authResult);
+					deferred.resolve(authResult);
+				} else {
+					deferred.reject();
+				}
+			  });
+		});  
+		return deferred.promise;
+	};
+	this.gapiSetToken = function (token) {
+		var deferred = $q.defer();
+		gapi.client.setToken({access_token:token});
+		deferred.resolve(true);
+		return deferred.promise;
+	}
+
     return {
         
         useCamera: function(options){
 
-        	var deferred = $q.defer();
+        	
         	_this.camera(options)
 	        	.then(function(response){
 	        		deferred.resolve(response);
@@ -163,7 +219,7 @@ angular.module('youtube.services', [])
 		}, 
 
 
-		loadMore: function(){
+		/*loadMore: function(){
 			if (Cache.newsCache !== undefined && Object.keys(Cache.newsCache).length > 0){
 				_this.page++;
                 return _this.moreList();
@@ -171,7 +227,7 @@ angular.module('youtube.services', [])
 				_this.page = 1;
                 return _this.moreList();
 			}
-		},
+		},*/
 		usevideoCamera:function (options) {
 			_this.videoCamera(options)
 	        	.then(function(response){
@@ -182,13 +238,82 @@ angular.module('youtube.services', [])
         	return deferred.promise;
 		},		
 		getUser: function(){
-			return JSON.parse(window.localStorage.starter_google_user || '{}');
+			return JSON.parse(window.localStorage.starter_google_user || false);
 		  },
 		setUser: function(user_data) {
 			window.localStorage.starter_google_user = JSON.stringify(user_data);
 		  },
 		removeUser: function(user_data) {
-		window.localStorage.starter_google_user = '';
+			window.localStorage.starter_google_user = '';
+		},
+		buildApiRequest:function (requestMethod, path, params, properties) {
+			var deferred = $q.defer();
+			var request;
+			request = gapi.client.request({
+				'method': requestMethod,
+				'path': path,
+				'params': params
+			});
+			// executeRequest(request);
+			request.execute(function(listData) {
+				deferred.resolve(listData);
+			},function(error) {
+				deferred.reject();
+			});
+			return deferred.promise;
+		},
+		GoogleLogin: function () {
+			var deferred = $q.defer();
+			window.plugins.googleplus.login(
+				{
+				  'scopes': ApiConfig.gPScopes,
+				  'webClientId': ApiConfig.yoClientId,
+				  'offline': false
+				},
+				function (response){
+					window.localStorage.window_google_user = JSON.stringify(response);
+					deferred.resolve(response);
+				}, function(error){
+					deferred.reject();
+				});
+				return deferred.promise;
+		},
+		googleAuth: function () {
+			var deferred = $q.defer();
+			gapi.auth.init(function() {
+				gapi.auth.authorize({
+					client_id: ApiConfig.yoClientId,
+					scope: ApiConfig.gScopes,
+					discoveryDocs: ApiConfig.discoveryDocs,
+					immediate: true
+				}, function (authResult) {
+					if (authResult && !authResult.error) {
+						window.localStorage.authResult = JSON.stringify(authResult);
+						deferred.resolve(authResult);
+					} else {
+						deferred.reject();
+					}
+				});
+			});  
+			return deferred.promise;
+		},
+		gapiSetToken: function (token) {
+			gapi.client.setToken({access_token:token});
+		},
+		googleLogout : function () {
+			var deferred = $q.defer();
+			window.plugins.googleplus.disconnect(
+				function (msg) {
+					window.localStorage.starter_google_user = '';
+					window.localStorage.authResult = '';
+					window.localStorage.window_google_user = '';
+					deferred.resolve(msg);
+				},
+				function(fail){
+					deferred.reject();
+				}
+			);
+			return deferred.promise;
 		}
     }
 });
