@@ -226,6 +226,9 @@
     "cordova-plugin-googleplus": {
       "REVERSED_CLIENT_ID": "com.googleusercontent.apps.343547022633-r1m1u5jbnmrcakaem66jrgnlshfonug8",
       "PACKAGE_NAME": "com.overplace.webmediacenter"
+    },
+    "cordova-plugin-filepath": {
+      "PACKAGE_NAME": "com.overplace.webmediacenter"
     }
   },
   "dependent_plugins": {},
@@ -789,6 +792,7 @@
     "cordova-plugin-media-capture": "3.0.1",
     "cordova-plugin-x-toast": "2.6.0",
     "cordova-plugin-whitelist": "1.3.3",
-    "cordova-plugin-googleplus": "5.2.1"
+    "cordova-plugin-googleplus": "5.2.1",
+    "cordova-plugin-filepath": "1.0.2"
   }
 }

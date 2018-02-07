@@ -1,0 +1,30 @@
+{
+  "name": "ng-youtube-upload",
+  "homepage": "https://github.com/slampenny/ng-youtube-upload",
+  "authors": [
+    "Jordan Lapp"
+  ],
+  "dependencies": {
+    "ng-file-upload": "~5.0.3",
+    "angular-strap": "~2.1.6",
+    "angular": "1.4.1"
+  },
+  "description": "An Angular wrapper for uploading videos to YouTube using API v3",
+  "main": "app/upload_video.js",
+  "keywords": [
+    "Angular",
+    "YouTube",
+    "Upload"
+  ],
+  "license": "MIT",
+  "_release": "be451a5d4f",
+  "_resolution": {
+    "type": "branch",
+    "branch": "master",
+    "commit": "be451a5d4f30a1dde7dec3464ba51af82fbd16fe"
+  },
+  "_source": "https://github.com/slampenny/ng-youtube-upload.git",
+  "_target": "*",
+  "_originalSource": "ng-youtube-upload",
+  "_direct": true
+}

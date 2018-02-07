@@ -561,7 +561,8 @@ module.exports.metadata =
     "cordova-plugin-media-capture": "3.0.1",
     "cordova-plugin-x-toast": "2.6.0",
     "cordova-plugin-whitelist": "1.3.3",
-    "cordova-plugin-googleplus": "5.2.1"
+    "cordova-plugin-googleplus": "5.2.1",
+    "cordova-plugin-filepath": "1.0.2"
 };
 // BOTTOM OF METADATA
 });

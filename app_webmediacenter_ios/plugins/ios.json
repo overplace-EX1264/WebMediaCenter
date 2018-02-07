@@ -60,6 +60,9 @@
     "cordova-plugin-googleplus": {
       "REVERSED_CLIENT_ID": "com.googleusercontent.apps.343547022633-r1m1u5jbnmrcakaem66jrgnlshfonug8",
       "PACKAGE_NAME": "com.overplace.webmediacenter"
+    },
+    "cordova-plugin-filepath": {
+      "PACKAGE_NAME": "com.overplace.webmediacenter"
     }
   },
   "dependent_plugins": {

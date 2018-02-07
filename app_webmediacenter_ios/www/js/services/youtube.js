@@ -138,6 +138,8 @@ angular.module('youtube.services', [])
     	var deferred = $q.defer();
 	    navigator.device.capture.captureVideo(onSuccess, onError, options);
         function onSuccess(mediaFiles) {
+			console.log("mediaFiles");
+			console.log(mediaFiles);
 			deferred.resolve(mediaFiles);
         }
         function onError(error) {

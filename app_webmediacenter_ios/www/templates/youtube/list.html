@@ -1,7 +1,8 @@
 <ion-view view-title="Youtube">
     <ion-content class="news-content" afkl-image-container>
 
-        <!-- <ion-refresher pulling-text="Trascina per aggiornare..." on-refresh="refresh()"></ion-refresher> -->
+        <!-- <ion-refresher pulling-text="Trascina per aggiornare..." on-refresh="getList()" ng-if="user"></ion-refresher> -->
+        <ion-refresher pulling-text="Pull to refresh" on-refresh="doRefresh()"></ion-refresher>
 
         <div class="card" >
             <div class="item item-text-wrap">
@@ -15,8 +16,9 @@
         	</div>
          </div>
          <div class="row" ng-hide="user">
-        	<div class="col col-50 col-offset-25">
-        		<a class="button button-block button-calm icon-left ion-plus" style="width: 200px" ng-click="googleSignIn()">Sign in with Google</a>
+        	<div class="col col-100 btn-center">
+                <!-- <a class="button button-block button-calm icon-left ion-plus" style="width: 200px" ng-click="googleSignIn()">Sign in with Google</a> -->
+                <button class="loginBtn loginBtn--google" ng-click="googleSignIn()" >Login with Google</button>
         	</div>
          </div>
          <!-- <div class="row" ng-show="user">
@@ -36,7 +38,7 @@
                 <!-- <p>{{list.id.videoId}}</p> -->
                 <p>{{list.snippet.description}}</p>                
                 <ion-option-button class="button-energized ion-edit"></ion-option-button>
-                <ion-option-button class="button-assertive ion-trash-a" ng-if="!news.notifiche.pendenti.sms && !news.notifiche.pendenti.email"></ion-option-button>
+                <ion-option-button class="button-assertive ion-trash-a" ng-click="delVideo(list.id.videoId)"></ion-option-button>
             </ion-item>
         </ion-list>
         <!-- <ion-infinite-scroll ng-if="isAvailable" on-infinite="loadYoutube()" distance="5%"></ion-infinite-scroll> -->

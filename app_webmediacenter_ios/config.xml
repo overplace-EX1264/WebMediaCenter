@@ -93,4 +93,6 @@
     <plugin name="cordova-plugin-googleplus" spec="^5.2.1">
         <variable name="REVERSED_CLIENT_ID" value="com.googleusercontent.apps.343547022633-r1m1u5jbnmrcakaem66jrgnlshfonug8" />
     </plugin>
+    <plugin name="cordova-plugin-file-transfer" spec="~1.1.0" />
+    <plugin name="cordova-plugin-filepath" spec="^1.1.0" />
 </widget>

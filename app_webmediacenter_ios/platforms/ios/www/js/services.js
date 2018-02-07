@@ -9,8 +9,9 @@ angular.module('starter.services', [])
         yoClientChId: 'UCK9vNiz3fhoEMI6QyIX4q0w',
         webClientId:'343547022633-rdrasefvqaf7l9snfs3o85biesg1gemc.apps.googleusercontent.com',
         webClientSec:'09q9mehuHspbgIz8snFRTVUf',
-        gPScopes:  'https://www.googleapis.com/auth/youtube https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/plus.login',
-        gScopes: 'https://www.googleapis.com/auth/youtube https://www.googleapis.com/auth/youtube.force-ssl https://www.googleapis.com/auth/youtubepartner',
+        // gPScopes:  'https://www.googleapis.com/auth/youtube ',
+        gPScopes: 'https://www.googleapis.com/auth/youtube https://www.googleapis.com/auth/youtube.upload https://www.googleapis.com/auth/youtube.force-ssl https://www.googleapis.com/auth/youtubepartner',
+        gScopes: 'https://www.googleapis.com/auth/youtube https://www.googleapis.com/auth/youtube.upload https://www.googleapis.com/auth/youtube.force-ssl https://www.googleapis.com/auth/youtubepartner',
         discoveryDocs: ['https://www.googleapis.com/discovery/v1/apis/youtube/v3/rest']
     }
 )

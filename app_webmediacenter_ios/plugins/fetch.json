@@ -199,5 +199,13 @@
     "variables": {
       "REVERSED_CLIENT_ID": "com.googleusercontent.apps.343547022633-r1m1u5jbnmrcakaem66jrgnlshfonug8"
     }
+  },
+  "cordova-plugin-filepath": {
+    "source": {
+      "type": "registry",
+      "id": "cordova-plugin-filepath@^1.1.0"
+    },
+    "is_top_level": true,
+    "variables": {}
   }
 }

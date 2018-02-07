@@ -45,10 +45,7 @@ angular.module('youtube.controllers', [])
           });       
       };
       $scope.user = Youtube.getUser();
-      $scope.getList = function () {
-        alert("User");          
-        alert(JSON.stringify($scope.user));          
-          if ($scope.authResult && $scope.user) {
+      $scope.getList = function () {        
             Youtube.buildApiRequest('GET',
             '/youtube/v3/search',
             {
@@ -57,18 +54,15 @@ angular.module('youtube.controllers', [])
                 'part': 'snippet', 
                 'q': '', 
                 'type': 'video'
-            }).then(function(listData){ 
-                alert("listData");                
-                alert(JSON.stringify(listData));
+                }).then(function(listData){ 
+                    // alert("listData");                
+                    // alert(JSON.stringify(listData));
                 $scope.youtubeChannelList = listData;
                 $ionicLoading.hide();
             }, function(error){ 
                 alert(JSON.stringify(error));
                 $ionicLoading.hide();
             });
-          } else {
-              alert("You are not authorize please login.");
-          }
       }
       $scope.showLogOutMenu = function() {
         $ionicLoading.show({
@@ -89,17 +83,37 @@ angular.module('youtube.controllers', [])
             }
         );
       };
+      $scope.delVideo = function (id){
+        $ionicLoading.show();
+            Youtube.buildApiRequest('DELETE',
+            '/youtube/v3/videos',
+            {'id': id}).then(function(msg){ 
+                            console.log(msg)
+                            $scope.getList();
+                        }, function(error){ 
+                            alert(JSON.stringify(error));
+                            $ionicLoading.hide();
+                    });
+      }
+      $scope.doRefresh = function() {
+        // here refresh data code
+        if($scope.user){
+            Youtube.gapiSetToken($scope.user.accessToken);
+            $scope.getList();
+        }
+        $scope.$broadcast('scroll.refreshComplete');
+        $scope.$apply()
+     };
 })
 
-.controller('YoutubeOperationCtrl', function($scope, $stateParams, $ionicHistory, $ionicPopup, $ionicLoading, $cordovaToast, Youtube) {
-
+.controller('YoutubeOperationCtrl', function($scope, $stateParams, $ionicHistory,$cordovaCamera, $ionicPopup, $ionicLoading, $cordovaToast, Youtube) {
     $scope.defaultIcon = true;
-
     document.addEventListener("deviceready", onDeviceReady, false);
     function onDeviceReady() {
         console.log(navigator.device.capture);
     }
-
+    $scope.uploaded = 0;
+    
     $scope.youtube = [];
     $scope.youtube.facebook = false;
     $scope.youtube.twitter = false;
@@ -107,53 +121,17 @@ angular.module('youtube.controllers', [])
     $scope.youtube.data_inizio_pubblicazione = new Date().getTime();
     $scope.youtube.filename = 'http://files.overplace.com/bacheca/xl_overplace.png';
     $scope.youtube.notifiche = {pendenti:{email:0}};
-
-    // $scope.takeVideo = function(){
-    //     var options = {limit: 3, duration: 10}
-    //     navigator.device.capture.captureVideo(onSuccess, onError, options);
-    //     function onSuccess(mediaFiles) {
-    //         var i, path, len;
-    //         for (i = 0, len = mediaFiles.length; i < len; i += 1) {
-    //         path = mediaFiles[0].fullPath; 
-    //         $scope.defaultIcon = false;
-    //         $timeout(function() {
-    //                 $scope.clipSrc = path;
-    //         }, 500)  
-    //         }
-    //     }
-    //     function onError(error) {
-    //         alert('Error code: ' + error.code, null, 'Capture Error');
-    //     }
-    // };
-    // $scope.takeVideo = function(){
-    //     var options = {limit: 3, duration: 10}
-    //     Youtube.usevideoCamera(options).then(function(response){ 
-    //         path = response.file;
-    //         alert(JSON.stringify(response));
-    //         $scope.defaultIcon = false;
-    //         $timeout(function() {
-    //             $scope.clipSrc = response;
-    //         }, 500)  
-    //         formDirty = true;
-    //         $scope.youtubeForm.$dirty = true;
-    //     }, function(error){ 
-    //         alert(JSON.stringify(error))
-    //         $scope.youtubeForm.$dirty = formDirty;
-    //     });
-    // };
+    $scope.clipSrc = new File();
     $scope.takeVideo = function () {
         $ionicLoading.show();
             var captureSuccess = function(mediaFiles) {
                 var i, path, len;
                 $scope.defaultIcon = false;
-                // console.log(JSON.stringify(mediaFiles));
-                // $timeout(function () {
                     $ionicLoading.hide();
-                    $scope.clipSrc = mediaFiles[0].fullPath;
-                // },1000);
-                // for (i = 0, len = mediaFiles.length; i < len; i += 1) {
-                //     path = mediaFiles[i].fullPath;
-                // }
+                    console.log(mediaFiles[0]);
+                    files = mediaFiles;
+                    $scope.clipSrc = mediaFiles[0];
+                    $scope.videoPath = mediaFiles[0].fullPath;
             };
             var captureError = function(error) {
                 $ionicLoading.hide();
@@ -161,55 +139,60 @@ angular.module('youtube.controllers', [])
             };
             navigator.device.capture.captureVideo(captureSuccess, captureError, {limit:2});
     }
+    
 
-    $scope.getVideoAlbum = function() {
-        var options_photolibrary = {
-            quality: 100,
-            destinationType: Camera.DestinationType.FILE_URI,    
-            sourceType: Camera.PictureSourceType.PHOTOLIBRARY,
-            mediaType: Camera.MediaType.VIDEO,
-        }
-        Youtube.useCamera(options_photolibrary)
-            .then(function(response){ 
-                path = response.file;
-                $scope.defaultIcon = false;
-                $scope.clipSrc = response;
-                formDirty = true;
-                $scope.youtubeForm.$dirty = true;
-            }, function(error){ 
-                alert(JSON.stringify(error))
-                $scope.youtubeForm.$dirty = formDirty;
-            });
-    };
+    //listen for the file selected event
+    $scope.$on("fileSelected", function (event, args) {
+        $scope.$apply(function () {            
+            //add the file object to the scope's files collection
+            $scope.clipSrc = args.file;
+            $scope.clipSrc2 = cordova.file.tempDirectory+""+args.file.name;
+            $scope.size = ((args.file.size / 1024)/1024).toFixed(2);
+            // var fSExt = new Array('Bytes', 'KB', 'MB', 'GB'),
+            // i=0;while(args.file.size>900){args.file.size/=1024;i++;}
+            // $scope.size = (Math.round(args.file.size*100)/100)+' '+fSExt[i];
+            // alert(exactSize);
+            $scope.defaultIcon = false;
+            $ionicLoading.hide();
+        });
+    });
+    // $scope.openFile = function (){
+    //     setTimeout(function() {
+    //         var element = angular.element(document.getElementById('input'));
+    //         element.triggerHandler('click');
+    //         $scope.clicked = true;
+    //       }, 0);
+    // }
     $scope.removeVideo = function () {
-        $scope.clipSrc = null;
+        $scope.clipSrc  = null;
+        $scope.videoPath = null;
         $scope.defaultIcon = true;
         formDirty = false;
-        $scope.youtubeForm.$dirty = false;
+        // $scope.youtubeForm.$dirty = false;
     }
+
     $scope.nowTimeToRock = function () {
-        var metadata = createResource({'snippet.categoryId': '22',
-                 'snippet.defaultLanguage': '',
-                 'snippet.description': 'Description of uploaded video.',
-                 'snippet.tags[]': '',
-                 'snippet.title': 'Test video upload',
-                 'status.embeddable': '',
-                 'status.license': '',
-                 'status.privacyStatus': 'private',
-                 'status.publicStatsViewable': ''
-        });
+        $ionicLoading.show();
+        $scope.uploaded = 0;
         
-        if (!$scope.user.accessToken) {
-        alert("You need to authorize the request to proceed.");
-        return;
-        }
-
-        if (!$scope.clipSrc) {
-        alert("You need to select a file to proceed.");
-        return;
-        }
+        $scope.user = Youtube.getUser();
+        var metadata = {
+            snippet : {
+                categoryId: '22',
+                defaultLanguage: 'en',
+                description: $scope.youtube.descrizione,
+                snip: $scope.youtube.keyword.split(','),
+                title: $scope.youtube.titolo,
+            },
+            status :{
+                privacyStatus: 'public',
+            }              
+        };
         var params = {'part': 'snippet,status'};
-
+        // $scope.clipSrc = 'img/video.mp4';
+        console.log($scope.clipSrc);
+       
+        Youtube.gapiSetToken($scope.user.accessToken);
         var uploader = new MediaUploader({
             baseUrl: 'https://www.googleapis.com/upload/youtube/v3/videos',
             file: $scope.clipSrc,
@@ -217,26 +200,68 @@ angular.module('youtube.controllers', [])
             metadata: metadata,
             params: params,
             onError: function(data) {
-            var message = data;
-            try {
-                var errorResponse = JSON.parse(data);
-                message = errorResponse.error.message;
-            } finally {
-                alert(JSON.stringify(message));
-            }
-            }.bind(this),
+                var message = data;
+                try {
+                    var errorResponse = JSON.parse(data);
+                    message = errorResponse.error.message;
+                } finally {
+                    alert(JSON.stringify(message));
+                }
+            },
             onProgress: function(data) {
-            var currentTime = Date.now();
-            console.log('Progress: ' + data.loaded + ' bytes loaded out of ' + data.total);
-            var totalBytes = data.total;
-            $scope.uploadingLeng = data.loaded;
-            }.bind(this),
+                var currentTime = Date.now();
+                console.log('Progress: ' + data.loaded + ' bytes loaded out of ' + data.total);
+                var totalBytes = data.total;
+                $scope.uploadingLeng = data;
+                $scope.uploaded = Math.round((data.loaded * 100)/data.total);
+                $scope.remaining = 100 - $scope.uploaded;
+                console.log('Progress: ' + $scope.uploaded);                
+            },
             onComplete: function(data) {
-            var uploadResponse = JSON.parse(data);
-            console.log('Upload complete for video ' + uploadResponse.id);
-            }.bind(this)
+                // $scope.uploaded
+                var uploadResponse = JSON.parse(data);
+                console.log('Upload complete for video ' + uploadResponse.id);
+                $ionicLoading.hide();
+                alert("Upload complete ");
+                $scope.uploaded = 0;
+                $ionicHistory.goBack();
+            }
         });
 
         uploader.upload();
     }
-})
+    function createResource(properties) {
+        var resource = {};
+        var normalizedProps = properties;
+        for (var p in properties) {
+          var value = properties[p];
+          if (p && p.substr(-2, 2) == '[]') {
+            var adjustedName = p.replace('[]', '');
+            if (value) {
+              normalizedProps[adjustedName] = value.split(',');
+            }
+            delete normalizedProps[p];
+          }
+        }
+        for (var p in normalizedProps) {
+          // Leave properties that don't have values out of inserted resource.
+          if (normalizedProps.hasOwnProperty(p) && normalizedProps[p]) {
+            var propArray = p.split('.');
+            var ref = resource;
+            for (var pa = 0; pa < propArray.length; pa++) {
+              var key = propArray[pa];
+              if (pa == propArray.length - 1) {
+                ref[key] = normalizedProps[p];
+              } else {
+                ref = ref[key] = ref[key] || {};
+              }
+            }
+          };
+        }
+        return resource;
+      }
+}).filter('trusted', ['$sce', function ($sce) {
+    return function(url) {
+        return $sce.trustAsResourceUrl(url);
+    };
+}]);
