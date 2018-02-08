@@ -347,6 +347,15 @@ angular.module('starter',
             }
         }
 	})
+	.state('app.youtube-edit', {
+        url: '/youtube/edit/:id',
+        views: {
+            'navContent': {
+            	templateUrl: 'templates/youtube/create.html',
+            	controller: 'YoutubeOperationEditCtrl'
+            }
+        }
+	})
 	
 	.state('app.youtube', {
         url: '/youtube',

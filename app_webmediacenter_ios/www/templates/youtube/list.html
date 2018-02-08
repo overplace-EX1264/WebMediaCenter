@@ -37,7 +37,7 @@
                 <h2>{{list.snippet.title}}</h2>
                 <!-- <p>{{list.id.videoId}}</p> -->
                 <p>{{list.snippet.description}}</p>                
-                <ion-option-button class="button-energized ion-edit"></ion-option-button>
+                <ion-option-button class="button-energized ion-edit" ng-click="edit(list)"></ion-option-button>
                 <ion-option-button class="button-assertive ion-trash-a" ng-click="delVideo(list.id.videoId)"></ion-option-button>
             </ion-item>
         </ion-list>

@@ -65,7 +65,7 @@
 	   			<p>Il {{youtube.data_inizio_pubblicazione | date:"dd/MM/yyyy 'alle' HH:mm"}}</p>
 	 		</label> -->
 	 			
-	 		<div class="item item-input item-stacked-label">
+	 		<div class="item item-input item-stacked-label" ng-hide="id">
 				  <span class="input-label">Video</span>
 				  <div afkl-lazy-image="{{youtube.filename}}" class="afkl-lazy-wrapper image-loader-container" ng-if="defaultIcon"></div>
 				  <div style="width: 100%;" class="afkl-lazy-wrapper image-loader-container" ng-if="!defaultIcon">
@@ -77,18 +77,27 @@
 						  </video>
 				  </div>
 			</div>
+			<div class="item item-input item-stacked-label" ng-show="id">
+				<span class="input-label">Video</span>
+				<!-- <div afkl-lazy-image="{{youtube.filename}}" class="afkl-lazy-wrapper image-loader-container" ng-if="defaultIcon"></div> -->
+				<div style="width: 100%;" class="afkl-lazy-wrapper image-loader-container" ng-if="!defaultIcon">
+					<iframe  ng-src="{{id| youtubeTrusted}}" 
+					frameborder="0" allowfullscreen></iframe>
+				   <!-- <p>Display output for control reasons: {{id | youtubeTrusted}}</p> -->
+				</div>
+		  	</div>
 			<!-- <input type = "file" fileread= "myFile" accept="video/*"/> -->
 			<!-- <input type="file" ng-file-select="onFileSelect($files)"  accept="video/*"/> -->
 			<!-- <input type='file' id="visInp" accept="video/*"> -->
 			<input type="file" file-upload accept="video/*" id="file" style="display:none;" required>
 			<!-- <input type="file" name="file[]" class="file_multi_video" accept="video/*" > -->
 
-			<div id="box-gallery-action" class="row">
+			<div id="box-gallery-action" class="row" ng-hide="id">
 	          		<div class="col col-50">
-	              		<button class="button button-block button-calm icon-left ion-videocamera" onclick="document.getElementById('file').click()">Attach a Video</button>
+	              		<button class="button button-block button-calm icon-left ion-videocamera" onclick="document.getElementById('file').click()">Allegare un video</button>
 					</div>
 					<div class="col col-50" ng-if="size">
-						<label class="label">Size : {{size}} MB</label>
+						<label class="label">Dimensione : {{size}} MB</label>
 
 					</div>  
 	      		</div>
@@ -118,9 +127,14 @@
 					{{uploaded}}%
 				</div>
 			  </div> -->
-			<div id="box-action" class="row">
+			<div id="box-action" class="row" ng-hide="id">
 		        <div class="col col-50 col-offset-25">
-		        	<button type="submit" class="button button-full button-balanced icon-left ion-android-checkmark-circle" ng-click="nowTimeToRock()" ng-disabled="newsForm.$invalid || (newsForm.$dirty && newsForm.$invalid) || !clipSrc2 ">Upload</button> 
+		        	<button type="submit" class="button button-full button-balanced icon-left ion-android-checkmark-circle" ng-click="nowTimeToRock()" ng-disabled="newsForm.$invalid || (newsForm.$dirty && newsForm.$invalid) || !clipSrc2 ">Caricare</button> 
+		        </div>
+			</div>
+			<div id="box-action" class="row" ng-show="id">
+		        <div class="col col-50 col-offset-25">
+		        	<button type="submit" class="button button-full button-balanced icon-left ion-android-checkmark-circle" ng-click="updateData()" ng-disabled="newsForm.$invalid || (newsForm.$dirty && newsForm.$invalid) ">Aggiornare</button> 
 		        </div>
 			</div>
 			<!-- <progress max="100" value="{{uploaded}}" ng-show="uploaded > 0"></progress> -->

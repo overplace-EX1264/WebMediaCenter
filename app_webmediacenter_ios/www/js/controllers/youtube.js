@@ -7,7 +7,9 @@ angular.module('youtube.controllers', [])
     var GoogleAuth;
     $scope.youtubeChannelList = {};
     $scope.authResult;
-
+    $scope.user = Youtube.getUser();
+    console.log("User");
+    console.log($scope.user);
     $scope.googleSignIn = function() {
         $ionicLoading.show();
         Youtube.GoogleLogin().then(
@@ -44,8 +46,9 @@ angular.module('youtube.controllers', [])
             $ionicLoading.hide();
           });       
       };
-      $scope.user = Youtube.getUser();
-      $scope.getList = function () {        
+     
+      $scope.getList = function () {      
+        Youtube.gapiSetToken($scope.user.accessToken);  
             Youtube.buildApiRequest('GET',
             '/youtube/v3/search',
             {
@@ -104,6 +107,12 @@ angular.module('youtube.controllers', [])
         $scope.$broadcast('scroll.refreshComplete');
         $scope.$apply()
      };
+     $scope.edit = function(list){
+        $location.path("/app/youtube/edit/"+list.id.videoId);
+        // console.log(list);
+        // .id.videoId
+    }
+    
 })
 
 .controller('YoutubeOperationCtrl', function($scope, $stateParams, $ionicHistory,$cordovaCamera, $ionicPopup, $ionicLoading, $cordovaToast, Youtube) {
@@ -181,11 +190,11 @@ angular.module('youtube.controllers', [])
                 categoryId: '22',
                 defaultLanguage: 'en',
                 description: $scope.youtube.descrizione,
-                snip: $scope.youtube.keyword.split(','),
+                tags: $scope.youtube.keyword.split(','),
                 title: $scope.youtube.titolo,
             },
             status :{
-                privacyStatus: 'public',
+                privacyStatus: $scope.youtube.privacy,
             }              
         };
         var params = {'part': 'snippet,status'};
@@ -264,4 +273,78 @@ angular.module('youtube.controllers', [])
     return function(url) {
         return $sce.trustAsResourceUrl(url);
     };
-}]);
+}])
+.controller('YoutubeOperationEditCtrl', function($scope, $stateParams, $ionicHistory,$cordovaCamera, $ionicPopup, $ionicLoading, $cordovaToast, Youtube) {
+    $ionicLoading.show();
+    $scope.user = Youtube.getUser();
+    Youtube.gapiSetToken($scope.user.accessToken);
+    Youtube.buildApiRequest('GET',
+            '/youtube/v3/videos',
+            {
+                'id': $stateParams.id,
+                'part': 'snippet,statistics,status', 
+            }).then(function(response){ 
+                $scope.youtube = {
+                    titolo : response.items[0].snippet.title,
+                    descrizione : response.items[0].snippet.description,
+                    keyword : response.items[0].snippet.tags,
+                    privacy : response.items[0].status.privacyStatus,
+                }
+                console.log(response);
+                $ionicLoading.hide();
+            }, function(error){ 
+                alert(JSON.stringify(error));
+                $ionicLoading.hide();
+            });
+    $scope.id = $stateParams.id;
+    $scope.updateData = function () {
+        $ionicLoading.show();
+        // Youtube.gapiSetToken($scope.user.accessToken);
+        Youtube.googleAuth().then(
+            function (authResult) {
+              $scope.authResult = authResult;
+              if ($scope.youtube.keyword.indexOf(',') > -1) {
+                $scope.youtube.keyword = $scope.youtube.keyword.split(',');
+              }
+             Youtube.gapiSetToken($scope.user.accessToken);
+             Youtube.buildApiRequest('PUT',
+                        '/youtube/v3/videos',
+                        {'part': 'snippet,status'},
+                        {   'id': $scope.id,
+                            'snippet' : {
+                                'categoryId': '22',
+                                'defaultLanguage': 'en',
+                                'description': $scope.youtube.descrizione,
+                                'tags': $scope.youtube.keyword,
+                                'title': $scope.youtube.titolo,
+                            },
+                            'status' :{
+                                'privacyStatus': $scope.youtube.privacy,
+                            }      
+                    }).then(function(response){ 
+                                    $ionicLoading.hide();
+                                    alert("Successfully Updated");
+                                    $ionicHistory.goBack();
+                                }, function(error){ 
+                                    alert(JSON.stringify(error));
+                                    $ionicLoading.hide();
+                                });
+            },
+            function (err) {
+              alert(JSON.stringify(err));
+              $ionicLoading.hide();
+            });       
+        
+    }
+}).filter('youtubeTrusted', ['$sce', function ($sce) {
+    return function(id) {
+        return $sce.trustAsResourceUrl("https://www.youtube.com/embed/" + id);
+    };
+}]);;
+ 
+// curl 'https://googleads.g.doubleclick.net/pagead/id?exp=nomnom' \
+// -XGET \
+// -H 'Referer: https://www.youtube.com/embed/DmeVCVpG0bw' \
+// -H 'User-Agent: Mozilla/5.0 (iPhone; CPU iPhone OS 11_2 like Mac OS X) AppleWebKit/604.4.7 (KHTML, like Gecko) Mobile/15C107' \
+// -H 'Origin: https://www.youtube.com' \
+// -H 'Accept: */*'

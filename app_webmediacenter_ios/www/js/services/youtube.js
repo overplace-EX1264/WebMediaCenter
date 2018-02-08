@@ -184,7 +184,7 @@ angular.module('youtube.services', [])
 		var deferred = $q.defer();
 		gapi.auth.init(function() {
 			gapi.auth.authorize({
-				client_id: ApiConfig.yoClientId,
+				client_id: ApiConfig.webClientId,
 				scope: ApiConfig.gScopes,
 				discoveryDocs: ApiConfig.discoveryDocs,
 				immediate: true
@@ -251,11 +251,26 @@ angular.module('youtube.services', [])
 		buildApiRequest:function (requestMethod, path, params, properties) {
 			var deferred = $q.defer();
 			var request;
-			request = gapi.client.request({
-				'method': requestMethod,
-				'path': path,
-				'params': params
-			});
+			// request = gapi.client.request({
+			// 	'method': requestMethod,
+			// 	'path': path,
+			// 	'params': params
+			// });
+			if (properties) {
+				var resource = createResource(properties);
+				request = gapi.client.request({
+					'body': resource,
+					'method': requestMethod,
+					'path': path,
+					'params': params
+				});
+			  } else {
+				request = gapi.client.request({
+					'method': requestMethod,
+					'path': path,
+					'params': params
+				});
+			  }
 			// executeRequest(request);
 			request.execute(function(listData) {
 				deferred.resolve(listData);
@@ -263,7 +278,39 @@ angular.module('youtube.services', [])
 				deferred.reject();
 			});
 			return deferred.promise;
+			function createResource(properties) {
+				var resource = {};
+				var normalizedProps = properties;
+				for (var p in properties) {
+				  var value = properties[p];
+				  if (p && p.substr(-2, 2) == '[]') {
+					var adjustedName = p.replace('[]', '');
+					if (value) {
+					  normalizedProps[adjustedName] = value.split(',');
+					}
+					delete normalizedProps[p];
+				  }
+				}
+				for (var p in normalizedProps) {
+				  // Leave properties that don't have values out of inserted resource.
+				  if (normalizedProps.hasOwnProperty(p) && normalizedProps[p]) {
+					var propArray = p.split('.');
+					var ref = resource;
+					for (var pa = 0; pa < propArray.length; pa++) {
+					  var key = propArray[pa];
+					  if (pa == propArray.length - 1) {
+						ref[key] = normalizedProps[p];
+					  } else {
+						ref = ref[key] = ref[key] || {};
+					  }
+					}
+				  };
+				}
+				return resource;
+			  }
+			
 		},
+		
 		GoogleLogin: function () {
 			var deferred = $q.defer();
 			window.plugins.googleplus.login(
@@ -304,7 +351,8 @@ angular.module('youtube.services', [])
 		},
 		googleLogout : function () {
 			var deferred = $q.defer();
-			window.plugins.googleplus.disconnect(
+			// window.plugins.googleplus.disconnect(
+			window.plugins.googleplus.logout(
 				function (msg) {
 					window.localStorage.starter_google_user = '';
 					window.localStorage.authResult = '';
@@ -312,7 +360,28 @@ angular.module('youtube.services', [])
 					deferred.resolve(msg);
 				},
 				function(fail){
-					deferred.reject();
+					// deferred.reject();
+					window.plugins.googleplus.trySilentLogin(
+						{
+						},
+						function (obj) {
+							console.error('Google trySilentLogin success');
+							//try logout again
+							window.plugins.googleplus.logout(
+								function (mg) {
+									deferred.resolve(mg);
+									console.error('Google logout success');
+								},
+								function (err) {
+									console.error('Error logging out from Google for the 2nd time: ' + err);
+									deferred.reject()
+								}
+							);
+						},
+						function (err) {
+							console.error('Google trySilentLogin error: ' + err);
+						}
+					);
 				}
 			);
 			return deferred.promise;
