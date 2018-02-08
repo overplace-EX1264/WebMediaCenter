@@ -82,7 +82,7 @@
 				<!-- <div afkl-lazy-image="{{youtube.filename}}" class="afkl-lazy-wrapper image-loader-container" ng-if="defaultIcon"></div> -->
 				<div style="width: 100%;" class="afkl-lazy-wrapper image-loader-container" ng-if="!defaultIcon">
 					<iframe  ng-src="{{id| youtubeTrusted}}" 
-					frameborder="0" allowfullscreen></iframe>
+					frameborder="0" allowfullscreen style="width:100%"></iframe>
 				   <!-- <p>Display output for control reasons: {{id | youtubeTrusted}}</p> -->
 				</div>
 		  	</div>
@@ -93,10 +93,10 @@
 			<!-- <input type="file" name="file[]" class="file_multi_video" accept="video/*" > -->
 
 			<div id="box-gallery-action" class="row" ng-hide="id">
-	          		<div class="col col-50">
+	          		<div class="col col-60">
 	              		<button class="button button-block button-calm icon-left ion-videocamera" onclick="document.getElementById('file').click()">Allegare un video</button>
 					</div>
-					<div class="col col-50" ng-if="size">
+					<div class="col col-40" ng-if="size">
 						<label class="label">Dimensione : {{size}} MB</label>
 
 					</div>  
