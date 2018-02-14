@@ -1,0 +1,58 @@
+<ion-view title="Accedi">
+	<ion-nav-bar class="bar-header bar-calm" align-title="center"></ion-nav-bar>
+    
+    <ion-content>
+
+        <div id="login-logo">
+            <img src="img/logo_webmediacenter.png" width="60%"/>
+        </div>
+
+        <form id="login-form" name="loginForm" ng-submit="login()" novalidate>
+
+            <div class="row">
+                <div class="col col-80 col-offset-10">
+                    <label class="item item-input" ng-class="{ 'has-errors' : loginForm.username.$invalid && !loginForm.username.$pristine, 'no-errors' : loginForm.username.$valid}">
+                        <input name="username" type="email" placeholder="Indirizzo email" ng-model="credentials.username" required>
+                        <i class="icon ion-checkmark-circled" ng-show="loginForm.username.$valid"></i>
+                        <i class="icon ion-close-circled" ng-show="loginForm.username.$invalid && !loginForm.username.$pristine"></i>
+                    </label>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col col-80 col-offset-10">
+                    <label class="item item-input" ng-class="{ 'has-errors' : loginForm.password.$invalid && !loginForm.password.$pristine, 'no-errors' : loginForm.password.$valid}">
+                        <input name="password" type="password" placeholder="password" ng-model="credentials.password" ng-minlength='6' required>
+                        <i class="icon ion-checkmark-circled" ng-show="loginForm.password.$valid"></i>
+                        <i class="icon ion-close-circled" ng-show="loginForm.password.$invalid && !loginForm.password.$pristine"></i>
+                    </label>
+                </div>
+            </div>
+            
+            <div class="row" ng-show="rememberAvailability">
+            	<div class="col col-80 col-offset-10">
+	            	<div class="list">
+	    				<div class="item item-checkbox toggle-remember">
+	        				<label class="checkbox checkbox-calm">
+	            				<input type="checkbox" ng-model="credentials.remember" />
+	        				</label>
+	        				Ricordami
+	    				</div>
+	            	</div>
+				</div>
+            </div>
+
+            <div class="row" ng-show="login_form.$submitted && auth_error === true">
+                <h4 class="assertive">Credenziali Errate!</h4>
+            </div>
+
+            <div class="row">
+                <div class="col col-50 col-offset-25">
+                    <button class="button button-block button-calm icon-right ion-log-in" type="submit" ng-disabled="loginForm.$invalid || login_disabled">Accedi</button>
+                </div>
+            </div>
+
+        </form>
+
+    </ion-content>
+</ion-view>

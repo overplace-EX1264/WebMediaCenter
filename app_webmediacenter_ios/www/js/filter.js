@@ -20,4 +20,12 @@ angular.module('starter.filter', [])
 		
 		return Object.keys(obj);
 	}
-});
+})
+
+// .filter('myFilter', function() {
+
+// 	return function(obj) {
+  
+// 	  return output;
+// 	}
+// });

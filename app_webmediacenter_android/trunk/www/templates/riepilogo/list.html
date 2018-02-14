@@ -1,0 +1,219 @@
+<ion-view view-title="Report" >
+    <ion-content class="riepilogo-content">
+
+        <ion-refresher pulling-text="Trascina per aggiornare..." on-refresh="refresh()"></ion-refresher>
+
+        <div class="bar bar-subheader subheader-riepilogo" ng-class="{'bar-assertive': riepilogo.esito.globale < 40, 'bar-energized': riepilogo.esito.globale >= 40 && riepilogo.esito.globale < 70, 'bar-balanced': riepilogo.esito.globale >= 70}">
+            <span class="center fa fa-fw light face-header" ng-class="{'fa-frown-o': riepilogo.esito.globale < 40, 'fa-meh-o ': riepilogo.esito.globale >= 40 && riepilogo.esito.globale < 70, 'fa-smile-o': riepilogo.esito.globale >= 70}"></span>
+            <span class="center text-center" ng-if="riepilogo.esito.globale >= 70">Complimenti!</span>
+            <span class="center text-center" ng-if="riepilogo.esito.globale >= 40 && riepilogo.esito.globale < 70">Mi dispiace!</span>
+            <span class="center text-center" ng-if="riepilogo.esito.globale < 40">Attenzione!</span>
+        </div>
+
+        <div class="card">
+            <div class="item item-text-wrap">
+                <p ng-if="riepilogo.esito.globale >= 70">Stai andando alla grande, verifica quali sono i settori dove puoi ancora migliorare, poniti l'obiettivo di raggiungere la faccetta verde in tutte le attivit&agrave;!</p>
+                <p ng-if="riepilogo.esito.globale >= 40 && riepilogo.esito.globale < 70">Ti impegni, ma non stai curando con attenzione i Tuoi affari, dovresti intensificare le tue attivit&agrave;, poniti l'obiettivo di raggiungere la faccetta  verde nel report generale. Verifica le attivit&agrave; dove devi migliorare.</p>
+                <p ng-if="riepilogo.esito.globale < 40">Stai trascurando i Tuoi affari, non stai sfruttando il web come canale di relazione e di business, poniti l'obiettivo di raggiungere la faccetta verde nel report generale, verifica le attivit&agrave; dove devi migliorare.</p>
+            </div>
+        </div>
+
+        <span class="center text-center periodo-riepilogo">Dal <strong>{{riepilogo.periodo.from | date: "dd/MM/yyyy"}}</strong> al <strong>{{riepilogo.periodo.to | date: "dd/MM/yyyy"}}</strong></span>
+
+        <div class="row">
+            <div class="col col-50 col-offset-25">
+                <button class="button button-block button-calm icon-left ion-android-calendar" ng-click="selectDate()">Modifica</button>
+            </div>
+        </div>
+
+        <ion-list>
+
+            <ion-item class="item-remove-animate item-icon-left item-icon-right" href="#/app/riepilogo/news">
+                <i class="icon fa " ng-class="{'fa-frown-o assertive': riepilogo.esito.dettaglio.news < 40, 'fa-meh-o energized': riepilogo.esito.dettaglio.news >= 40 && riepilogo.esito.dettaglio.news < 70, 'fa-smile-o balanced': riepilogo.esito.dettaglio.news >= 70}"></i>
+                <h2>News</h2>
+                <p>Hai pubblicato {{riepilogo.dati.news}} news su {{riepilogo.soglie.news}}</p>
+                <i class="icon ion-chevron-right icon-accessory"></i>
+            </ion-item>
+            <ion-item class="item-remove-animate item-icon-left item-icon-right" href="#/app/riepilogo/eventi">
+                <i class="icon fa " ng-class="{'fa-frown-o assertive': riepilogo.esito.dettaglio.eventi < 40, 'fa-meh-o energized': riepilogo.esito.dettaglio.eventi >= 40 && riepilogo.esito.dettaglio.eventi < 70, 'fa-smile-o balanced': riepilogo.esito.dettaglio.eventi >= 70}"></i>
+                <h2>Eventi</h2>
+                <p ng-if="riepilogo.dati.eventi == 0 || riepilogo.dati.eventi > 1">Hai pubblicato {{riepilogo.dati.eventi}} eventi su {{riepilogo.soglie.eventi}}</p>
+                <p ng-if="riepilogo.dati.eventi == 1">Hai pubblicato {{riepilogo.dati.eventi}} evento su {{riepilogo.soglie.eventi}}</p>
+                <i class="icon ion-chevron-right icon-accessory"></i>
+            </ion-item>
+            <ion-item class="item-remove-animate item-icon-left item-icon-right" href="#/app/riepilogo/coupon" ng-if="wmc.coupon">
+                <i class="icon fa " ng-class="{'fa-frown-o assertive': riepilogo.esito.dettaglio.coupon < 40, 'fa-meh-o energized': riepilogo.esito.dettaglio.coupon >= 40 && riepilogo.esito.dettaglio.coupon < 70, 'fa-smile-o balanced': riepilogo.esito.dettaglio.coupon >= 70}"></i>
+                <h2>Coupon</h2>
+                <p>Hai pubblicato {{riepilogo.dati.coupon}} coupon su {{riepilogo.soglie.coupon}}</p>
+                <i class="icon ion-chevron-right icon-accessory"></i>
+            </ion-item>
+            <ion-item class="item-remove-animate item-icon-left item-icon-right" href="#/app/riepilogo/promozioni" ng-if="wmc.promozioni">
+                <i class="icon fa " ng-class="{'fa-frown-o assertive': riepilogo.esito.dettaglio.promozioni < 40, 'fa-meh-o energized': riepilogo.esito.dettaglio.promozioni >= 40 && riepilogo.esito.dettaglio.promozioni < 70, 'fa-smile-o balanced': riepilogo.esito.dettaglio.promozioni >= 70}"></i>
+                <h2>Promozioni</h2>
+                <p ng-if="riepilogo.dati.promozioni == 0 || riepilogo.dati.promozioni > 1">Hai pubblicato {{riepilogo.dati.promozioni}} promozioni su {{riepilogo.soglie.promozioni}}</p>
+                <p ng-if="riepilogo.dati.promozioni == 1">Hai pubblicato {{riepilogo.dati.promozioni}} promozione su {{riepilogo.soglie.promozioni}}</p>
+                <i class="icon ion-chevron-right icon-accessory"></i>
+            </ion-item>
+            <ion-item class="item-remove-animate item-icon-left item-icon-right" href="#/app/riepilogo/risposte_commenti" >
+                <i class="icon fa " ng-class="{'fa-frown-o assertive': riepilogo.esito.dettaglio.risposte_commenti < 40, 'fa-meh-o energized': riepilogo.esito.dettaglio.risposte_commenti >= 40 && riepilogo.esito.dettaglio.risposte_commenti < 70, 'fa-smile-o balanced': riepilogo.esito.dettaglio.risposte_commenti >= 70}"></i>
+                <h2>Commenti</h2>
+                <p ng-if="riepilogo.dati.risposte_commenti == 0 || riepilogo.dati.risposte_commenti > 1">Hai risposto a {{riepilogo.dati.risposte_commenti}} commenti su {{riepilogo.soglie.risposte_commenti}}</p>
+                <p ng-if="riepilogo.dati.risposte_commenti == 1">Hai risposto a {{riepilogo.dati.risposte_commenti}} commento su {{riepilogo.soglie.risposte_commenti}}</p>
+                <i class="icon ion-chevron-right icon-accessory"></i>
+            </ion-item>
+            <ion-item class="item-remove-animate item-icon-left item-icon-right" href="#/app/riepilogo/messaggi_email" ng-if="wmc.messaggi">
+                <i class="icon fa " ng-class="{'fa-frown-o assertive': riepilogo.esito.dettaglio.messaggi_email < 40, 'fa-meh-o energized': riepilogo.esito.dettaglio.messaggi_email >= 40 && riepilogo.esito.dettaglio.messaggi_email < 70, 'fa-smile-o balanced': riepilogo.esito.dettaglio.messaggi_email >= 70}"></i>
+                <h2>Campagne email</h2>
+                <p>Hai inviato {{riepilogo.dati.messaggi_email}} email su {{riepilogo.soglie.messaggi_email}}</p>
+                <i class="icon ion-chevron-right icon-accessory"></i>
+            </ion-item>
+            <ion-item class="item-remove-animate item-icon-left item-icon-right" href="#/app/riepilogo/messaggi_sms" ng-if="wmc.messaggi">
+                <i class="icon fa " ng-class="{'fa-frown-o assertive': riepilogo.esito.dettaglio.messaggi_sms < 40, 'fa-meh-o energized': riepilogo.esito.dettaglio.messaggi_sms >= 40 && riepilogo.esito.dettaglio.messaggi_sms < 70, 'fa-smile-o balanced': riepilogo.esito.dettaglio.messaggi_sms >= 70}"></i>
+                <h2>Campagne sms</h2>
+                <p>Hai inviato {{riepilogo.dati.messaggi_sms}} sms su {{riepilogo.soglie.messaggi_sms}}</p>
+                <i class="icon ion-chevron-right icon-accessory"></i>
+            </ion-item>
+            <ion-item class="item-remove-animate item-icon-left item-icon-right" href="#/app/riepilogo/facebook" ng-if="wmc.social.facebook">
+                <i class="icon fa " ng-class="{'fa-frown-o assertive': riepilogo.esito.dettaglio.facebook < 40, 'fa-meh-o energized': riepilogo.esito.dettaglio.facebook >= 40 && riepilogo.esito.dettaglio.facebook < 70, 'fa-smile-o balanced': riepilogo.esito.dettaglio.facebook >= 70}"></i>
+                <h2>Facebook</h2>
+                <p>Hai pubblicato {{riepilogo.dati.facebook}} post su {{riepilogo.soglie.facebook}}</p>
+                <i class="icon ion-chevron-right icon-accessory"></i>
+            </ion-item>
+            <ion-item class="item-remove-animate item-icon-left item-icon-right" href="#/app/riepilogo/twitter" ng-if="wmc.social.twitter">
+                <i class="icon fa " ng-class="{'fa-frown-o assertive': riepilogo.esito.dettaglio.twitter < 40, 'fa-meh-o energized': riepilogo.esito.dettaglio.twitter >= 40 && riepilogo.esito.dettaglio.twitter < 70, 'fa-smile-o balanced': riepilogo.esito.dettaglio.twitter >= 70}"></i>
+                <h2>Twitter</h2>
+                <p>Hai pubblicato {{riepilogo.dati.twitter}} tweet su {{riepilogo.soglie.twitter}}</p>
+                <i class="icon ion-chevron-right icon-accessory"></i>
+            </ion-item>
+        </ion-list>
+
+		<h2 class="text-center">Statistiche</h2>
+
+		<ion-list class="statistic-list">
+			<ion-item class="item item-divider">
+				Visitatori
+			</ion-item>
+			<ion-item class="item-remove-animate">
+				<div class="row">
+					<div class="col col-33 text-center" ng-repeat="(key, value) in riepilogo.statistiche.area1">
+						<h2>{{value}}</h2>
+						<p>{{key | capitalize}}</p>
+					</div> 
+				</div>
+			</ion-item>
+			
+			<ion-item class="item item-divider">
+				Dispositivi
+			</ion-item>
+			<ion-item class="item-remove-animate">
+				<div class="row">
+					<div class="col col-33 text-center" ng-repeat="(key, value) in riepilogo.statistiche.area2">
+						<h2>{{value}}</h2>
+						<p>{{key | capitalize}}</p>
+					</div>
+				</div>
+			</ion-item>
+			
+			<ion-item class="item item-divider" ng-if="riepilogo.statistiche.google">
+				Ricerca Google
+			</ion-item>
+			<ion-item ng-if="riepilogo.statistiche.google" class="item-remove-animate">
+				<div class="row">
+					<div class="col col-50 text-center" ng-repeat="(key, value) in riepilogo.statistiche.google">
+						<h2>{{value}}</h2>
+						<p>{{key | stripUnderscore | capitalize}}</p>
+					</div>
+				</div>
+			</ion-item>
+			
+			<ion-item class="item item-divider">
+				Traffico generato
+			</ion-item>
+			<ion-item ng-repeat="obj in riepilogo.statistiche.area4" class="item-remove-animate">
+				<div class="row">
+					<div class="col col-50 text-center" ng-repeat="(key, value) in obj">
+						<h2>{{value}}</h2>
+						<p>{{key | stripUnderscore | capitalize}}</p>
+					</div>
+				</div>
+			</ion-item>
+			
+			<ion-item class="item item-divider">
+				Wifi
+			</ion-item>
+			<ion-item class="item-remove-animate">
+				<div class="row">
+					<div class="col col-33 text-center" ng-repeat="(key, value) in riepilogo.statistiche.area5">
+						<h2>{{value}}</h2>
+						<p>{{key | capitalize}}</p>
+					</div>
+				</div>
+			</ion-item>
+			
+			<ion-item class="item item-divider">
+				Banca contatti
+			</ion-item>
+			
+			<ion-item class="item-remove-animate">
+				<div class="row">
+					<div class="col col-25"></div>
+					<div class="col col-25 text-center">
+						<h3><strong>Email</strong></h3>
+					</div>
+					<div class="col col-25 text-center">
+						<h3><strong>Sms</strong></h3>
+					</div>
+					<div class="col col-25 text-center">
+						<h3><strong>Unici</strong></h3>
+					</div>
+				</div>
+				<div class="divider"></div>
+				<div class="row">
+					<div class="col col-25">
+						<p><strong>Moduli</strong></p>
+					</div>
+					<div class="col col-25 text-center">
+						<h2>{{riepilogo.statistiche.area6.email.moduli}}</h2>
+					</div>
+					<div class="col col-25 text-center">
+						<h2>{{riepilogo.statistiche.area6.sms.moduli}}</h2>
+					</div>
+					<div class="col col-25 text-center">
+						<h2>{{riepilogo.statistiche.area6.unici.moduli}}</h2>
+					</div>
+				</div>
+				<div class="divider"></div>
+				<div class="row">
+					<div class="col col-25">
+						<p><strong>Wifi</strong></p>
+					</div>
+					<div class="col col-25 text-center">
+						<h2>{{riepilogo.statistiche.area6.email.wifi}}</h2>
+					</div>
+					<div class="col col-25 text-center">
+						<h2>{{riepilogo.statistiche.area6.sms.wifi}}</h2>
+					</div>
+					<div class="col col-25 text-center">
+						<h2>{{riepilogo.statistiche.area6.unici.wifi}}</h2>
+					</div>
+				</div>
+				<div class="divider"></div>
+				<div class="row">
+					<div class="col col-25">
+						<p><strong>Totale</strong></p>
+					</div>
+					<div class="col col-25 text-center">
+						<h2>{{riepilogo.statistiche.area6.email.totale}}</h2>
+					</div>
+					<div class="col col-25 text-center">
+						<h2>{{riepilogo.statistiche.area6.sms.totale}}</h2>
+					</div>
+					<div class="col col-25 text-center">
+						<h2>{{riepilogo.statistiche.area6.unici.totale}}</h2>
+					</div>
+				</div>
+			</ion-item>
+		</ion-list>
+
+    </ion-content>
+</ion-view>

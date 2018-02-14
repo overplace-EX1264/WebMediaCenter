@@ -1,0 +1,25 @@
+
+<div class="card notifica-element">
+    <div class="item item-icon-left item-text-wrap">
+        <i class="icon fa fa-commenting-o fa-fw calm"></i>
+        <h2>{{notifica.titolo}}</h2>
+        <p ng-bind-html="notifica.testo"></p>
+    </div>
+</div>
+
+<div class="row notifica-title">
+    <div class="col text-center">
+        <h4 class="dark">Dettaglio della tua risposta</h4>
+    </div>
+</div>
+
+<div class="card notifica-detail">
+
+    <div class="item item-text-wrap">
+        <p><strong>Data:</strong> {{notifica.data_commento}}</p>
+        <div class="item-separator"></div>
+        <p><strong>La tua risposta:</strong></p>
+        <p ng-bind-html="notifica.testo_commento"></p>
+    </div>
+
+</div>

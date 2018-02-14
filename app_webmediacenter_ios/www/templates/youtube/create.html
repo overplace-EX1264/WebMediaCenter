@@ -1,4 +1,4 @@
-<ion-view view-title="Scrivi videos">
+<ion-view view-title="Crea un Video">
     <ion-content class="news-operation-content" afkl-image-container>
     	<form name="$parent.newsForm" class="news-form">
     	    
@@ -28,7 +28,7 @@
 				<input type="radio" value='private' ng-model="youtube.privacy" placeholder="Privacy" required >Privato
 				<input type="radio" value='unlisted' ng-model="youtube.privacy" placeholder="Privacy" required >Non Quotate -->
 			<!-- </label> -->
-			<div class="list list-inset">
+			<!-- <div class="list list-inset">
 				<div class="item item-divider">
 					Vita Privata
 				</div>
@@ -51,7 +51,7 @@
 					Non Quotate 
 				</div>
 				
-			</div>
+			</div> -->
 				<!-- <input type="radio" value='scheduled' ng-model="youtube.privacy" placeholder="Privacy" required > -->
 		 	
 			
@@ -72,17 +72,20 @@
 						<!-- <video class="afkl-lazy-wrapper image-loader-container" controls="controls" id="vid">
 							<source src="{{videoPath}}" type="">
 						</video> -->
-						<video width="100%" height="190" class="afkl-lazy-wrapper image-loader-container" src="{{clipSrc2}}" controls>
+						<img src="img/img.png" class="afkl-lazy-wrapper image-loader-container withMax" >
+						<!-- <video width="100%" height="190" class="afkl-lazy-wrapper image-loader-container" src="{{clipSrc2}}" controls>
 					
-						  </video>
+						  </video> -->
 				  </div>
 			</div>
 			<div class="item item-input item-stacked-label" ng-show="id">
 				<span class="input-label">Video</span>
 				<!-- <div afkl-lazy-image="{{youtube.filename}}" class="afkl-lazy-wrapper image-loader-container" ng-if="defaultIcon"></div> -->
 				<div style="width: 100%;" class="afkl-lazy-wrapper image-loader-container" ng-if="!defaultIcon">
-					<iframe  ng-src="{{id| youtubeTrusted}}" 
-					frameborder="0" allowfullscreen style="width:100%"></iframe>
+					<!-- <iframe  ng-src="{{id| youtubeTrusted}}" 
+					frameborder="0" allowfullscreen style="width:100%"></iframe> -->
+					<img src="{{thumb}}" class="afkl-lazy-wrapper image-loader-container withMax" >
+					
 				   <!-- <p>Display output for control reasons: {{id | youtubeTrusted}}</p> -->
 				</div>
 		  	</div>
@@ -129,7 +132,7 @@
 			  </div> -->
 			<div id="box-action" class="row" ng-hide="id">
 		        <div class="col col-50 col-offset-25">
-		        	<button type="submit" class="button button-full button-balanced icon-left ion-android-checkmark-circle" ng-click="nowTimeToRock()" ng-disabled="newsForm.$invalid || (newsForm.$dirty && newsForm.$invalid) || !clipSrc2 ">Caricare</button> 
+		        	<button type="submit" class="button button-full button-balanced icon-left ion-android-checkmark-circle" ng-click="nowTimeToRock()" ng-disabled="newsForm.$invalid || (newsForm.$dirty && newsForm.$invalid) || !clipSrc2 ">Pubblica</button> 
 		        </div>
 			</div>
 			<div id="box-action" class="row" ng-show="id">

@@ -83,7 +83,8 @@ angular.module('starter',
 		 'unsavedChanges',
 		 'hmac',
 		 'ionic.wizard',
-		 'ngIOS9UIWebViewPatch']
+		 'ngIOS9UIWebViewPatch',
+		 'angular-thumbnails']
 )
 
 .run(function($rootScope, $ionicPlatform, $ionicHistory, $ionicPopup, $ionicLoading, $cordovaNetwork, $cordovaStatusbar, $timeout, $cordovaSplashscreen, $state, $location, Auth, Database){

@@ -1,0 +1,41 @@
+<ion-view view-title="Notifiche">
+
+    <ion-content class="notifiche-content">
+
+        <div class="card" ng-if="notifiche_list.length > 0">
+            <div class="item item-text-wrap">
+                <p>Visualizza le notifiche delle attivit&agrave; svolte dai tuoi clienti.</p>
+            </div>
+        </div>
+
+        <div class="card text-center" ng-if="notifiche_list.length == 0">
+        	<div class="item item-text-wrap">
+            	<p>Nessuna notifica presente</p><p>In questa sezione troverai riportati i dettagli delle interazioni che compiranno gli utenti sui servizi da te attivati.</p>
+            </div>
+        </div>
+
+        <ion-list can-swipe="true" ng-show="notifiche_list.length > 0">
+
+            <ion-item class="item-remove-animate item-icon-left item-icon-right" ng-repeat="notifica in notifiche_list track by notifica.id" href="#/app/notifiche/{{notifica.id}}">
+
+				<i class="icon fa fa-bed fa-fw positive" ng-if="notifica.type == 'booking'"></i>
+                <i class="icon fa fa-gavel fa-fw balanced" ng-if="notifica.type == 'coupon'"></i>
+                <i class="icon fa fa-commenting-o fa-fw calm" ng-if="notifica.type == 'recensioni'"></i>
+                <i class="icon ion-social-euro dark" ng-if="notifica.type == 'crediti'"></i>
+
+                <div ng-class="{'item-toRead': !notifica.isRead}">
+                    <h2>{{notifica.titolo}}</h2>
+                    <p>{{notifica.testo}}</p>
+                </div>
+
+                <i class="icon ion-chevron-right icon-accessory"></i>
+
+                <ion-option-button class="button-assertive ion-trash-a button-slide" ng-click="delete(notifica)"></ion-option-button>
+
+            </ion-item>
+
+        </ion-list>
+
+    </ion-content>
+
+</ion-view>

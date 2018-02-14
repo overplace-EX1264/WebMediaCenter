@@ -1,0 +1,34 @@
+<ion-view view-title="Dettaglio evento">
+    <ion-content class="eventi-detail-content" afkl-image-container>
+				
+	    <div class="list card">
+	
+	        <div class="item item-icon-left">
+	        	<i class="icon ion-quote calm"></i>
+	            <h2>{{evento.titolo}}</h2>
+	            <p>Dal {{evento.data_inizio_evento | date:"dd/MM/yyyy '-' HH:mm"}} al {{evento.data_fine_evento | date:"dd/MM/yyyy '-' HH:mm"}}</p>
+	        </div>
+	        
+	        <div class="item item-body">
+	        	<div afkl-lazy-image="{{evento.filename}}" class="afkl-lazy-wrapper"></div>
+	            <p class="angular-with-newlines" ng-bind-html="evento.testo"></p>
+	        </div>
+	        
+	        <div class="item tabs tabs-secondary tabs-icon-top">
+	    		<p class="tab-item positive" ng-click="openInBrowser(evento, 'evento', 'overplace')"><img src="img/social_ovp.png">Pubblicato</p>
+	    		<p class="tab-item" ng-class="{'positive': evento.twitter == 1}" ng-click="openInBrowser(evento, 'evento', 'twitter')"><i class="icon ion-social-twitter"></i>{{evento.twitter == 1 ? 'Pubblicato' : 'Non pubblicato'}}</p>
+			</div>
+		
+		</div>
+	
+		<div class="row">
+			<div class="col col-50" ng-class="{'col-offset-25': evento.notifiche.pendenti.sms || evento.notifiche.pendenti.email}">
+				<a class="button button-block button-energized icon-left ion-edit" href="#/app/eventi/{{evento.id}}/edit">Modifica</a>
+     		</div>
+     		<div class="col col-50" ng-if="!evento.notifiche.pendenti.sms && !evento.notifiche.pendenti.email">
+     			<button class="button button-block button-assertive icon-left ion-trash-a" ng-click="delete(evento)">Elimina</button>
+     		</div>
+ 		</div>
+ 				
+	</ion-content>
+</ion-view>

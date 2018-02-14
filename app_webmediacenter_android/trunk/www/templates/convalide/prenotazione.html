@@ -1,0 +1,40 @@
+
+    <div class="row">
+        <div class="col text-center" ng-switch="convalida.stato">
+            <h4 class="balanced" ng-switch-when="2">Prenotazione confermata</h4>
+            <h4 class="balanced" ng-switch-when="3">Prenotazione eseguita</h4>
+            <h4 class="assertive" ng-switch-when="4">Prenotazione rifiutata</h4>
+            <h4 class="assertive" ng-switch-when="5">Prenotazione disdetta dall&apos;utente</h4>
+            <h4 class="assertive" ng-switch-when="6">Prneotazione annulla dall&apos;esercente</h4>
+            <h4 ng-switch-default>Convalida prenotazione</h4>
+        </div>
+    </div>
+
+    <div class="list card convalide-detail">
+
+        <div class="item item-icon-left">
+            <i class="icon fa fa-calendar-o fa-fw royal"></i>
+            <h2>Prenotazione di <strong>{{convalida.nome_utente}}</strong></h2>
+            <p>per il giorno {{convalida.data}}</p>
+        </div>
+
+        <div class="item item-text-wrap text-center">
+            <p>Codice:</p>
+            <h1>{{convalida.codice}}</h1>
+        </div>
+
+        <div class="item item-body">
+            <p>{{convalida.nome_utente}} {{convalida.azione}} per il giorno {{convalida.data}}:</p>
+            <h3>{{convalida.descrizione}}</h3>
+        </div>
+
+    </div>
+
+    <div class="row" ng-if="convalida.stato == '1'">
+        <div class="col col-40">
+            <button class="button button-full button-balanced icon-left ion-checkmark-circled" ng-click="accetta_prenotazione(convalida)">Accetta</button>
+        </div>
+        <div class="col col-40 col-offset-20">
+            <button class="button button-full button-assertive icon-left ion-android-cancel" ng-click="rifiuta_prenotazione(convalida)">Respingi</button>
+        </div>
+    </div>

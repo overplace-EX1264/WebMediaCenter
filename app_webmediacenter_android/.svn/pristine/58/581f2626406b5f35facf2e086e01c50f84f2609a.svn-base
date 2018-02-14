@@ -1,0 +1,34 @@
+<ion-view view-title="Dettaglio">
+    <ion-content class="riepilogo-detail">
+        <div class="card">
+            <div class="item item-icon-left">
+                <i class="icon calm fa " ng-class="riepilogo.icon"></i>
+                <h2>{{riepilogo.titolo}}</h2>
+                <span class="item-note center periodo-dettaglio">Dal {{riepilogo.periodo.from | date: "dd/MM/yyyy"}} al {{riepilogo.periodo.to | date: "dd/MM/yyyy"}}</span>
+            </div>
+
+            <div class="item item-body">
+                <span class="center face fa " ng-class="{'fa-frown-o assertive': riepilogo.esito < 40, 'fa-meh-o energized': riepilogo.esito >= 40 && riepilogo.esito < 70, 'fa-smile-o balanced': riepilogo.esito >= 70}"></span>
+                <div class="box-status-bar">
+                    <p class="text-center status-bar-percente">{{riepilogo.testo_esito}}</p>
+                    <p class="text-center status-bar-level">Sei al {{riepilogo.esito}}%</p>
+                    <div class="status-bar">
+                        <span class="status-bar-progress" ng-style="{'width': riepilogo.esito + '%' }" ng-class="{'bg-assertive': riepilogo.esito < 40, 'bg-energized': riepilogo.esito >= 40 && riepilogo.esito < 70, 'bg-balanced': riepilogo.esito >= 70}" ></span>
+                    </div>
+                </div>
+
+                <p ng-bind-html="riepilogo.frase"></p>
+            </div>
+        </div>
+
+
+        <div class="row" ng-if="riepilogo.esito < 70 && isSupport">
+            <div class="col col-50">
+                <button class="button button-block button-calm icon-left ion-ios-telephone" ng-click="call(support_phone)">Chiamaci</button>
+            </div>
+            <div class="col col-50">
+                <button class="button button-block button-calm icon-left ion-android-mail" ng-click="email(support_email)">Email</button>
+            </div>
+        </div>
+    </ion-content>
+</ion-view>

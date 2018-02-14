@@ -1,0 +1,71 @@
+<ion-view view-title="Convalide">
+    <ion-content class="convalide-content">
+
+        <ion-refresher pulling-text="Trascina per aggiornare..." on-refresh="refresh()"></ion-refresher>
+
+        <div class="card">
+            <div class="item item-text-wrap">
+                <p>Convalida le promozioni dei tuoi clienti con un semplice click, oppure scegli se accettare o rifiutare una prenotazione.</p>
+
+            </div>
+        </div>
+
+        <div class="row btn-list" ng-show="convalide_count > 0">
+            <div class="col col-50">
+                <button class="button button-small button-assertive icon-left ion-eye-disabled" ng-click="showDelete = !showDelete" ng-disabled="convalide_list['pending'].length == 0 && convalide_list['approved'].length == 0">Nascondi notifiche</button>
+            </div>
+            <div class="col col-50">
+                <button class="btn-right button button-small button-calm icon-left ion-android-sync" ng-click="resync()" ng-disabled="disableResync">Ripristina nascoste</button>
+            </div>
+        </div>
+
+        <div class="card text-center" ng-if="convalide_count == 0">
+        	<div class="item item-text-wrap">
+            	<p>Nessuna convalida presente</p>
+            </div>
+        </div>
+
+        <div class="row" ng-show="convalide_list['pending'].length > 0">
+            <div class="col">
+                <h5 class="text-center">In attesa di convalida</h5>
+            </div>
+        </div>
+
+        <ion-list can-swipe="true" show-delete="showDelete" ng-show="convalide_list['pending'].length > 0">
+
+            <ion-item class="item-remove-animate item-icon-left item-icon-right" ng-repeat="convalida in convalide_list['pending']" href="#/app/convalide/pending/{{convalida.id}}">
+
+                <i class="icon fa fa-fw" ng-class="{'fa-trophy assertive': convalida.type == 'checkin', 'fa-calendar-o royal': convalida.type == 'prenotazione'}"></i>
+                <h2>{{convalida.nome_utente}}</h2>
+                <p>Codice: <strong>{{convalida.codice}}</strong></p>
+                <i class="icon ion-chevron-right icon-accessory"></i>
+
+                <ion-option-button class="button-assertive ion-eye-disabled button-slide" ng-click="delete(convalida,'pending')"></ion-option-button>
+                <ion-delete-button class="ion-eye-disabled button-slide" ng-click="delete(convalida,'pending')"></ion-delete-button>
+
+            </ion-item>
+
+        </ion-list>
+
+        <div class="row" ng-show="convalide_list['approved'].length > 0">
+            <div class="col"><h5 class="text-center">Convalidate</h5></div>
+        </div>
+
+        <ion-list can-swipe="true" show-delete="showDelete" ng-show="convalide_list['approved'].length > 0">
+
+            <ion-item class="item-remove-animate item-icon-left item-icon-right" ng-repeat="convalida in convalide_list['approved']" href="#/app/convalide/approved/{{convalida.id}}">
+
+                <i class="icon fa fa-fw" ng-class="{'fa-trophy assertive': convalida.type == 'checkin', 'fa-calendar-o royal': convalida.type == 'prenotazione'}"></i>
+                <h2>{{convalida.nome_utente}}</h2>
+                <p>Codice: {{convalida.codice}}</p>
+                <i class="icon ion-chevron-right icon-accessory"></i>
+
+                <ion-option-button class="button-assertive ion-eye-disabled button-slide" ng-click="delete(convalida,'approved')"></ion-option-button>
+                <ion-delete-button class="ion-eye-disabled button-slide" ng-click="delete(convalida,'approved')"></ion-delete-button>
+
+            </ion-item>
+
+        </ion-list>
+
+    </ion-content>
+</ion-view>

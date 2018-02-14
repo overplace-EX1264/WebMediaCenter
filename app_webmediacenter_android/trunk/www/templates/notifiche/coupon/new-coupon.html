@@ -1,0 +1,30 @@
+
+    <div class="card notifica-element">
+        <div class="item item-icon-left">
+            <i class="icon fa fa-gavel fa-fw balanced"></i>
+            <h2>{{notifica.testo}}</h2>
+            <p>Codice: <strong>{{notifica.codice_coupon}}</strong></p>
+        </div>
+    </div>
+
+    <div class="row notifica-title">
+        <div class="col text-center">
+            <h4 class="dark">Dettaglio Coupon</h4>
+        </div>
+    </div>
+
+    <div class="card notifica-detail">
+        <div class="item item-text-wrap">
+            <p><strong>Titolo:</strong></p>
+            <p ng-bind-html="notifica.titolo_coupon"></p>
+            <div class="item-separator"></div>
+            <p><strong>Sconto:</strong></p>
+            <p ng-bind-html="notifica.sconto_coupon"></p>
+            <div class="item-separator"></div>
+            <p><strong>Descrizione:</strong></p>
+            <p ng-bind-html="notifica.descrizione_coupon"></p>
+            <div class="item-separator"></div>
+            <p><strong>Condizioni:</strong></p>
+            <p ng-bind-html="notifica.condizioni_legali"></p>
+        </div>
+    </div>

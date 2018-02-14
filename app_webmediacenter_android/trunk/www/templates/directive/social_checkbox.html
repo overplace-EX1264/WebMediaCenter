@@ -1,0 +1,47 @@
+<div class="list list-inset">
+    <div class="item item-divider">
+        Condividi su
+    </div>
+    <div class="item item-checkbox" ng-if="soc.facebook && (hideFacebook == undefined || !hideFacebook) && !disableFacebook">
+        <label class="checkbox checkbox-calm">
+            <input type="checkbox" ng-model="obj.facebook" resettable>
+        </label>
+        Facebook
+    </div>
+    <div class="item item-checkbox" ng-if="(!soc.facebook || disableFacebook) && (hideFacebook == undefined || !hideFacebook)">
+        <label class="checkbox checkbox-stable">
+            <input type="checkbox" ng-click="alertSocial('facebook')" ng-disabled="warned.facebook">
+        </label>
+        Facebook
+    </div>
+    <div class="item item-checkbox" ng-if="soc.twitter && !disableTwitter">
+        <label class="checkbox checkbox-calm">
+            <input type="checkbox" ng-click="alertTwitter()" ng-model="obj.twitter" resettable>
+        </label>
+        Twitter
+    </div>
+    <div class="item item-checkbox" ng-if="!soc.twitter || disableTwitter">
+        <label class="checkbox checkbox-stable">
+            <input type="checkbox" ng-click="alertSocial('twitter')" ng-disabled="warned.twitter">
+        </label>
+        Twitter
+    </div>
+    <div class="item item-checkbox" ng-if="soc.linkedin && (hideLinkedin == undefined || !hideLinkedin) && !disableLinkedin && !checkLinkedin">
+        <label class="checkbox checkbox-calm">
+            <input type="checkbox" ng-click="alertLinkedin()" ng-model="obj.linkedin" resettable>
+        </label>
+        LinkedIn
+    </div>
+    <div class="item item-checkbox" ng-if="soc.linkedin && (hideLinkedin == undefined || !hideLinkedin) && !disableLinkedin && checkLinkedin">
+        <label class="checkbox checkbox-calm">
+            <input type="checkbox" ng-checked="checkLinkedin" ng-disabled="checkLinkedin">
+        </label>
+        LinkedIn
+    </div>
+    <div class="item item-checkbox" ng-if="(!soc.linkedin || disableLinkedin) && (hideLinkedin == undefined || !hideLinkedin)">
+        <label class="checkbox checkbox-stable">
+            <input type="checkbox" ng-click="alertSocial('linkedin')" ng-disabled="warned.linkedin">
+        </label>
+        LinkedIn
+    </div>
+</div>

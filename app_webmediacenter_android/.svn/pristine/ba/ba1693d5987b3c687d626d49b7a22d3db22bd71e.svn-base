@@ -1,0 +1,51 @@
+<ion-view view-title="Dettaglio Recensione">
+    <ion-content afkl-image-container class="recensioni-detail">
+
+        <div class="card">
+            <div class="item item-thumbnail-left">
+            	<div class="autore">
+	                <div check-avatar afkl-lazy-image="{{recensione.avatar}}" class="afkl-lazy-wrapper item-thumbnail-img recensione-thumbnail"></div>
+	                <h2>{{recensione.autore}}</h2>
+                </div>
+                <div class="dettaglio">
+					<ng-include src="'templates/partial/recensioni/voto_'+recensione.voto+'.html'"></ng-include>
+	            	<p>{{recensione.timestamp+'000' | date: "dd/MM/yyyy - HH:mm"}}</p>
+	            </div>
+            </div>
+
+            <div class="item item-text-wrap commento">
+                <p ng-bind-html="recensione.commento"></p>
+            </div>
+
+        </div>
+        
+        <div class="card" ng-if="recensione.risposta != undefined">
+       		<div class="item item-divider">
+			    La tua risposta
+			</div>
+        	<div class="item item-text-wrap">
+	            <p ng-bind-html="recensione.risposta['commento']"></p>
+            </div>
+            <div class="item item-divider" ng-if="recensione.risposta.id_tipologia_stato == 3">
+				<h4>Risposta in validazione ({{recensione.risposta['timestamp']+'000' | date: "dd/MM/yyyy - HH:mm"}})</h4>
+			</div>
+			<div class="item item-divider" ng-if="recensione.risposta.id_tipologia_stato == 2">
+				<h4>Risposta non approvata ({{recensione.risposta['timestamp']+'000' | date: "dd/MM/yyyy - HH:mm"}})</h4>
+			</div>
+        </div>
+        
+        <form name="$parent.recensioneForm" novalidate unsaved-warning-form ng-if="recensione.risposta == undefined">
+            <label class="item item-input item-stacked-label">
+                <span class="input-label">Risposta</span>
+                <textarea name="commento" ng-model="risposta_commento" placeholder="Rispondi alla recensione" msd-elastic required resettable></textarea>
+            </label>
+
+            <div id="box-action" class="row">
+                <div class="col col-50 col-offset-25">
+                    <button type="submit" class="button button-full button-calm icon-left ion-reply" ng-click="reply(risposta_commento)" ng-disabled="!risposta_commento">Rispondi</button>
+                </div>
+            </div>
+        </form>
+
+    </ion-content>
+</ion-view>

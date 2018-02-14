@@ -1,0 +1,18 @@
+[
+    {
+        "merged": "D:\\wamp\\www\\app_webmediacenter\\platforms\\android\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\ic_action_remove.png",
+        "source": "D:\\wamp\\www\\app_webmediacenter\\platforms\\android\\res\\drawable-xhdpi\\ic_action_remove.png"
+    },
+    {
+        "merged": "D:\\wamp\\www\\app_webmediacenter\\platforms\\android\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\ic_action_next_item.png",
+        "source": "D:\\wamp\\www\\app_webmediacenter\\platforms\\android\\res\\drawable-xhdpi\\ic_action_next_item.png"
+    },
+    {
+        "merged": "D:\\wamp\\www\\app_webmediacenter\\platforms\\android\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\ic_action_previous_item.png",
+        "source": "D:\\wamp\\www\\app_webmediacenter\\platforms\\android\\res\\drawable-xhdpi\\ic_action_previous_item.png"
+    },
+    {
+        "merged": "D:\\wamp\\www\\app_webmediacenter\\platforms\\android\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\icon.png",
+        "source": "D:\\wamp\\www\\app_webmediacenter\\platforms\\android\\res\\drawable-xhdpi\\icon.png"
+    }
+]

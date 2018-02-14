@@ -1,0 +1,33 @@
+
+    <div class="row">
+        <div class="col text-center" ng-switch="convalida.stato">
+            <h4 class="balanced" ng-switch-when="1">Promozione convalidata</h4>
+            <h4 ng-switch-default>Convalida promozione</h4>
+        </div>
+    </div>
+
+    <div class="list card convalide-detail">
+
+        <div class="item item-icon-left">
+            <i class="icon fa fa-trophy fa-fw assertive"></i>
+            <h2>Richiesta da <strong>{{convalida.nome_utente}}</strong></h2>
+            <p>il giorno {{convalida.data}}</p>
+        </div>
+
+        <div class="item item-text-wrap text-center">
+            <p>Codice:</p>
+            <h1>{{convalida.codice}}</h1>
+        </div>
+
+        <div class="item item-body">
+            <p>{{convalida.nome_utente}} ha aderito alla seguente promozione il giorno {{convalida.data}}:</p>
+            <h3>{{convalida.descrizione}}</h3>
+        </div>
+
+    </div>
+
+    <div class="row" ng-if="convalida.stato == '0'">
+        <div class="col col-50 col-offset-25">
+            <button class="button button-full button-balanced icon-left ion-checkmark-circled" ng-click="convalida_checkin(convalida)">Convalida</button>
+        </div>
+    </div>

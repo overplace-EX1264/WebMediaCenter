@@ -1,0 +1,25 @@
+<ion-view view-title="Help">
+    <ion-content class="help-content">
+
+
+        <div class="list card" ng-repeat="modulo in listModuli | filter: isActive | orderBy: ['order']">
+
+            <div class="item item-body" ng-style="{'background-color': modulo.color}">
+                <span class="center fa fa-3x fa-fw light" ng-class="modulo.icon"></span>
+                <p class="title-module">{{modulo.name}}</p>
+
+            </div>
+            <div class="item item-text-wrap">
+                <p ng-bind-html="modulo.shortDescription"></p>
+            </div>
+
+            <div class="item tabs tabs-icon-right tab-help">
+                <a class="tab-item calm" ng-class="{'assertive': !modulo.active}" ng-href="#app/help/detail/{{modulo.id}}">
+                    Pi&ugrave; info
+                    <i class="icon ion-forward"></i>
+                </a>
+            </div>
+        </div>
+
+    </ion-content>
+</ion-view>

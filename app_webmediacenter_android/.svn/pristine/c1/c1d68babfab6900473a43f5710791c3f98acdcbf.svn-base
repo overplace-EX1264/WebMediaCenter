@@ -1,0 +1,64 @@
+	
+	<div class="card">
+		<div class="item item-icon-left">
+			<i class="icon ion-sad-outline assertive"></i>
+			<h2 class="assertive">Oh no!</h2>
+			<p class="text-wrap">Il modulo Chat non &egrave; attivo</p>
+		</div>
+	
+		<div class="item item-body">
+	        Attraverso il modulo chat potrai interagire e parlare in tempo reale con i visitatori del tuo sito o della tua vetrina Overplace, direttamente dal web media center o tramite questa comoda App.
+		</div>
+	</div>
+	
+	<div class="row text-center" ng-if="isSupport">
+		<div class="col">
+			<h4 class="dark">Chiama il nostro Customer Care per avere maggiori informazioni commerciali.</h4>
+		</div>
+	</div>
+	
+	<div class="row text-center" ng-if="isSupport">
+		<div class="col">
+			<button class="button button-large button-calm icon-left ion-ios-telephone" ng-click="call(support_phone)">{{support_phone}}</button>
+		</div>
+	</div>
+	
+	<div class="card inactive-card">
+	
+	    <div class="item item-text-wrap">
+	
+	        <p ng-bind-html="inactive.longDescription"></p>
+	
+	    </div>
+	
+	    <div class="item inactive-detail-list">
+	
+	        <p class="item item-divider">Vantaggi</p>
+	
+	        <div class="item item-text-wrap item-icon-left inactive-detail-list-item" ng-repeat="vantage in inactive.detail.vantage">
+	            <i class="icon ion-ios-checkmark-empty"></i>
+	            <p ng-bind-html="vantage"></p>
+	        </div>
+	    </div>
+	
+	    <div class="item inactive-detail-list">
+	
+	        <p class="item item-divider">Caratteristiche</p>
+	
+	        <div class="item item-text-wrap item-icon-left inactive-detail-list-item" ng-repeat="feature in inactive.detail.features">
+	            <i class="icon ion-ios-checkmark-empty"></i>
+	            <p ng-bind-html="feature"></p>
+	        </div>
+	    </div>
+	
+	    <div class="item inactive-detail-list" ng-if="inactive.detail.extra.length">
+	
+	        <p class="item item-divider">Extra</p>
+	
+	        <div class="item item-text-wrap item-icon-left inactive-detail-list-item" ng-repeat="extra in inactive.detail.extra">
+	            <i class="icon ion-ios-checkmark-empty"></i>
+	            <p ng-bind-html="extra"></p>
+	        </div>
+	    </div>
+	</div>
+	

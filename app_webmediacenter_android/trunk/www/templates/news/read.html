@@ -1,0 +1,35 @@
+<ion-view view-title="Dettaglio news">
+    <ion-content class="news-detail-content" afkl-image-container>
+				
+	    <div class="list card">
+	
+	        <div class="item item-icon-left">
+	        	<i class="icon ion-quote calm"></i>
+	            <h2>{{news.titolo}}</h2>
+	            <p>Pubblicata il {{news.data_inizio_pubblicazione | date:"dd/MM/yyyy 'alle' HH:mm"}}</p>
+	        </div>
+	        
+	        <div class="item item-body">
+	        	<div afkl-lazy-image="{{news.filename}}" class="afkl-lazy-wrapper"></div>
+	            <p class="angular-with-newlines" ng-bind-html="news.testo"></p>
+	        </div>
+	    
+	    	<div class="item tabs tabs-secondary tabs-icon-top">
+	    		<p class="tab-item positive" ng-click="openInBrowser(news, 'news', 'overplace')"><img src="img/social_ovp.png">Pubblicato</p>
+	    		<p class="tab-item" ng-class="{'positive': news.facebook == 1}" ng-click="openInBrowser(news, 'news', 'facebook')"><i class="icon ion-social-facebook"></i>{{news.facebook == 1 ? 'Pubblicato' : 'Non pubblicato'}}</p>
+	    		<p class="tab-item" ng-class="{'positive': news.twitter == 1}" ng-click="openInBrowser(news, 'news', 'twitter')"><i class="icon ion-social-twitter"></i>{{news.twitter == 1 ? 'Pubblicato' : 'Non pubblicato'}}</p>
+			</div>
+		
+		</div>
+	
+		<div class="row">
+			<div class="col col-50" ng-class="{'col-offset-25': news.notifiche.pendenti.sms || news.notifiche.pendenti.email}">
+				<a class="button button-block button-energized icon-left ion-edit" href="#/app/news/{{news.id}}/edit">Modifica</a>
+     		</div>
+     		<div class="col col-50" ng-if="!news.notifiche.pendenti.sms && !news.notifiche.pendenti.email">
+     			<button class="button button-block button-assertive icon-left ion-trash-a" ng-click="delete(news)">Elimina</button>
+     		</div>
+ 		</div>
+ 				
+	</ion-content>
+</ion-view>

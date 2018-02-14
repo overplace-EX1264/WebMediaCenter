@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        jar="D:\wamp\www\ionic\app_webmediacenter\platforms\android\libs\gcm.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.3"
+        sha1="a6d7bce795a14c7f86111756c4ceb44b79de14aa">
+        <dex dex="D:\wamp\www\ionic\app_webmediacenter\platforms\android\build\intermediates\pre-dexed\release\gcm_2ce9036f7455c0f2a36543fd19f6dc6d8a41bbd2.jar" />
+    </item>
+    <item
+        jar="D:\wamp\www\ionic\app_webmediacenter\platforms\android\libs\sqlite-connector.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.3"
+        sha1="76169ab23a4f939925491c6fe186749da5a56ee9">
+        <dex dex="D:\wamp\www\ionic\app_webmediacenter\platforms\android\build\intermediates\pre-dexed\release\sqlite-connector_163bec98722b64c4dcaac02b3003109c390a8bb3.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="D:\wamp\www\ionic\app_webmediacenter\platforms\android\libs\gcm.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.3"
+        sha1="a6d7bce795a14c7f86111756c4ceb44b79de14aa">
+        <dex dex="D:\wamp\www\ionic\app_webmediacenter\platforms\android\build\intermediates\pre-dexed\debug\gcm_2ce9036f7455c0f2a36543fd19f6dc6d8a41bbd2.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="D:\wamp\www\ionic\app_webmediacenter\platforms\android\libs\sqlite-connector.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.3"
+        sha1="76169ab23a4f939925491c6fe186749da5a56ee9">
+        <dex dex="D:\wamp\www\ionic\app_webmediacenter\platforms\android\build\intermediates\pre-dexed\debug\sqlite-connector_163bec98722b64c4dcaac02b3003109c390a8bb3.jar" />
+    </item>
+    <item
+        jar="D:\wamp\www\ionic\app_webmediacenter\platforms\android\libs\android-support-v13.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.3"
+        sha1="f5fa2183e286730a81f3076f19022539902a24f3">
+        <dex dex="D:\wamp\www\ionic\app_webmediacenter\platforms\android\build\intermediates\pre-dexed\release\android-support-v13_e57a11d2a3a8f97eb14568873a86c93abaa7bae0.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="D:\wamp\www\ionic\app_webmediacenter\platforms\android\build\intermediates\exploded-aar\org.apache.cordova\CordovaLib\6.2.0\release\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.3"
+        sha1="65e750c99be03d16976405ab38dc5df773e09ba0">
+        <dex dex="D:\wamp\www\ionic\app_webmediacenter\platforms\android\build\intermediates\pre-dexed\release\CordovaLib-6.2.0-release_7442020d3d904baba95b6c3e413701e7f44042d5.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="D:\wamp\www\ionic\app_webmediacenter\platforms\android\libs\android-support-v13.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.3"
+        sha1="f5fa2183e286730a81f3076f19022539902a24f3">
+        <dex dex="D:\wamp\www\ionic\app_webmediacenter\platforms\android\build\intermediates\pre-dexed\debug\android-support-v13_e57a11d2a3a8f97eb14568873a86c93abaa7bae0.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="D:\wamp\www\ionic\app_webmediacenter\platforms\android\build\intermediates\exploded-aar\org.apache.cordova\CordovaLib\6.2.0\debug\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.3"
+        sha1="a111dee4a8e3842e2a178c6128ede83d0b4667fa">
+        <dex dex="D:\wamp\www\ionic\app_webmediacenter\platforms\android\build\intermediates\pre-dexed\debug\CordovaLib-6.2.0-debug_49c586d3e4c8f6c0cced2c819f03e23ffef0d26d.jar" />
+    </item>
+
+</items>

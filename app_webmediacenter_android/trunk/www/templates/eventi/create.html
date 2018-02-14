@@ -1,0 +1,73 @@
+<ion-view view-title="Crea evento">
+    <ion-content class="eventi-operation-content" afkl-image-container>
+    	
+    	<form name="$parent.eventoForm" class="eventi-form" unsaved-warning-form novalidate>
+    	    
+			<label class="item item-input item-stacked-label">
+	   			<span class="input-label">Titolo</span>
+	   			<input type="text" ng-model="evento.titolo" placeholder="Inserisci il titolo" required resettable>
+			</label>
+			
+			<label class="item item-input item-stacked-label">
+	   			<span class="input-label">Testo</span>
+	   			<textarea msd-elastic ng-model="evento.testo" placeholder="Inserisci il testo" required resettable></textarea>
+	 		</label>
+	 		
+	 		<label ng-click="changeDate('inizio')" class="item item-input item-stacked-label">
+	   			<span class="input-label">Inizio evento</span>
+	   			<p>Dal {{evento.data_inizio_evento | date:"dd/MM/yyyy 'alle' HH:mm"}}</p>
+	 		</label>
+	 		
+	 		<label ng-click="changeDate('fine')" class="item item-input item-stacked-label">
+	   			<span class="input-label">Fine evento</span>
+	   			<p>Al {{evento.data_fine_evento | date:"dd/MM/yyyy 'alle' HH:mm"}}</p>
+	 		</label>
+	 			
+	 		<div class="item item-input item-stacked-label">
+	  			<span class="input-label">Immagine</span>
+	  			<div afkl-lazy-image="{{evento.filename}}" class="afkl-lazy-wrapper image-loader-container"></div>
+			</div>
+	
+			<div id="box-gallery-action" class="row">
+	          		<div class="col col-33">
+	              		<button class="button button-block button-calm icon-left ion-camera" ng-click="takePhoto()">Scatta</button>
+	          		</div>
+	          		<div class="col col-33">
+	              		<button class="button button-block button-calm icon-left ion-image" ng-click="getPhotoAlbum()">Gallery</button>
+	          		</div>
+	          		<div class="col col-33">
+	              		<button class="button button-block button-calm icon-left ion-android-refresh" ng-click="removePhoto()">Default</button>
+	          		</div>
+	      		</div>
+	       	</div>
+
+            <social-checkbox
+                    hide-facebook="true"
+                    hide-alert-twitter="true"
+                    hide-linkedin="true"
+                    social-assign="social"
+                    controller-assign="evento" >
+            </social-checkbox>
+
+            <notifiche-checkbox
+                    mode="create"
+                    notifiche-messaggi="notifiche.messaggi"
+                    status-checkbox="notifiche_checkbox"
+                    controller-assign="evento" >
+            </notifiche-checkbox>
+	       	 
+	       	<div id="box-action" class="row">
+		        <div class="col col-50 col-offset-25">
+		        	<input type="hidden" ng-model="evento.data_inizio_evento" required resettable>
+		        	<input type="hidden" ng-model="evento.data_fine_evento" required resettable>
+	   				<input type="hidden" ng-model="evento.filename" required resettable>
+	   				
+		        	<button type="submit" class="button button-full button-balanced icon-left ion-android-checkmark-circle" ng-click="create(evento)" ng-disabled="eventoForm.$invalid || (eventoForm.$dirty && eventoForm.$invalid) || isEqual()">Salva</button>
+		        </div>
+		    </div>
+		    
+	    </form>
+	    
+				
+	</ion-content>
+</ion-view>

@@ -1,0 +1,39 @@
+<ion-view view-title="Eventi">
+    <ion-content class="eventi-content" afkl-image-container>
+
+        <ion-refresher pulling-text="Trascina per aggiornare..." on-refresh="refresh()"></ion-refresher>
+
+        <div class="card">
+            <div class="item item-text-wrap">
+                <p>Crea e gestisci i tuoi eventi. Condividili sui social ed invia un messaggio ai tui contatti.</p>
+            </div>
+        </div>
+        
+        <div class="row">
+        	<div class="col col-50 col-offset-25">
+        		<a class="button button-block button-calm icon-left ion-plus" href="#/app/eventi/create">Crea un evento</a>
+        	</div>
+ 		</div>
+
+        <ion-list can-swipe="true" show-delete="showDelete" ng-show="eventi_list.length > 0">
+
+            <ion-item class="item-remove-animate item-thumbnail-left item-icon-right" ng-repeat="evento in eventi_list | orderBy: '-data_inizio_evento'" href="#/app/eventi/{{evento.id}}">
+				
+				<div afkl-lazy-image="{{evento.filename}}" class="afkl-lazy-wrapper item-thumbnail-img"></div>
+                <h2>{{evento.titolo}}</h2>
+                <p>{{evento.testo}}</p>
+                <p>Dal {{evento.data_inizio_evento | date:'dd/MM/yyyy - HH:mm'}}</p>
+                <p>Al {{evento.data_fine_evento | date:'dd/MM/yyyy - HH:mm'}}</p>
+                <i class="icon ion-chevron-right icon-accessory"></i>
+								
+				<ion-option-button class="button-energized ion-edit" ng-click="edit(evento.id)"></ion-option-button>
+                <ion-option-button class="button-assertive ion-trash-a" ng-click="delete(evento)" ng-if="!evento.notifiche.pendenti.sms && !evento.notifiche.pendenti.email"></ion-option-button>
+                
+            </ion-item>
+
+        </ion-list>
+
+        <ion-infinite-scroll ng-if="isAvailable" on-infinite="loadEventi()" distance="5%"></ion-infinite-scroll>
+
+    </ion-content>
+</ion-view>

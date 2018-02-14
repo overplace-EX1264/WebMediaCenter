@@ -1,0 +1,10 @@
+[
+    {
+        "merged": "D:\\wamp\\www\\ionic\\app_webmediacenter\\platforms\\android\\build\\intermediates\\res\\merged\\debug\\raw\\iconb_large.png",
+        "source": "D:\\wamp\\www\\ionic\\app_webmediacenter\\platforms\\android\\res\\raw\\iconb_large.png"
+    },
+    {
+        "merged": "D:\\wamp\\www\\ionic\\app_webmediacenter\\platforms\\android\\build\\intermediates\\res\\merged\\debug\\raw\\iconb.png",
+        "source": "D:\\wamp\\www\\ionic\\app_webmediacenter\\platforms\\android\\res\\raw\\iconb.png"
+    }
+]

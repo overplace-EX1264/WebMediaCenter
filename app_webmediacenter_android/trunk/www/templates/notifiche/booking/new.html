@@ -1,0 +1,56 @@
+
+    <div class="card notifica-element">
+        <div class="item item-icon-left">
+            <i class="icon fa fa-bed fa-fw positive"></i>
+            <h2>{{notifica.testo}}</h2>
+            <p>Codice: <strong>{{notifica.codice_prenotazione}}</strong></p>
+        </div>
+
+        <div class="item item-body text-center">
+            <h4 class="balanced" ng-bind-html="notifica.titolo"></h4>
+        </div>
+
+
+        <div class="item tabs tabs-icon-top">
+            <div class="tab-item">
+                <i class="icon ion-person-stalker"></i>
+                Numero ospiti: <strong>{{notifica.numero_persone}}</strong>
+            </div>
+            <div class="tab-item">
+                <i class="icon ion-card"></i>
+                Prezzo: <strong ng-bind-html="notifica.prezzo"></strong>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="row notifica-title">
+        <div class="col text-center">
+            <h4 class="dark">Dettaglio prenotazione</h4>
+        </div>
+    </div>
+
+    <div class="card notifica-detail">
+
+        <div class="item item-text-wrap">
+            <p><strong>Email utente:</strong></p>
+            <p>{{notifica.email_utente}}</p>
+            <div class="item-separator"></div>
+            <p><strong>Periodo:</strong></p>
+            <p>dal {{notifica.data_inizio_prenotazione | date:'yyyy-MM-dd'}} al {{notifica.data_fine_prenotazione}}</p>
+            <div class="item-separator"></div>
+            <p><strong>Numero di persone:</strong> {{notifica.numero_persone}}</p>
+            <div class="item-separator"></div>
+            <p><strong>Metodo di pagamento:</strong></p>
+            <p ng-bind-html="notifica.metodo_pagamento"></p>
+            <div class="item-separator"></div>
+            <p><strong>Prezzo totale:</strong> <span ng-bind-html="notifica.prezzo"></span></p>
+            <div class="item-separator"></div>
+            <p><strong>Condizioni applicate:</strong></p>
+            <p ng-bind-html="notifica.condizioni_applicate"></p>
+            <div class="item-separator"></div>
+            <p><strong>Note:</strong></p>
+            <p ng-bind-html="notifica.note_prenotazione"></p>
+        </div>
+
+    </div>

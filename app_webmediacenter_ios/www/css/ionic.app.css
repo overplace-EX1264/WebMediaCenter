@@ -12159,3 +12159,39 @@ ion-list {
   background-color: rgba(0,0,0,0);
   color: rgb(51, 51, 51);
 }
+#customBtn {
+  display: inline-block;
+  background: white;
+  color: #444;
+  width: 190px;
+  border-radius: 5px;
+  border: thin solid #888;
+  box-shadow: 1px 1px 1px grey;
+  white-space: nowrap;
+  margin-left: 21%;
+  margin-top: 20px;
+}
+#customBtn:hover {
+  cursor: pointer;
+}
+.buttonText.customGPlusSignIn {
+  display: inline-block;
+  vertical-align: middle;
+  font-size: 14px;
+  font-weight: bold;
+  /* Use the Roboto font that is loaded in the <head> */
+  font-family: 'Roboto', sans-serif;
+}
+.icon.customGPlusSignIn{
+  background: url(../img/g-normal.png) transparent 5px 50% no-repeat;
+  display: inline-block;
+  vertical-align: middle;
+  width: 42px;
+  height: 42px;
+}
+i.fa.fa-youtube-play.original{
+  color: red;
+}
+img.afkl-lazy-wrapper.image-loader-container.withMax{
+  width: 100%;
+}

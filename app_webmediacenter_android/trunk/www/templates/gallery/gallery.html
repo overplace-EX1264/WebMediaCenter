@@ -1,0 +1,51 @@
+<ion-view view-title="Gallery">
+    <ion-content class="gallery-content">
+    	<form name="$parent.galleryForm" class="gallery-form" novalidate>
+			<div class="card">
+	        	<div class="item item-text-wrap">
+	            	<p>Scatta una foto o scegli un immagine dalla galleria del tuo device, inviala al Web Media Center e utilizzala per popolare i contenuti dei tuoi moduli</p>
+	            </div>
+			</div>
+			
+			<div id="box-gallery-action" class="row">
+	         	<div class="col col-50">
+	            	<button class="button button-block button-calm icon-left ion-camera" ng-click="takePhoto()">Scatta</button>
+	         	</div>
+	         	<div class="col col-50">
+	            	<button class="button button-block button-calm icon-left ion-image" ng-click="getPhotoAlbum()">Gallery</button>
+	         	</div>
+	   		</div>
+	   		<div class="row" ng-if="gallery.filename !== null" id="container-immagine">
+	   			<div class="col">
+		  			<img ng-src="{{gallery.filename}}" class="gallery-image"/>
+	  			</div>
+			</div>
+			<div id="box-gallery-action" class="row" ng-if="gallery.filename !== null">
+	         	<div class="col col-50 col-offset-25">
+	            	<button class="button button-block button-calm icon-left ion-minus-circled" ng-click="removePhoto()">Annulla</button>
+	         	</div>
+	   		</div>
+	   		<div ng-if="gallery.filename !== null">
+		   		<div class="card">
+		   			<div class="item item-text-wrap">
+		            	<p>Scegli i moduli Overplace per cui la tua foto diverr&agrave; disponibile.</p>
+		            </div>
+		   		</div>
+				<div class="list">
+					<div ng-repeat="modulo in gallery.moduli_attivi" class="item item-checkbox">
+						<label class="checkbox checkbox-calm">
+				            <input type="checkbox" ng-model="modulo.checked" ng-checked="modulo.checked" ng-click="selectModulo(modulo)">
+				        </label>
+				         {{ modulo.modulo }}
+			        </div>
+			    </div>
+			    <div id="box-action" class="row">
+			        <div class="col col-50 col-offset-25">
+		   				<input type="hidden" ng-model="gallery.filename" required>
+			        	<button type="submit" class="button button-full button-balanced icon-left ion-android-checkmark-circle" ng-click="create(gallery)" ng-disabled="formInvalid">Salva</button>
+			        </div>
+			    </div>
+		    </div>
+	    </form>
+    </ion-content>
+</ion-view>

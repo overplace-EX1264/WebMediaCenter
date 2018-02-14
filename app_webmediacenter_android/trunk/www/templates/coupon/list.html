@@ -1,0 +1,68 @@
+<ion-view view-title="Coupon">
+
+	<ion-content ng-switch="moduloCoupon" class="coupon-content" afkl-image-container>
+		<div ng-switch-when="false">
+			<ng-include src="'templates/coupon/inactive.html'"></ng-include>
+		</div>
+
+    	<div ng-switch-default>
+	    	<ion-refresher pulling-text="Trascina per aggiornare..." on-refresh="refresh()"></ion-refresher>
+	
+	        <div class="card">
+	            <div class="item item-text-wrap">
+	                <p>Crea o gestisci il tuo Coupon. Condividilo sui social ed invia un messaggio ai tuoi contatti.</p>
+	            </div>
+	        </div>
+			
+			<div class="row">
+        		<div class="col col-50 col-offset-25">
+        			<a class="button button-block button-calm icon-left ion-plus" href="#/app/coupon/create">Crea un coupon</a>
+        		</div>
+ 			</div>
+
+            <div class="list card" ng-repeat="coupon in coupon_list | filter: { active: 1 }" >
+
+                <div ng-class="{'approved item': coupon.id_tipologia_stato == 1,
+                                'rejected item': coupon.id_tipologia_stato == 2,
+                                'pending item': coupon.id_tipologia_stato == 3}">
+
+                    <h2 ng-pluralize
+                        count="coupon.id_tipologia_stato"
+                        when="{ '1': 'Coupon attivo e approvato',
+                                '2': 'Coupon non approvato',
+                                'other': 'Coupon in attesa di approvazione'}" >
+                    </h2>
+                </div>
+                <div class="item item-text-wrap" >
+                    <div afkl-lazy-image="{{coupon.filename}}" class="afkl-lazy-wrapper full-image" ></div>
+                    <h2 class="coupon-titolo-sconto">{{coupon.sconto}}</h2>
+                    <p>{{coupon.titolo}}</p>
+                    <p>Da {{coupon.data_inizio_erogazione | date: "dd/MM/yyyy" }} a {{coupon.data_fine_erogazione | date: "dd/MM/yyyy" }}</p>
+                </div>
+                <a class="item item-icon-right" href="#/app/coupon/{{coupon.id}}">Vedi dettaglio <i class="icon ion-chevron-right icon-accessory" ></i></a>
+            </div>
+
+            <ion-list can-swipe="true" show-delete="showDelete" ng-show="coupon_list.length > 0" class="coupon-list" >
+                <ion-item class="item-remove-animate item-thumbnail-left item-icon-right" ng-repeat="coupon in coupon_list | filter: { active: 0 }" href="#/app/coupon/{{coupon.id}}" >
+                    <div afkl-lazy-image="{{coupon.filename}}" class="afkl-lazy-wrapper item-thumbnail-img" ></div>
+                    <h2>{{coupon.sconto}}</h2>
+                    <p>{{coupon.titolo}}</p>
+                    <p>Da {{coupon.data_inizio_erogazione | date: "dd/MM/yyyy" }} a {{coupon.data_fine_erogazione | date: "dd/MM/yyyy" }}</p>
+
+                    <p ng-switch="coupon.id_tipologia_stato">
+                        <span ng-switch-when="1" class="balanced">Approvato</span>
+                        <span ng-switch-when="2" class="assertive">Respinto</span>
+                        <span ng-switch-default class="energized">In approvazione</span>
+                    </p>
+                    <i class="icon ion-chevron-right icon-accessory"></i>
+
+                    <ion-option-button class="button-energized ion-edit" ng-click="edit(coupon.id)"></ion-option-button>
+                    <ion-option-button class="button-assertive ion-trash-a" ng-click="delete(coupon)" ng-if="!coupon.notifiche.pendenti.sms && !coupon.notifiche.pendenti.email"></ion-option-button>
+
+                </ion-item>
+            </ion-list>
+
+            <ion-infinite-scroll ng-if="isAvailable" on-infinite="loadCoupon()" distance="5%"></ion-infinite-scroll>
+		</div>
+    </ion-content>
+</ion-view>

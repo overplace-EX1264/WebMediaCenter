@@ -1,0 +1,10 @@
+[
+    {
+        "merged": "D:\\wamp\\www\\app_webmediacenter\\platforms\\android\\build\\intermediates\\res\\merged\\debug\\xml\\config.xml",
+        "source": "D:\\wamp\\www\\app_webmediacenter\\platforms\\android\\res\\xml\\config.xml"
+    },
+    {
+        "merged": "D:\\wamp\\www\\ionic\\app_webmediacenter\\platforms\\android\\build\\intermediates\\res\\merged\\debug\\xml\\config.xml",
+        "source": "D:\\wamp\\www\\ionic\\app_webmediacenter\\platforms\\android\\res\\xml\\config.xml"
+    }
+]

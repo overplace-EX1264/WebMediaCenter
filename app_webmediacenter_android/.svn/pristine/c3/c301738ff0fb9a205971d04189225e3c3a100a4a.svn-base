@@ -1,0 +1,27 @@
+<ion-view view-title="Chat con {{chatName}}" >
+
+    <ion-content class="ovp-chat-content">
+        <ion-list>
+
+            <ion-item class="item-ovp-chat-detail" ng-repeat="chat in talk track by $index" ng-class="{'item-avatar item-text-wrap' : chat.sender == 'user', 'item-avatar-right item-text-wrap' : chat.sender == 'me'}">
+
+                <img ng-src="http:{{chat.actor.image.url}}">
+
+                <span ng-class="{'item-note-left' : chat.sender == 'me'}" class="item-note">{{chat.pubHour}}</span>
+                <h2 ng-class="{'text-left' : chat.sender == 'user', 'text-right' : chat.sender == 'me'}">{{chat.actor.displayName}}</h2>
+                <p>{{chat.body}}</p>
+
+            </ion-item>
+
+        </ion-list>
+    </ion-content>
+
+    <ion-footer-bar class="item-input-inset ovp-chat-footer">
+        <label class="item item-input-wrapper">
+            <i class="icon ion-android-textsms placeholder-icon"></i>
+            <input constantfocus="1" type="text" placeholder="Scrivi un messaggio" ng-model="myResponse">
+        </label>
+        <button class="button button-assertive button-chat-rispondi" ng-click="sendResponse(myResponse, currentChannel)"><i class="icon ion-android-send"></i></button>
+    </ion-footer-bar>
+
+</ion-view>

@@ -1,0 +1,40 @@
+<ion-view view-title="Chat">
+	
+    <ion-content ng-switch="moduloChat">
+		<div ng-switch-when="false">
+			<ng-include src="'templates/chat/inactive.html'"></ng-include>
+		</div>
+
+		<div ng-switch-default>
+	        <div class="card">
+	            <div class="item item-text-wrap">
+	               <p>Gestisci le conversazioni con i tuoi clienti, per eliminare una chat trascinala verso sinistra e premi il simbolo del cestino.</p>
+	            </div>
+	        </div>
+
+			<div class="card text-center" ng-if="chats.length == 0">
+				<div class="item item-text-wrap">
+					<p>Nessuna conversazione presente</p>
+				</div>
+			</div>
+			
+	        <ion-list type="card" can-swipe="true" ng-if="chats.length > 0">
+	
+	            <ion-item class="item-remove-animate item-avatar item-ovp-chat" ng-repeat="chat in chats" type="item-text-wrap" href="#/app/chat/{{chat.channelReference}}" ng-click="chat.toRead = false; minusCounter(chat.channelReference);">
+	
+	                <img ng-src="http:{{chat.avatar}}">
+	
+	                <span ng-class="{'item-to-read': chat.pending > 0}" class="item-note">{{chat.printDate}}</span>
+	                <h2>{{chat.name}}</h2>
+	                <p>{{chat.lastMessage}}</p>
+	                <span ng-show="chat.pending > 0" class="badge badge-assertive">{{chat.pending}}</span>
+	
+	                <ion-option-button class="button-assertive icon ion-trash-a button-slide" ng-click="remove(chat)"></ion-option-button>
+	
+	            </ion-item>
+	
+	        </ion-list>
+
+		</div>
+    </ion-content>
+</ion-view>

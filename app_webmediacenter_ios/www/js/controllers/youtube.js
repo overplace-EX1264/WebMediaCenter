@@ -32,17 +32,17 @@ angular.module('youtube.controllers', [])
                             $scope.youtubeChannelList = listData;
                             $ionicLoading.hide();
                         }, function(error){ 
-                            alert(JSON.stringify(error));
+                            console.log(JSON.stringify(error));
                             $ionicLoading.hide();
                     });
                 },
                 function (err) {
-                  alert(JSON.stringify(err));
+                  console.log(JSON.stringify(err));
                   $ionicLoading.hide();
                 });       
           },
           function (error) {
-            alert(JSON.stringify(error))
+            console.log(JSON.stringify(error))
             $ionicLoading.hide();
           });       
       };
@@ -58,12 +58,12 @@ angular.module('youtube.controllers', [])
                 'q': '', 
                 'type': 'video'
                 }).then(function(listData){ 
-                    // alert("listData");                
-                    // alert(JSON.stringify(listData));
+                    // console.log("listData");                
+                    // console.log(JSON.stringify(listData));
                 $scope.youtubeChannelList = listData;
                 $ionicLoading.hide();
             }, function(error){ 
-                alert(JSON.stringify(error));
+                console.log(JSON.stringify(error));
                 $ionicLoading.hide();
             });
       }
@@ -79,8 +79,8 @@ angular.module('youtube.controllers', [])
                 Youtube.removeUser();
             },
             function(fail){
-                alert("eee");                
-                alert(JSON.stringify(fail));                
+                console.log("eee");                
+                console.log(JSON.stringify(fail));                
                 console.log(fail);
                 $ionicLoading.hide();
             }
@@ -94,7 +94,7 @@ angular.module('youtube.controllers', [])
                             console.log(msg)
                             $scope.getList();
                         }, function(error){ 
-                            alert(JSON.stringify(error));
+                            console.log(JSON.stringify(error));
                             $ionicLoading.hide();
                     });
       }
@@ -144,7 +144,7 @@ angular.module('youtube.controllers', [])
             };
             var captureError = function(error) {
                 $ionicLoading.hide();
-                navigator.notification.alert('Error code: ' + error.code, null, 'Capture Error');
+                navigator.notification.console.log('Error code: ' + error.code, null, 'Capture Error');
             };
             navigator.device.capture.captureVideo(captureSuccess, captureError, {limit:2});
     }
@@ -160,7 +160,7 @@ angular.module('youtube.controllers', [])
             // var fSExt = new Array('Bytes', 'KB', 'MB', 'GB'),
             // i=0;while(args.file.size>900){args.file.size/=1024;i++;}
             // $scope.size = (Math.round(args.file.size*100)/100)+' '+fSExt[i];
-            // alert(exactSize);
+            // console.log(exactSize);
             $scope.defaultIcon = false;
             $ionicLoading.hide();
         });
@@ -187,14 +187,14 @@ angular.module('youtube.controllers', [])
         $scope.user = Youtube.getUser();
         var metadata = {
             snippet : {
-                categoryId: '22',
+                categoryId: '25',
                 defaultLanguage: 'en',
                 description: $scope.youtube.descrizione,
                 tags: $scope.youtube.keyword.split(','),
                 title: $scope.youtube.titolo,
             },
             status :{
-                privacyStatus: $scope.youtube.privacy,
+                privacyStatus: "public",
             }              
         };
         var params = {'part': 'snippet,status'};
@@ -214,7 +214,7 @@ angular.module('youtube.controllers', [])
                     var errorResponse = JSON.parse(data);
                     message = errorResponse.error.message;
                 } finally {
-                    alert(JSON.stringify(message));
+                    console.log(JSON.stringify(message));
                 }
             },
             onProgress: function(data) {
@@ -231,7 +231,7 @@ angular.module('youtube.controllers', [])
                 var uploadResponse = JSON.parse(data);
                 console.log('Upload complete for video ' + uploadResponse.id);
                 $ionicLoading.hide();
-                alert("Upload complete ");
+                console.log("Upload complete ");
                 $scope.uploaded = 0;
                 $ionicHistory.goBack();
             }
@@ -290,10 +290,11 @@ angular.module('youtube.controllers', [])
                     keyword : response.items[0].snippet.tags,
                     privacy : response.items[0].status.privacyStatus,
                 }
+                $scope.thumb = response.items[0].snippet.thumbnails.maxres.url;
                 console.log(response);
                 $ionicLoading.hide();
             }, function(error){ 
-                alert(JSON.stringify(error));
+                console.log(JSON.stringify(error));
                 $ionicLoading.hide();
             });
     $scope.id = $stateParams.id;
@@ -312,7 +313,7 @@ angular.module('youtube.controllers', [])
                         {'part': 'snippet,status'},
                         {   'id': $scope.id,
                             'snippet' : {
-                                'categoryId': '22',
+                                'categoryId': '25',
                                 'defaultLanguage': 'en',
                                 'description': $scope.youtube.descrizione,
                                 'tags': $scope.youtube.keyword,
@@ -326,12 +327,12 @@ angular.module('youtube.controllers', [])
                                     alert("Successfully Updated");
                                     $ionicHistory.goBack();
                                 }, function(error){ 
-                                    alert(JSON.stringify(error));
+                                    console.log(JSON.stringify(error));
                                     $ionicLoading.hide();
                                 });
             },
             function (err) {
-              alert(JSON.stringify(err));
+              console.log(JSON.stringify(err));
               $ionicLoading.hide();
             });       
         
