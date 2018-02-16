@@ -339,11 +339,6 @@ angular.module('youtube.controllers', [])
       }
       
       function win(r) {
-        console.log(r)
-        console.log("Code = " + r.responseCode);
-        console.log("Response = " + r.response);
-        console.log("Sent = " + r.bytesSent);
-        console.log(r.response);
         // console.log(JSON.parse(r.response));
         var dat = JSON.parse(r.response);
         // if (r.response.snippet.title == "unknown" || r.response.snippet.title == "") {
@@ -364,7 +359,11 @@ angular.module('youtube.controllers', [])
                            }      
                    }).then(function(response){ 
                                    $ionicLoading.hide();
-                                   alert("Successfully Saved");
+                                //    alert("Successfully Saved");
+                                var myPopup = $ionicPopup.alert({
+                                    title: 'Successo',
+                                    template: "Caricato con successo il video"
+                                 });  
                                    $ionicHistory.goBack();
                                }, function(error){ 
                                    $ionicLoading.hide();

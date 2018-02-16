@@ -359,7 +359,11 @@ angular.module('youtube.controllers', [])
                            }      
                    }).then(function(response){ 
                                    $ionicLoading.hide();
-                                   alert("Successfully Saved");
+                                //    alert("Successfully Saved");
+                                var myPopup = $ionicPopup.alert({
+                                    title: 'Successo',
+                                    template: "Caricato con successo il video"
+                                 });  
                                    $ionicHistory.goBack();
                                }, function(error){ 
                                    $ionicLoading.hide();
