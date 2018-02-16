@@ -72,19 +72,19 @@
 						<!-- <video class="afkl-lazy-wrapper image-loader-container" controls="controls" id="vid">
 							<source src="{{videoPath}}" type="">
 						</video> -->
-						<img src="img/img.png" class="afkl-lazy-wrapper image-loader-container withMax" >
-						<!-- <video width="100%" height="190" class="afkl-lazy-wrapper image-loader-container" src="{{clipSrc2}}" controls>
+						<!-- <img src="img/img.png" class="afkl-lazy-wrapper image-loader-container withMax" > -->
+						<video width="100%" height="190" class="afkl-lazy-wrapper image-loader-container" src="{{clipSrc2}}" controls>
 					
-						  </video> -->
+						  </video>
 				  </div>
 			</div>
 			<div class="item item-input item-stacked-label" ng-show="id">
 				<span class="input-label">Video</span>
 				<!-- <div afkl-lazy-image="{{youtube.filename}}" class="afkl-lazy-wrapper image-loader-container" ng-if="defaultIcon"></div> -->
 				<div style="width: 100%;" class="afkl-lazy-wrapper image-loader-container" ng-if="!defaultIcon">
-					<!-- <iframe  ng-src="{{id| youtubeTrusted}}" 
-					frameborder="0" allowfullscreen style="width:100%"></iframe> -->
-					<img src="{{thumb}}" class="afkl-lazy-wrapper image-loader-container withMax" >
+					<iframe  ng-src="{{id| youtubeTrusted}}" 
+					frameborder="0" allowfullscreen style="width:100%"></iframe>
+					<!-- <img src="{{thumb}}" class="afkl-lazy-wrapper image-loader-container withMax" > -->
 					
 				   <!-- <p>Display output for control reasons: {{id | youtubeTrusted}}</p> -->
 				</div>
@@ -96,27 +96,27 @@
 			<!-- <input type="file" name="file[]" class="file_multi_video" accept="video/*" > -->
 
 			<div id="box-gallery-action" class="row" ng-hide="id">
-	          		<div class="col col-60">
+	          		<!-- <div class="col col-60">
 	              		<button class="button button-block button-calm icon-left ion-videocamera" onclick="document.getElementById('file').click()">Allegare un video</button>
-					</div>
-					<div class="col col-40" ng-if="size">
+					</div> -->
+					<!-- <div class="col col-40" ng-if="size">
 						<label class="label">Dimensione : {{size}} MB</label>
 
-					</div>  
+					</div>   -->
 	      		</div>
 	       	</div>
-			<!-- <div id="box-gallery-action" class="row">
-	          		<div class="col col-33">
-	              		<button class="button button-block button-calm icon-left ion-camera" ng-click="takeVideo()">Scatta</button>
+			<div id="box-gallery-action" class="row">
+	          		<div class="col col-50">
+	              		<button class="button button-block button-calm icon-left ion-videocamera" ng-click="takeVideo()">Scatta</button>
 	          		</div>
-	          		<div class="col col-33">
+	          		<div class="col col-50">
 	              		<button class="button button-block button-calm icon-left ion-image" ng-click="getVideoAlbum()">Gallery</button>
 	          		</div>
-	          		<div class="col col-33">
+	          		<!-- <div class="col col-33">
 	              		<button class="button button-block button-calm icon-left ion-android-refresh" ng-click="removeVideo()">Default</button>
-	          		</div>
+	          		</div> -->
 	      		</div>
-	       	</div> -->
+	       	</div>
 			<!-- <div id="box-gallery-action" class="row">
 					<div class="col col-33">
 							{{uploadingLeng}}
@@ -132,7 +132,9 @@
 			  </div> -->
 			<div id="box-action" class="row" ng-hide="id">
 		        <div class="col col-50 col-offset-25">
-		        	<button type="submit" class="button button-full button-balanced icon-left ion-android-checkmark-circle" ng-click="nowTimeToRock()" ng-disabled="newsForm.$invalid || (newsForm.$dirty && newsForm.$invalid) || !clipSrc2 ">Pubblica</button> 
+					<button type="submit" class="button button-full button-balanced icon-left ion-android-checkmark-circle" ng-click="nowTimeToRock()" ng-disabled="newsForm.$invalid || (newsForm.$dirty && newsForm.$invalid) || !clipSrc2 ">Pubblica</button> 
+					<!-- <button type="submit" class="button button-full button-balanced icon-left ion-android-checkmark-circle" ng-click="nowTimeToRock2()" ng-disabled="newsForm.$invalid || (newsForm.$dirty && newsForm.$invalid) || !clipSrc2 ">nowTimeToRock2</button>  -->
+					
 		        </div>
 			</div>
 			<div id="box-action" class="row" ng-show="id">

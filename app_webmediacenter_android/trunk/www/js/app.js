@@ -72,8 +72,8 @@ if (locale) {
 */
 angular.module('starter',
 		['ionic',
-		 'starter.controllers', 'chat.controllers', 'news.controllers', 'convalide.controllers', 'notifiche.controllers', 'promozioni.controllers', 'eventi.controllers', 'coupon.controllers', 'help.controllers', 'recensioni.controllers', 'gallery.controllers', 'riepilogo.controllers', 'professional.controllers', 'rubrica.controllers',
-		 'starter.services', 'database.services', 'chat.services', 'news.services', 'convalide.services', 'notifiche.services', 'promozioni.services', 'eventi.services', 'coupon.services', 'help.services', 'recensioni.services', 'gallery.services', 'riepilogo.services', 'professional.services', 'rubrica.services',
+		 'starter.controllers', 'chat.controllers', 'news.controllers','youtube.controllers', 'convalide.controllers', 'notifiche.controllers', 'promozioni.controllers', 'eventi.controllers', 'coupon.controllers', 'help.controllers', 'recensioni.controllers', 'gallery.controllers', 'riepilogo.controllers', 'professional.controllers', 'rubrica.controllers',
+		 'starter.services', 'database.services', 'chat.services', 'news.services','youtube.services', 'convalide.services', 'notifiche.services', 'promozioni.services', 'eventi.services', 'coupon.services', 'help.services', 'recensioni.services', 'gallery.services', 'riepilogo.services', 'professional.services', 'rubrica.services',
 		 'starter.directive', 'starter.filter',
 		 'ngCordova',
 		 'pusher-angular',
@@ -86,8 +86,8 @@ angular.module('starter',
 
 .run(function($rootScope, $ionicPlatform, $ionicHistory, $ionicPopup, $ionicLoading, $cordovaNetwork, $state, $location, Auth, Database){
 
-	var arr_currentState = ['app.chat-read','app.convalide-read','app.notifiche-read','app.news-create','app.news-read','app.news-edit','app.eventi-create','app.eventi-read','app.eventi-edit', 'app.promozioni-edit', 'app.coupon-create', 'app.coupon-read','app.coupon-edit', 'app.help-detail', 'app.recensioni-detail', 'app.riepilogo-read'];
-    var arr_backState = ['app.chat','app.convalide','app.notifiche','app.news','app.news','app.news-read|app.news','app.eventi','app.eventi','app.eventi-read|app.eventi', 'app.promozioni', 'app.coupon','app.coupon','app.coupon-read|app.coupon', 'app.help', 'app.recensioni', 'app.riepilogo'];
+	var arr_currentState = ['app.chat-read','app.convalide-read','app.notifiche-read','app.youtube-create','app.youtube-list','app.news-create','app.news-read','app.news-edit','app.eventi-create','app.eventi-read','app.eventi-edit', 'app.promozioni-edit', 'app.coupon-create', 'app.coupon-read','app.coupon-edit', 'app.help-detail', 'app.recensioni-detail', 'app.riepilogo-read'];
+    var arr_backState = ['app.chat','app.convalide','app.notifiche','app.youtube','app.news','app.news','app.news-read|app.news','app.eventi','app.eventi','app.eventi-read|app.eventi', 'app.promozioni', 'app.coupon','app.coupon','app.coupon-read|app.coupon', 'app.help', 'app.recensioni', 'app.riepilogo'];
 
     var _preventNavigation = false;
     var _preventNavigationUrl = null;
@@ -551,6 +551,35 @@ angular.module('starter',
         }
     })
 
+	.state('app.youtube-create', {
+        url: '/youtube/create',
+        views: {
+            'navContent': {
+            	templateUrl: 'templates/youtube/create.html',
+            	controller: 'YoutubeOperationCtrl'
+            }
+        }
+	})
+	.state('app.youtube-edit', {
+        url: '/youtube/edit/:id',
+        views: {
+            'navContent': {
+            	templateUrl: 'templates/youtube/create.html',
+            	controller: 'YoutubeOperationEditCtrl'
+            }
+        }
+	})
+	
+	.state('app.youtube', {
+        url: '/youtube',
+        views: {
+            'navContent': {
+            	templateUrl: 'templates/youtube/list.html',
+            	controller: 'YoutubeCtrl'
+            }
+        }
+    })
+    
     unsavedWarningsConfigProvider.logEnabled = false;
     unsavedWarningsConfigProvider.useTranslateService = false;
     unsavedWarningsConfigProvider.routeEvent = ['$stateChangeStart'];

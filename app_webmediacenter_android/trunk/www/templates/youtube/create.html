@@ -1,0 +1,168 @@
+<ion-view view-title="Crea un Video">
+    <ion-content class="news-operation-content" afkl-image-container>
+    	<form name="$parent.newsForm" class="news-form">
+    	    
+			<label class="item item-input item-stacked-label">
+	   			<span class="input-label">Titolo</span>
+	   			<input type="text" ng-model="youtube.titolo" placeholder="Inserisci il titolo" required resettable>
+			</label>
+
+			 <label class="item item-input item-stacked-label">
+				<span class="input-label">Descrizione</span>
+				<textarea msd-elastic ng-model="youtube.descrizione" placeholder="Descrizione" required resettable></textarea>
+		  </label>
+			 
+			<!-- <label class="item item-input item-stacked-label">
+				<span class="input-label">Categoria</span>
+				<input type="text" ng-model="youtube.categoria" placeholder="Categoria" required resettable>
+			 </label> -->
+			 
+			<label class="item item-input item-stacked-label">
+				<span class="input-label">Keyword</span>
+				<input type="text" ng-model="youtube.keyword" placeholder="Utilizza la virgola per separare le parole chiave" required resettable>
+			 </label>
+			 
+			 <!-- <label class="item item-input item-stacked-label">
+				<span class="input-label">Vita Privata</span> -->
+				<!-- <input type="radio" value='public' ng-model="youtube.privacy" placeholder="Privacy" required >Pubblico
+				<input type="radio" value='private' ng-model="youtube.privacy" placeholder="Privacy" required >Privato
+				<input type="radio" value='unlisted' ng-model="youtube.privacy" placeholder="Privacy" required >Non Quotate -->
+			<!-- </label> -->
+			<!-- <div class="list list-inset">
+				<div class="item item-divider">
+					Vita Privata
+				</div>
+				<div class="item item-checkbox">
+					<label class="checkbox checkbox-calm">
+						<input type="radio" value='public' ng-model="youtube.privacy" required resettable>
+					</label>
+					Pubblico
+				</div>
+				<div class="item item-checkbox" >
+					<label class="checkbox checkbox-calm">
+						<input type="radio" value='private' ng-model="youtube.privacy" required resettable>
+					</label>
+					Privato
+				</div>
+				<div class="item item-checkbox" >
+					<label class="checkbox checkbox-calm">
+						<input type="radio" value='unlisted' ng-model="youtube.privacy" required resettable>
+					</label>
+					Non Quotate 
+				</div>
+				
+			</div> -->
+				<!-- <input type="radio" value='scheduled' ng-model="youtube.privacy" placeholder="Privacy" required > -->
+		 	
+			
+			<!--<label class="item item-input item-stacked-label">
+	   			<span class="input-label">Testo</span>
+	   			<textarea msd-elastic ng-model="youtube.testo" placeholder="Inserisci il testo" required resettable></textarea>
+	 		</label>-->
+	 		
+	 		<!-- <label ng-click="changeDate()" class="item item-input item-stacked-label">
+	   			<span class="input-label">Inizio pubblicazione</span>
+	   			<p>Il {{youtube.data_inizio_pubblicazione | date:"dd/MM/yyyy 'alle' HH:mm"}}</p>
+	 		</label> -->
+	 			
+	 		<div class="item item-input item-stacked-label" ng-hide="id">
+				  <span class="input-label">Video</span>
+				  <div afkl-lazy-image="{{youtube.filename}}" class="afkl-lazy-wrapper image-loader-container" ng-if="defaultIcon"></div>
+				  <div style="width: 100%;" class="afkl-lazy-wrapper image-loader-container" ng-if="!defaultIcon">
+						<!-- <video class="afkl-lazy-wrapper image-loader-container" controls="controls" id="vid">
+							<source src="{{videoPath}}" type="">
+						</video> -->
+						<img src="img/img.png" class="afkl-lazy-wrapper image-loader-container withMax" >
+						<!-- <video width="100%" height="190" class="afkl-lazy-wrapper image-loader-container" src="{{clipSrc2}}" controls>
+					
+						  </video> -->
+				  </div>
+			</div>
+			<div class="item item-input item-stacked-label" ng-show="id">
+				<span class="input-label">Video</span>
+				<!-- <div afkl-lazy-image="{{youtube.filename}}" class="afkl-lazy-wrapper image-loader-container" ng-if="defaultIcon"></div> -->
+				<div style="width: 100%;" class="afkl-lazy-wrapper image-loader-container" ng-if="!defaultIcon">
+					<!-- <iframe  ng-src="{{id| youtubeTrusted}}" 
+					frameborder="0" allowfullscreen style="width:100%"></iframe> -->
+					<img src="{{thumb}}" class="afkl-lazy-wrapper image-loader-container withMax" >
+					
+				   <!-- <p>Display output for control reasons: {{id | youtubeTrusted}}</p> -->
+				</div>
+		  	</div>
+			<!-- <input type = "file" fileread= "myFile" accept="video/*"/> -->
+			<!-- <input type="file" ng-file-select="onFileSelect($files)"  accept="video/*"/> -->
+			<!-- <input type='file' id="visInp" accept="video/*"> -->
+			<input type="file" file-upload accept="video/*" id="file" style="display:none;" required>
+			<!-- <input type="file" name="file[]" class="file_multi_video" accept="video/*" > -->
+
+			<div id="box-gallery-action" class="row" ng-hide="id">
+	          		<div class="col col-60">
+	              		<button class="button button-block button-calm icon-left ion-videocamera" onclick="document.getElementById('file').click()">Allegare un video</button>
+					</div>
+					<div class="col col-40" ng-if="size">
+						<label class="label">Dimensione : {{size}} MB</label>
+
+					</div>  
+	      		</div>
+	       	</div>
+			<!-- <div id="box-gallery-action" class="row">
+	          		<div class="col col-33">
+	              		<button class="button button-block button-calm icon-left ion-camera" ng-click="takeVideo()">Scatta</button>
+	          		</div>
+	          		<div class="col col-33">
+	              		<button class="button button-block button-calm icon-left ion-image" ng-click="getVideoAlbum()">Gallery</button>
+	          		</div>
+	          		<div class="col col-33">
+	              		<button class="button button-block button-calm icon-left ion-android-refresh" ng-click="removeVideo()">Default</button>
+	          		</div>
+	      		</div>
+	       	</div> -->
+			<!-- <div id="box-gallery-action" class="row">
+					<div class="col col-33">
+							{{uploadingLeng}}
+						<button class="button button-block button-calm icon-left ion-camera" ng-click="nowTimeToRock()">Start</button>
+						<button class="button button-block button-calm icon-left ion-camera" ng-click="allTime()">All</button>
+					</div>
+				</div>
+			</div> -->
+			<!-- <div class="progress">
+				<div class="progress-bar" role="progressbar" aria-valuenow="{{uploaded}}" aria-valuemin="0" aria-valuemax="100" style="width: {{uploaded}}%;">
+					{{uploaded}}%
+				</div>
+			  </div> -->
+			<div id="box-action" class="row" ng-hide="id">
+		        <div class="col col-50 col-offset-25">
+		        	<button type="submit" class="button button-full button-balanced icon-left ion-android-checkmark-circle" ng-click="nowTimeToRock()" ng-disabled="newsForm.$invalid || (newsForm.$dirty && newsForm.$invalid) || !clipSrc2 ">Pubblica</button> 
+		        </div>
+			</div>
+			<div id="box-action" class="row" ng-show="id">
+		        <div class="col col-50 col-offset-25">
+		        	<button type="submit" class="button button-full button-balanced icon-left ion-android-checkmark-circle" ng-click="updateData()" ng-disabled="newsForm.$invalid || (newsForm.$dirty && newsForm.$invalid) ">Aggiornare</button> 
+		        </div>
+			</div>
+			<!-- <progress max="100" value="{{uploaded}}" ng-show="uploaded > 0"></progress> -->
+			<!-- <social-checkbox
+                social-assign="social"
+                controller-assign="news" >
+            </social-checkbox>
+			<notifiche-checkbox
+                mode="create"
+                notifiche-messaggi="notifiche.messaggi"
+                status-checkbox="notifiche_checkbox"
+                controller-assign="news" >
+            </notifiche-checkbox> -->
+	       	 
+	       	<!-- <div id="box-action" class="row">
+		        <div class="col col-50 col-offset-25">
+		        	<input type="hidden" ng-model="news.data_inizio_pubblicazione" required resettable>
+	   				<input type="hidden" ng-model="news.filename" required resettable>
+	   				
+		        	<button type="submit" class="button button-full button-balanced icon-left ion-android-checkmark-circle" ng-click="create(news)" ng-disabled="newsForm.$invalid || (newsForm.$dirty && newsForm.$invalid) || isEqual()">Salva</button>
+		        </div>
+		    </div> -->
+		    
+	    </form>
+	    
+				
+	</ion-content>
+</ion-view>

@@ -12195,3 +12195,6 @@ i.fa.fa-youtube-play.original{
 img.afkl-lazy-wrapper.image-loader-container.withMax{
   width: 100%;
 }
+video.afkl-lazy-wrapper.image-loader-container{
+  background-color: #000
+}

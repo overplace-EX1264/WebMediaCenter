@@ -1,0 +1,57 @@
+<ion-view view-title="Youtube">
+    <ion-content class="news-content" afkl-image-container>
+
+        <!-- <ion-refresher pulling-text="Trascina per aggiornare..." on-refresh="getList()" ng-if="user"></ion-refresher> -->
+        <ion-refresher pulling-text="Pull to refresh" on-refresh="doRefresh()"></ion-refresher>
+
+        <div class="card" >
+            <div class="item item-text-wrap">
+                <p>Crea e gestisci i video Youtube. Condividili sui social ed invia un messaggio ai tuoi contatti.</p>
+            </div>
+        </div>
+        
+        <div class="row" ng-show="user">
+        	<div class="col col-50 col-offset-25">
+        		<a class="button button-block button-calm icon-left ion-plus" href="#/app/youtube/create">Crea un video</a>
+        	</div>
+         </div>
+         <!-- <div class="row" ng-hide="user">
+        	<div class="col col-100 btn-center">
+                <a class="button button-block button-calm icon-left ion-plus" style="width: 200px" ng-click="googleSignIn()">Sign in with Google</a>
+                <button class="loginBtn loginBtn--google" ng-click="googleSignIn()" >Login with Google</button>
+        	</div>
+         </div> -->
+         <div class="row" ng-hide="user">
+            <div class="col-md-2"></div>                  
+            <div id="customBtn" class="customGPlusSignIn" ng-click="googleSignIn()">
+                <span class="icon customGPlusSignIn"></span>
+                <span class="buttonText customGPlusSignIn">Accedi con Google</span>
+            </div>
+            <div class="col-md-2"></div>                 
+         </div>         
+         <!-- <div class="row" ng-show="user">
+        	<div class="col col-50 col-offset-25">
+        		<a class="button button-block button-calm icon-left ion-plus" style="width: 200px" ng-click="getChannelData()">Google YouWeb</a>
+        	</div>
+         </div> -->
+         <div class="row" ng-show="user">
+        	<div class="col col-50 col-offset-25">
+				<a class="button button-assertive button-block button-outline" ng-click="showLogOutMenu()">Log Out</a>
+        	</div>
+         </div>
+        <ion-list can-swipe="true" show-delete="showDelete" ng-show="youtubeChannelList.items.length > 0 && user" >
+            <ion-item class="item-remove-animate item-thumbnail-left item-icon-right" ng-repeat="list in youtubeChannelList.items">
+				<div afkl-lazy-image="{{list.snippet.thumbnails.default.url}}" class="afkl-lazy-wrapper item-thumbnail-img"></div>
+                <h2>{{list.snippet.title}}</h2>
+                <!-- <p>{{list.id.videoId}}</p> -->
+                <p>{{list.snippet.description}}</p>                
+                <p>{{list.snippet.publishedAt | date:"dd/MM/yyyy 'at' h:mma"}}</p>                
+                <p>Social: <i class="fa fa-youtube-play original"></i></p>                                
+                <ion-option-button class="button-energized ion-edit" ng-click="edit(list)"></ion-option-button>
+                <ion-option-button class="button-assertive ion-trash-a" ng-click="delVideo(list.id.videoId)"></ion-option-button>
+            </ion-item>
+        </ion-list>
+        <!-- <ion-infinite-scroll ng-if="isAvailable" on-infinite="loadYoutube()" distance="5%"></ion-infinite-scroll> -->
+
+    </ion-content>
+</ion-view>

@@ -307,4 +307,74 @@ angular.module('starter.directive', [])
         }
     };
 
+})
+
+.directive('fileModel', ['$parse', function ($parse) {
+    return {
+       restrict: 'A',
+       link: function(scope, element, attrs) {
+          var model = $parse(attrs.fileModel);
+          var modelSetter = model.assign;
+          
+          element.bind('change', function(){
+             scope.$apply(function(){
+                modelSetter(scope, element[0].files[0]);
+             });
+          });
+       }
+    };
+ }])
+
+ .directive("fileread", [function () {
+    return {
+        scope: {
+            fileread: "="
+        },
+        link: function (scope, element, attributes) {
+            element.bind("change", function (changeEvent) {
+                alert(JSON.stringify(changeEvent.target.files));
+                scope.$apply(function () {
+                    scope.fileread = changeEvent.target.files[0];
+                    // or all selected files:
+                    // scope.fileread = changeEvent.target.files;
+                });
+            });
+        }
+    }
+}])
+
+
+.directive("ngFileSelect",function(){
+
+    return {
+      link: function($scope,el){
+        
+        el.bind("change", function(e){
+        
+          $scope.file = (e.srcElement || e.target).files[0];
+          $scope.getFile();
+        })
+        
+      }
+      
+    }
+    
+    
+  })
+  .directive('fileUpload', function () {
+    return {
+        scope: true,        //create a new scope
+        link: function (scope, el, attrs) {
+            el.bind('change', function (event) {
+                var files = event.target.files;
+                console.log(event.target);
+                files.fullpath = document.getElementById("file").value;
+                //iterate files since 'multiple' may be specified on the element
+                for (var i = 0;i<files.length;i++) {
+                    //emit event upward
+                    scope.$emit("fileSelected", { file: files[i] });
+                }                                       
+            });
+        }
+    };
 });

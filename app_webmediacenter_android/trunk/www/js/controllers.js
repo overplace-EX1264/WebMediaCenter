@@ -403,6 +403,7 @@ angular.module('starter.controllers', [])
 				{ id:'chat', name:'Chat', link:'#/app/chat', icon:'fa-comments', type:'badge', section:1, order:3, active:userData.wmc_data.chat, visible:true },
 				{ id:'rubrica', name:'Rubrica', link:'#/app/rubrica', icon:'fa-users', type:'simple', section:1, order:4, active:true, visible:true },
 				{ id:'news', name:'News', link:'#/app/news', icon:'fa-quote-left', type:'simple', section:1, order:5, active:true, visible:true },
+				{ id:'youtube', name:'Youtube', link:'#/app/youtube', icon:'fa-youtube-play', type:'simple', section:1, order:5, active:true, visible:true },
 				{ id:'eventi', name:'Eventi', link:'#/app/eventi', icon:'fa-bullhorn', type:'simple', section:1, order:6, active:true, visible:true },
 				{ id:'promozioni', name:'Promozioni', link:'#/app/promozioni', icon:'fa-trophy', type:'simple', section:1, order:7, active:userData.wmc_data.promozioni, visible:true },
 				{ id:'coupon', name:'Coupon', link:'#/app/coupon', icon:'fa-gavel', type:'simple', section:1, order:8, active:userData.wmc_data.coupon, visible:true },
