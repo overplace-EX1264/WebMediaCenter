@@ -1,0 +1,60 @@
+{
+  "project_info": {
+    "project_number": "343547022633",
+    "project_id": "firebase-webmediacenter"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:343547022633:android:764d2cb7da3280eb",
+        "android_client_info": {
+          "package_name": "io.ionic.starter"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "343547022633-qvjdapk7m2gdnjps14718bv0sn1gsrtj.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "io.ionic.starter",
+            "certificate_hash": "68185691e36047392999d35c5c2dadb69c08920d"
+          }
+        },
+        {
+          "client_id": "343547022633-r9vnqff9b13ngfeja63k29ub9gd1cd5j.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
+          "client_id": "343547022633-rdrasefvqaf7l9snfs3o85biesg1gemc.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
+          "client_id": "343547022633-9784p26g6nq16039ond36q7s6ui42i3j.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
+          "client_id": "343547022633-p3dqs0r4u1jas5pcamukhriopo9nv38t.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDBNqvQF2r3NaF8YiYCEYxfLeVtyMBDlZw"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 1
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

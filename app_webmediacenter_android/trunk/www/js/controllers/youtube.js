@@ -1,3 +1,61 @@
+// angular.module('youtube.controllers', [])
+
+// .controller('YoutubeCtrl', function($timeout, $scope, Youtube, $ionicPopup, $ionicLoading, $cordovaCamera, $cordovaCapture, $cordovaToast, $location, $timeout,$http,ApiConfig, $state, Youtube,$ionicActionSheet){
+//     console.log("YoutubeOperationCtrl");
+//     $scope.googleSignIn = function() {
+//         $ionicLoading.show({
+//           template: 'Logging in...'
+//         });
+//         window.plugins.googleplus.login(
+//             {
+//                 'scopes': ApiConfig.gPScopes,
+//                 'webClientId': '343547022633-rdrasefvqaf7l9snfs3o85biesg1gemc.apps.googleusercontent.com',
+//                 'offline': false
+//             },
+//           function (user_data) {
+//             localStorage.setItem("starter_google_user",user_data)
+//             alert(JSON.stringify(user_data));
+//             $scope.user = user_data;
+//             $ionicLoading.hide();
+//           },
+//           function (msg) {
+//             alert(JSON.stringify(msg));              
+//             $ionicLoading.hide();
+//           }
+//         );
+//       };
+//     $scope.showLogOutMenu = function () {
+//         window.plugins.googleplus.logout(
+//             function (msg) {
+//               alert(JSON.stringify(msg)); 
+//             }
+//           );
+//     }
+// })
+
+// .controller('YoutubeOperationCtrl', function($scope, $stateParams, $ionicHistory,$cordovaCamera, $ionicPopup, $ionicLoading, $cordovaToast, Youtube) {
+//     console.log("YoutubeOperationCtrl");
+
+// }).filter('trusted', ['$sce', function ($sce) {
+//     return function(url) {
+//         return $sce.trustAsResourceUrl(url);
+//     };
+// }])
+// .controller('YoutubeOperationEditCtrl', function($scope, $stateParams, $ionicHistory,$cordovaCamera, $ionicPopup, $ionicLoading, $cordovaToast, Youtube) {
+//     console.log("YoutubeOperationEditCtrl");
+// }).filter('youtubeTrusted', ['$sce', function ($sce) {
+//     return function(id) {
+//         return $sce.trustAsResourceUrl("https://www.youtube.com/embed/" + id);
+//     };
+// }]);;
+ 
+// // curl 'https://googleads.g.doubleclick.net/pagead/id?exp=nomnom' \
+// // -XGET \
+// // -H 'Referer: https://www.youtube.com/embed/DmeVCVpG0bw' \
+// // -H 'User-Agent: Mozilla/5.0 (iPhone; CPU iPhone OS 11_2 like Mac OS X) AppleWebKit/604.4.7 (KHTML, like Gecko) Mobile/15C107' \
+// // -H 'Origin: https://www.youtube.com' \
+// // -H 'Accept: */*'
+
 angular.module('youtube.controllers', [])
 
 .controller('YoutubeCtrl', function($timeout, $scope, Youtube, $ionicPopup, $ionicLoading, $cordovaCamera, $cordovaCapture, $cordovaToast, $location, $timeout,$http,ApiConfig, $state, Youtube,$ionicActionSheet){
@@ -7,7 +65,7 @@ angular.module('youtube.controllers', [])
     var GoogleAuth;
     $scope.youtubeChannelList = {};
     $scope.authResult;
-    $scope.user = Youtube.getUser();
+    // $scope.user = Youtube.getUser();
     console.log("User");
     console.log($scope.user);
     $scope.googleSignIn = function() {
@@ -86,17 +144,29 @@ angular.module('youtube.controllers', [])
             }
         );
       };
-      $scope.delVideo = function (id){
-        $ionicLoading.show();
-            Youtube.buildApiRequest('DELETE',
-            '/youtube/v3/videos',
-            {'id': id}).then(function(msg){ 
-                            console.log(msg)
+      $scope.delVideo = function (id,index){
+          console.log(index);
+        var confirmPopup = $ionicPopup.confirm({
+            title: 'Attenzione',
+            template: "Sei sicuro di voler eliminare il video dal canale Youtube?",
+            okText: 'Elimina',
+            cancelText : 'Annulla'
+        });
+        confirmPopup.then(function(ok){
+            if(ok) {
+                $ionicLoading.show();
+                Youtube.buildApiRequest('DELETE',
+                '/youtube/v3/videos',
+                {'id': id}).then(function(msg){ 
+                            // $scope.youtubeChannelList.splice(index,1);
                             $scope.getList();
+
                         }, function(error){ 
                             console.log(JSON.stringify(error));
                             $ionicLoading.hide();
                     });
+            };
+        });
       }
       $scope.doRefresh = function() {
         // here refresh data code
@@ -117,43 +187,85 @@ angular.module('youtube.controllers', [])
 
 .controller('YoutubeOperationCtrl', function($scope, $stateParams, $ionicHistory,$cordovaCamera, $ionicPopup, $ionicLoading, $cordovaToast, Youtube) {
     $scope.defaultIcon = true;
-    document.addEventListener("deviceready", onDeviceReady, false);
-    function onDeviceReady() {
-        console.log(navigator.device.capture);
-    }
+    $scope.loadProgress = false;
+
     $scope.uploaded = 0;
-    
     $scope.youtube = [];
-    $scope.youtube.facebook = false;
-    $scope.youtube.twitter = false;
-    $scope.youtube.linkedin = false;
-    $scope.youtube.data_inizio_pubblicazione = new Date().getTime();
     $scope.youtube.filename = 'http://files.overplace.com/bacheca/xl_overplace.png';
-    $scope.youtube.notifiche = {pendenti:{email:0}};
     $scope.clipSrc = new File();
     $scope.takeVideo = function () {
-        $ionicLoading.show();
-            var captureSuccess = function(mediaFiles) {
-                var i, path, len;
-                $scope.defaultIcon = false;
-                    $ionicLoading.hide();
-                    console.log(mediaFiles[0]);
-                    files = mediaFiles;
-                    $scope.clipSrc = mediaFiles[0];
-                    $scope.videoPath = mediaFiles[0].fullPath;
-            };
-            var captureError = function(error) {
-                $ionicLoading.hide();
-                navigator.notification.console.log('Error code: ' + error.code, null, 'Capture Error');
-            };
-            navigator.device.capture.captureVideo(captureSuccess, captureError, {limit:2});
+        // $ionicLoading.show();
+        //     var captureSuccess = function(mediaFiles) {
+        //         alert("Success");
+        //         var i, path, len;
+        //         $scope.defaultIcon = false;
+        //             $ionicLoading.hide();
+        //             console.log("TakeVideo");                    
+        //             console.log("file://"+ mediaFiles[0].fullPath);
+        //             // files = mediaFiles;
+        //             $scope.clipSrc = "file://"+ mediaFiles[0].fullPath;
+        //             $scope.clipSrc2 = "file://"+ mediaFiles[0].fullPath;
+        //             // $scope.clipSrc = mediaFiles[0];
+        //             // $scope.videoPath = mediaFiles[0].fullPath;
+        //     };
+        //     var captureError = function(error) {
+        //         alert("Error =>" + JSON.stringify(error));
+        //         $ionicLoading.hide();
+        //         navigator.notification.console.log('Error code: ' + error.code, null, 'Capture Error');
+        //     };
+        //     navigator.device.capture.captureVideo(captureSuccess, captureError, {limit:2});
+        var captureSuccess = function(mediaFiles) {
+            var i, path, len;
+            alert(JSON.stringify(mediaFiles));
+            $ionicLoading.hide();
+            $scope.defaultIcon = false;
+            $scope.clipSrc = mediaFiles[0].fullPath;
+            $scope.clipSrc2 = mediaFiles[0].fullPath;
+        };
+        
+        // capture error callback
+        var captureError = function(error) {
+            alert(JSON.stringify(error));            
+            navigator.notification.alert('Error code: ' + error.code, null, 'Capture Error');
+        };
+        
+        // start audio capture
+        navigator.device.capture.captureVideo(captureSuccess, captureError, {limit:1, quality: 100 });
     }
-    
+   $scope.getVideoAlbum  = function () {
+    $ionicLoading.show();
+        var options = {
+            sourceType: Camera.PictureSourceType.PHOTOLIBRARY,
+            mediaType: 1,
+            quality: 100,
+            destinationType: Camera.DestinationType.FILE_URI
+          }
+          var captureSuccess = function(mediaFiles) {
+            var i, path, len;
+            $scope.defaultIcon = false;
+                $ionicLoading.hide();
+                console.log("Gally");
+                console.log(mediaFiles);
+                // files = mediaFiles;
+                // $scope.clipSrc = "file://"+ mediaFiles[0].fullPath;
+                $scope.clipSrc = mediaFiles;
+                $scope.clipSrc2 = mediaFiles;
+                // $scope.videoPath = mediaFiles[0].fullPath;
+        };
+        var captureError = function(error) {
+            $ionicLoading.hide();
+            navigator.notification.console.log('Error code: ' + error.code, null, 'Capture Error');
+        };
+          navigator.camera.getPicture(captureSuccess, captureError, options);
+          
+    }
 
     //listen for the file selected event
     $scope.$on("fileSelected", function (event, args) {
         $scope.$apply(function () {            
             //add the file object to the scope's files collection
+            console.log(args);
+            console.log(cordova.file.tempDirectory);
             $scope.clipSrc = args.file;
             $scope.clipSrc2 = cordova.file.tempDirectory+""+args.file.name;
             $scope.size = ((args.file.size / 1024)/1024).toFixed(2);
@@ -179,66 +291,169 @@ angular.module('youtube.controllers', [])
         formDirty = false;
         // $scope.youtubeForm.$dirty = false;
     }
-
     $scope.nowTimeToRock = function () {
         $ionicLoading.show();
-        $scope.uploaded = 0;
-        
         $scope.user = Youtube.getUser();
-        var metadata = {
-            snippet : {
-                categoryId: '25',
-                defaultLanguage: 'en',
-                description: $scope.youtube.descrizione,
-                tags: $scope.youtube.keyword.split(','),
-                title: $scope.youtube.titolo,
-            },
-            status :{
-                privacyStatus: "public",
-            }              
-        };
-        var params = {'part': 'snippet,status'};
-        // $scope.clipSrc = 'img/video.mp4';
-        console.log($scope.clipSrc);
-       
-        Youtube.gapiSetToken($scope.user.accessToken);
-        var uploader = new MediaUploader({
-            baseUrl: 'https://www.googleapis.com/upload/youtube/v3/videos',
-            file: $scope.clipSrc,
-            token: $scope.user.accessToken,
-            metadata: metadata,
-            params: params,
-            onError: function(data) {
-                var message = data;
-                try {
-                    var errorResponse = JSON.parse(data);
-                    message = errorResponse.error.message;
-                } finally {
-                    console.log(JSON.stringify(message));
-                }
-            },
-            onProgress: function(data) {
-                var currentTime = Date.now();
-                console.log('Progress: ' + data.loaded + ' bytes loaded out of ' + data.total);
-                var totalBytes = data.total;
-                $scope.uploadingLeng = data;
-                $scope.uploaded = Math.round((data.loaded * 100)/data.total);
-                $scope.remaining = 100 - $scope.uploaded;
-                console.log('Progress: ' + $scope.uploaded);                
-            },
-            onComplete: function(data) {
-                // $scope.uploaded
-                var uploadResponse = JSON.parse(data);
-                console.log('Upload complete for video ' + uploadResponse.id);
-                $ionicLoading.hide();
-                console.log("Upload complete ");
-                $scope.uploaded = 0;
-                $ionicHistory.goBack();
-            }
-        });
-
-        uploader.upload();
+        console.log($scope.user.accessToken, $scope.clipSrc);
+        postVideo($scope.user.accessToken, $scope.clipSrc);
     }
+
+    // $scope.nowTimeToRock = function () {
+    //     $ionicLoading.show();
+    //     $scope.uploaded = 0;
+        
+    //     $scope.user = Youtube.getUser();
+    //     var metadata = {
+    //         snippet : {
+    //             categoryId: '25',
+    //             defaultLanguage: 'en',
+    //             description: $scope.youtube.descrizione,
+    //             tags: $scope.youtube.keyword.split(','),
+    //             title: $scope.youtube.titolo,
+    //         },
+    //         status :{
+    //             privacyStatus: "public",
+    //         }              
+    //     };
+    //     var params = {'part': 'snippet,status'};
+    //     // $scope.clipSrc = 'img/video.mp4';
+    //     console.log($scope.clipSrc);
+       
+    //     Youtube.gapiSetToken($scope.user.accessToken);
+    //     var uploader = new MediaUploader({
+    //         baseUrl: 'https://www.googleapis.com/upload/youtube/v3/videos',
+    //         file: $scope.clipSrc,
+    //         token: $scope.user.accessToken,
+    //         metadata: metadata,
+    //         params: params,
+    //         onError: function(data) {
+    //             var message = data;
+    //             try {
+    //                 var errorResponse = JSON.parse(data);
+    //                 message = errorResponse.error.message;
+    //             } finally {
+    //                 console.log(JSON.stringify(message));
+    //             }
+    //         },
+    //         onProgress: function(data) {
+    //             var currentTime = Date.now();
+    //             console.log('Progress: ' + data.loaded + ' bytes loaded out of ' + data.total);
+    //             var totalBytes = data.total;
+    //             $scope.uploadingLeng = data;
+    //             $scope.uploaded = Math.round((data.loaded * 100)/data.total);
+    //             $scope.remaining = 100 - $scope.uploaded;
+    //             console.log('Progress: ' + $scope.uploaded);                
+    //         },
+    //         onComplete: function(data) {
+    //             // $scope.uploaded
+    //             var uploadResponse = JSON.parse(data);
+    //             console.log('Upload complete for video ' + uploadResponse.id);
+    //             $ionicLoading.hide();
+    //             console.log("Upload complete ");
+    //             $scope.uploaded = 0;
+    //             $ionicHistory.goBack();
+    //         }
+    //     });
+
+    //     uploader.upload();
+    // }
+    function postVideo(accessToken, fileURI) {
+        // var metadata = {
+        //   snippet: {
+        //     title: $scope.youtube.titolo,
+        //     description: $scope.youtube.descrizione,
+        //     tags: $scope.youtube.keyword.split(','),
+        //     categoryId: 25
+        //   },
+        //   status: {
+        //     privacyStatus: "public"
+        //   }
+        // }
+        var params = {};
+        params.snippet= {
+            title: $scope.youtube.titolo,
+            description: $scope.youtube.descrizione,
+            tags: $scope.youtube.keyword.split(','),
+            categoryId: 25
+          };
+        params.status = {
+            privacyStatus: "public"
+          }
+        var options = new FileUploadOptions();
+        options.fileKey = "file";
+        options.fileName = 'test';
+        options.mimeType = "video/quicktime";
+        options.chunkedMode = false;
+      
+        options.headers = {
+          Authorization: "Bearer " + accessToken,
+          "Access-Control-Allow-Origin": "http://meteor.local"
+        };
+      
+        var par = new Object();
+        par.part = Object.keys(params).join(',')
+        
+        options.params = params;
+        console.log(options)
+        var ft = new FileTransfer();
+        $scope.loadProgress = true;
+        ft.upload(fileURI, "https://www.googleapis.com/upload/youtube/v3/videos?part=snippet,status", win, fail, options, true);
+        
+        ft.onprogress = function(progressEvent) {
+          if (progressEvent.lengthComputable) {
+                $scope.loadProgress =((progressEvent.loaded / progressEvent.total) * 100).toFixed(2);
+                console.log($scope.loadProgress);
+                var elem = document.getElementById("myBar");   
+                elem.style.width = $scope.loadProgress + '%'; 
+                elem.innerHTML = $scope.loadProgress * 1  + '%';
+                // loadingStatus.setPercentage(progressEvent.loaded / progressEvent.total);
+          } else {
+            console.log('something not loading');
+            $scope.loadProgress = false;
+          }
+        };
+      }
+      
+      function win(r) {
+        // console.log(JSON.parse(r.response));
+        var dat = JSON.parse(r.response);
+        // if (r.response.snippet.title == "unknown" || r.response.snippet.title == "") {
+            Youtube.gapiSetToken($scope.user.accessToken);
+            Youtube.buildApiRequest('PUT',
+                       '/youtube/v3/videos',
+                       {'part': 'snippet,status'},
+                       {   'id': dat.id,
+                           'snippet' : {
+                               'categoryId': '25',
+                               'defaultLanguage': 'en',
+                               'description': $scope.youtube.descrizione,
+                               'tags': $scope.youtube.keyword.split(','),
+                               'title': $scope.youtube.titolo,
+                           },
+                           'status' :{
+                               'privacyStatus': "public",
+                           }      
+                   }).then(function(response){ 
+                                   $ionicHistory.goBack();
+                                   $ionicLoading.hide();
+                                //    alert("Successfully Saved");
+                                var myPopup = $ionicPopup.alert({
+                                    title: 'Successo',
+                                    template: "Caricato con successo il video"
+                                 });  
+                               }, function(error){ 
+                                   $ionicLoading.hide();
+                                   console.log(JSON.stringify(error));
+                               });
+        // }
+      }
+      
+      function fail(error) {
+        console.log(error)
+          // alert("An error has occurred: Code = " + error.code);
+        console.log("upload error source " + error.source);
+        console.log("upload error target " + error.target);
+      }
     function createResource(properties) {
         var resource = {};
         var normalizedProps = properties;
@@ -284,17 +499,24 @@ angular.module('youtube.controllers', [])
                 'id': $stateParams.id,
                 'part': 'snippet,statistics,status', 
             }).then(function(response){ 
-                $scope.youtube = {
-                    titolo : response.items[0].snippet.title,
-                    descrizione : response.items[0].snippet.description,
-                    keyword : response.items[0].snippet.tags,
-                    privacy : response.items[0].status.privacyStatus,
+                if (response.items[0]) {
+                    $scope.youtube = {
+                        titolo : response.items[0].snippet.title || '',
+                        descrizione : response.items[0].snippet.description || '',
+                        keyword : response.items[0].snippet.tags || '',
+                        // privacy : response.items[0].status.privacyStatus || '',
+                    }
                 }
-                $scope.thumb = response.items[0].snippet.thumbnails.maxres.url;
+                // $scope.thumb = response.items[0].snippet.thumbnails.maxres.url;
                 console.log(response);
                 $ionicLoading.hide();
             }, function(error){ 
                 console.log(JSON.stringify(error));
+                $ionicHistory.goBack();
+                var myPopup = $ionicPopup.alert({
+                    title: 'Errore',
+                    template: "Qualcosa è andato storto. Per favore riprova più tardi"
+                 }); 
                 $ionicLoading.hide();
             });
     $scope.id = $stateParams.id;
@@ -320,22 +542,34 @@ angular.module('youtube.controllers', [])
                                 'title': $scope.youtube.titolo,
                             },
                             'status' :{
-                                'privacyStatus': $scope.youtube.privacy,
+                                'privacyStatus': "public",
                             }      
                     }).then(function(response){ 
                                     $ionicLoading.hide();
-                                    alert("Successfully Updated");
+                                    var myPopup = $ionicPopup.alert({
+                                        title: 'Successo',
+                                        template: "Caricato con successo il video"
+                                    });
                                     $ionicHistory.goBack();
                                 }, function(error){ 
-                                    console.log(JSON.stringify(error));
                                     $ionicLoading.hide();
+                                    var myPopup = $ionicPopup.alert({
+                                        title: 'Errore',
+                                        template: "Qualcosa è andato storto. Per favore riprova più tardi"
+                                    });
+                                    console.log(JSON.stringify(error));
+                                    $ionicHistory.goBack();
                                 });
             },
             function (err) {
-              console.log(JSON.stringify(err));
-              $ionicLoading.hide();
-            });       
-        
+                $ionicLoading.hide();
+                var myPopup = $ionicPopup.alert({
+                    title: 'Errore',
+                    template: "Qualcosa è andato storto. Per favore riprova più tardi"
+                });
+                $ionicHistory.goBack();
+                console.log(JSON.stringify(err));
+            });      
     }
 }).filter('youtubeTrusted', ['$sce', function ($sce) {
     return function(id) {

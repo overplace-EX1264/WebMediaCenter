@@ -5,7 +5,8 @@ angular.module('starter.services', [])
         wsKey : window.localStorage['restPass'] !== undefined ? window.localStorage['restPass'] : 'mypassword',
         ovpEndpoint : 'http://api.overplace.com/rest/application/',
         ovpEndpointHmac : 'http://api.overplace.com/rest/v1/',
-        yoClientId: '343547022633-r1m1u5jbnmrcakaem66jrgnlshfonug8.apps.googleusercontent.com',
+        // yoClientId: '343547022633-r1m1u5jbnmrcakaem66jrgnlshfonug8.apps.googleusercontent.com',  // IOS Key
+        yoClientId:"343547022633-v7a4h0ni3atk2rflsnq3ncoq7rc92svc.apps.googleusercontent.com",
         yoClientChId: 'UCK9vNiz3fhoEMI6QyIX4q0w',
         webClientId:'343547022633-rdrasefvqaf7l9snfs3o85biesg1gemc.apps.googleusercontent.com',
         webClientSec:'09q9mehuHspbgIz8snFRTVUf',

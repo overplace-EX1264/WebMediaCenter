@@ -316,10 +316,11 @@ angular.module('youtube.services', [])
 			window.plugins.googleplus.login(
 				{
 				  'scopes': ApiConfig.gPScopes,
-				  'webClientId': ApiConfig.yoClientId,
+				  'webClientId': ApiConfig.webClientId,
 				  'offline': false
 				},
 				function (response){
+					console.log(JSON.stringify(response));
 					window.localStorage.window_google_user = JSON.stringify(response);
 					deferred.resolve(response);
 				}, function(error){
@@ -351,37 +352,41 @@ angular.module('youtube.services', [])
 		},
 		googleLogout : function () {
 			var deferred = $q.defer();
-			// window.plugins.googleplus.disconnect(
-			window.plugins.googleplus.logout(
+			window.plugins.googleplus.disconnect(
+			// window.plugins.googleplus.logout(
 				function (msg) {
 					window.localStorage.starter_google_user = '';
 					window.localStorage.authResult = '';
 					window.localStorage.window_google_user = '';
+					// setTimeout(() => {
+						console.log(JSON.stringify(msg))
+					// }, 100);
 					deferred.resolve(msg);
 				},
 				function(fail){
+					console.log(JSON.stringify(fail));
 					// deferred.reject();
-					window.plugins.googleplus.trySilentLogin(
-						{
-						},
-						function (obj) {
-							console.error('Google trySilentLogin success');
-							//try logout again
-							window.plugins.googleplus.logout(
-								function (mg) {
-									deferred.resolve(mg);
-									console.error('Google logout success');
-								},
-								function (err) {
+					// window.plugins.googleplus.trySilentLogin(
+					// 	{
+					// 	},
+					// 	function (obj) {
+					// 		console.error('Google trySilentLogin success');
+					// 		//try logout again
+					// 		window.plugins.googleplus.logout(
+					// 			function (mg) {
+					// 				deferred.resolve(mg);
+					// 				console.error('Google logout success');
+					// 			},
+					// 			function (err) {
 									console.error('Error logging out from Google for the 2nd time: ' + err);
 									deferred.reject()
-								}
-							);
-						},
-						function (err) {
-							console.error('Google trySilentLogin error: ' + err);
-						}
-					);
+					// 			}
+					// 		);
+					// 	},
+					// 	function (err) {
+					// 		console.error('Google trySilentLogin error: ' + err);
+					// 	}
+					// );
 				}
 			);
 			return deferred.promise;

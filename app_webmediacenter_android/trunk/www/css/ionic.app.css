@@ -12064,3 +12064,146 @@ ion-list {
     display: none; }
   .button-chat-rispondi .icon::before, .back-button .icon::before .button-slide .icon::before, .button-slide.icon::before {
     display: inline-block !important; } }
+/* Shared */
+.loginBtn {
+	box-sizing: border-box;
+	position: relative;
+	/* width: 13em;  - apply for fixed size */
+	margin: 0.2em;
+	padding: 0 15px 0 46px;
+	border: none;
+	text-align: left;
+	line-height: 34px;
+	white-space: nowrap;
+	border-radius: 0.2em;
+	font-size: 16px;
+	color: #FFF;
+  }
+  .loginBtn:before {
+	content: "";
+	box-sizing: border-box;
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 34px;
+	height: 100%;
+  }
+  .loginBtn:focus {
+	outline: none;
+  }
+  .loginBtn:active {
+	box-shadow: inset 0 0 0 32px rgba(0,0,0,0.1);
+  }
+  
+  
+  /* Facebook */
+  .loginBtn--facebook {
+	background-color: #4C69BA;
+	background-image: linear-gradient(#4C69BA, #3B55A0);
+	/*font-family: "Helvetica neue", Helvetica Neue, Helvetica, Arial, sans-serif;*/
+	text-shadow: 0 -1px 0 #354C8C;
+  }
+  .loginBtn--facebook:before {
+	border-right: #364e92 1px solid;
+	background: url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/14082/icon_facebook.png') 6px 6px no-repeat;
+  }
+  .loginBtn--facebook:hover,
+  .loginBtn--facebook:focus {
+	background-color: #5B7BD5;
+	background-image: linear-gradient(#5B7BD5, #4864B1);
+  }
+  
+  
+  /* Google */
+  .loginBtn--google {
+	/*font-family: "Roboto", Roboto, arial, sans-serif;*/
+	background: #DD4B39;
+  margin-top: 12px;
+  }
+  .loginBtn--google:before {
+	border-right: #BB3F30 1px solid;
+	background: url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/14082/icon_google.png') 6px 6px no-repeat;
+  }
+  .loginBtn--google:hover,
+  .loginBtn--google:focus {
+	background: #E74B37;
+  }
+  /* progress[value]::-webkit-progress-value {
+  background-image:
+	   -webkit-linear-gradient(-45deg, 
+	                           transparent 33%, rgba(0, 0, 0, .1) 33%, 
+	                           rgba(0,0, 0, .1) 66%, transparent 66%),
+	   -webkit-linear-gradient(top, 
+	                           rgba(255, 255, 255, .25), 
+	                           rgba(0, 0, 0, .25)),
+	   -webkit-linear-gradient(left, #09c, #f44);
+
+    border-radius: 2px; 
+    background-size: 35px 20px, 100% 100%, 100% 100%;
+} */
+.label-center {
+  margin-top: 11px;
+  vertical-align: middle;
+  display: inline-block;
+}
+.btn-center {
+  text-align: center;
+}
+.progress-bar-clear {
+  background-color: rgba(0,0,0,0);
+  color: rgb(51, 51, 51);
+}
+#customBtn {
+  display: inline-block;
+  background: white;
+  color: #444;
+  width: 190px;
+  border-radius: 5px;
+  border: thin solid #888;
+  box-shadow: 1px 1px 1px grey;
+  white-space: nowrap;
+  max-width: 200px;
+  margin: 20px auto 0 auto;
+  width: 100%;
+}   
+#customBtn:hover {
+  cursor: pointer;
+}
+.buttonText.customGPlusSignIn {
+  display: inline-block;
+  vertical-align: middle;
+  font-size: 14px;
+  font-weight: bold;
+  /* Use the Roboto font that is loaded in the <head> */
+  font-family: 'Roboto', sans-serif;
+}
+.icon.customGPlusSignIn{
+  background: url(../img/g-normal.png) transparent 5px 50% no-repeat;
+  display: inline-block;
+  vertical-align: middle;
+  width: 42px;
+  height: 42px;
+}
+i.fa.fa-youtube-play.original{
+  color: red;
+}
+img.afkl-lazy-wrapper.image-loader-container.withMax{
+  width: 100%;
+}
+video.afkl-lazy-wrapper.image-loader-container{
+  background-color: #000
+}
+
+#myProgress {
+  width: 100%;
+  background-color: #ddd;
+}
+
+#myBar {
+  width: 10%;
+  height: 30px;
+  background-color: #4CAF50;
+  text-align: center;
+  line-height: 30px;
+  color: white;
+}
