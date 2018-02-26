@@ -40,13 +40,14 @@
         	</div>
          </div>
         <ion-list can-swipe="true" show-delete="showDelete" ng-show="youtubeChannelList.items.length > 0 && user" >
-            <ion-item class="item-remove-animate item-thumbnail-left item-icon-right" ng-repeat="list in youtubeChannelList.items">
+            <ion-item class="item-remove-animate item-thumbnail-left item-icon-right" ng-repeat="list in youtubeChannelList.items" ng-click="popOver(list)">
 				<div afkl-lazy-image="{{list.snippet.thumbnails.default.url}}" class="afkl-lazy-wrapper item-thumbnail-img"></div>
                 <h2>{{list.snippet.title}}</h2>
                 <!-- <p>{{list.id.videoId}}</p> -->
                 <p>{{list.snippet.description}}</p>                
                 <p>{{list.snippet.publishedAt | date:"dd/MM/yyyy 'at' h:mma"}}</p>                
-                <p>Social: <i class="fa fa-youtube-play original"></i></p>                                
+                <p>Social: <i class="fa fa-youtube-play original"></i></p>  
+                <i class="icon ion-chevron-right icon-accessory"></i>                              
                 <ion-option-button class="button-energized ion-edit" ng-click="edit(list)"></ion-option-button>
                 <ion-option-button class="button-assertive ion-trash-a" ng-click="delVideo(list.id.videoId)"></ion-option-button>
             </ion-item>

@@ -717,7 +717,6 @@ angular.module('starter.controllers', [])
 	var userData_support = Auth.getUserData('support');
 	
 	$scope.isSupport = Object.keys(userData_support).length > 0;
-	
 	if($scope.isSupport){
 		$scope.support_phone = (userData_support.phone !== undefined && userData_support.phone !== null && userData_support.phone.length > 0) ? userData_support.phone : null;
 		$scope.support_email = (userData_support.email !== undefined && userData_support.email !== null && userData_support.email.length > 0) ? userData_support.email : null;

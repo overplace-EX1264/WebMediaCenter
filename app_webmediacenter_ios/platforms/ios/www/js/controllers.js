@@ -685,9 +685,15 @@ angular.module('starter.controllers', [])
 	
 	$scope.isSupport = Object.keys(userData_support).length > 0;
 	
+	// if($scope.isSupport){
+	// 	$scope.support_phone = (userData_support.phone !== undefined && userData_support.phone !== null && userData_support.phone.length > 0) ? userData_support.phone : null;
+	// 	$scope.support_email = (userData_support.email !== undefined && userData_support.email !== null && userData_support.email.length > 0) ? userData_support.email : null;
+	// }
 	if($scope.isSupport){
 		$scope.support_phone = (userData_support.phone !== undefined && userData_support.phone !== null && userData_support.phone.length > 0) ? userData_support.phone : null;
 		$scope.support_email = (userData_support.email !== undefined && userData_support.email !== null && userData_support.email.length > 0) ? userData_support.email : null;
+		$scope.support_description = (userData_support.description !== undefined && userData_support.description !== null && userData_support.description.length > 0) ? userData_support.description : null;
+		$scope.support_filename = (userData_support.filename !== undefined && userData_support.filename !== null && userData_support.filename.length > 0) ? userData_support.filename : null;
 	}
 
 });

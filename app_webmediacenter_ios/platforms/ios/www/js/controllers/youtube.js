@@ -121,7 +121,36 @@ angular.module('youtube.controllers', [])
         // console.log(list);
         // .id.videoId
     }
+    $scope.popOver = function (list){
+        $scope.data = {};
+        $scope.template = '<div class="row"><div class="col col-50"><div afkl-lazy-image="'+list.snippet.thumbnails.default.url+'" class="afkl-lazy-wrapper item-thumbnail-img"></div></div><div class="col col-50"><h3>'+list.snippet.title+'</h3><p>'+list.snippet.description+'</p></div></div>';
+        // $scope.template = '<ion-item class="item-remove-animate item-thumbnail-left item-icon-right" ><div afkl-lazy-image="'+list.snippet.thumbnails.default.url+'" class="afkl-lazy-wrapper" style="margin-top: 10px;" item-thumbnail-img"></div><h2 style="margin-left: 10px;">'+list.snippet.title+'</h2><p  style="margin-left: 10px;">'+list.snippet.description+'</p><p  style="margin-left: 10px;">'+list.snippet.publishedAt +'| date:"dd/MM/yyyy "at" h:mma"</p></ion-item>';
+        var myPopup = $ionicPopup.show({
+        template: $scope.template,
+        title: 'Scegliere',
+        scope: $scope,
+        buttons: [
+       { text: '<i class="icon ion-close-round"></i> ' 
+         //close popup and do nothing
+       },
+       {
+        text: '<i class="icon ion-trash-a"></i>',
+        type: 'button-assertive',
+        onTap: function(e) {  
+           $scope.delVideo(list.id.videoId);
+        }
+       },
+       {
+        text: '<i class="icon ion-edit"></i> ',
+        type: 'button-energized',
+        onTap: function(e) { 
+          $scope.edit(list);
+        }
+       }]
+      });
+     
     
+    }
 })
 
 .controller('YoutubeOperationCtrl', function($scope, $stateParams, $ionicHistory,$cordovaCamera, $ionicPopup, $ionicLoading, $cordovaToast, Youtube) {
