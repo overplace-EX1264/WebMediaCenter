@@ -215,7 +215,7 @@ angular.module('youtube.controllers', [])
 .controller('YoutubeOperationCtrl', function($scope, $stateParams, $ionicHistory,$cordovaCamera, $ionicPopup, $ionicLoading, $cordovaToast, Youtube) {
     $scope.defaultIcon = true;
     $scope.loadProgress = false;
-
+    $scope.pageTitle = "Crea un Video";
     $scope.uploaded = 0;
     $scope.youtube = [];
     $scope.youtube.filename = 'http://files.overplace.com/bacheca/xl_overplace.png';
@@ -243,7 +243,6 @@ angular.module('youtube.controllers', [])
         //     navigator.device.capture.captureVideo(captureSuccess, captureError, {limit:2});
         var captureSuccess = function(mediaFiles) {
             var i, path, len;
-            alert(JSON.stringify(mediaFiles));
             $ionicLoading.hide();
             $scope.defaultIcon = false;
             $scope.clipSrc = mediaFiles[0].fullPath;
@@ -252,7 +251,7 @@ angular.module('youtube.controllers', [])
         
         // capture error callback
         var captureError = function(error) {
-            alert(JSON.stringify(error));            
+            console.log(JSON.stringify(error));            
             navigator.notification.alert('Error code: ' + error.code, null, 'Capture Error');
         };
         
@@ -271,8 +270,6 @@ angular.module('youtube.controllers', [])
             var i, path, len;
             $scope.defaultIcon = false;
                 $ionicLoading.hide();
-                console.log("Gally");
-                console.log(mediaFiles);
                 // files = mediaFiles;
                 // $scope.clipSrc = "file://"+ mediaFiles[0].fullPath;
                 $scope.clipSrc = mediaFiles;
@@ -290,27 +287,14 @@ angular.module('youtube.controllers', [])
     //listen for the file selected event
     $scope.$on("fileSelected", function (event, args) {
         $scope.$apply(function () {            
-            //add the file object to the scope's files collection
-            console.log(args);
-            console.log(cordova.file.tempDirectory);
             $scope.clipSrc = args.file;
             $scope.clipSrc2 = cordova.file.tempDirectory+""+args.file.name;
             $scope.size = ((args.file.size / 1024)/1024).toFixed(2);
-            // var fSExt = new Array('Bytes', 'KB', 'MB', 'GB'),
-            // i=0;while(args.file.size>900){args.file.size/=1024;i++;}
-            // $scope.size = (Math.round(args.file.size*100)/100)+' '+fSExt[i];
-            // console.log(exactSize);
             $scope.defaultIcon = false;
             $ionicLoading.hide();
         });
     });
-    // $scope.openFile = function (){
-    //     setTimeout(function() {
-    //         var element = angular.element(document.getElementById('input'));
-    //         element.triggerHandler('click');
-    //         $scope.clicked = true;
-    //       }, 0);
-    // }
+   
     $scope.removeVideo = function () {
         $scope.clipSrc  = null;
         $scope.videoPath = null;
@@ -325,77 +309,8 @@ angular.module('youtube.controllers', [])
         postVideo($scope.user.accessToken, $scope.clipSrc);
     }
 
-    // $scope.nowTimeToRock = function () {
-    //     $ionicLoading.show();
-    //     $scope.uploaded = 0;
-        
-    //     $scope.user = Youtube.getUser();
-    //     var metadata = {
-    //         snippet : {
-    //             categoryId: '25',
-    //             defaultLanguage: 'en',
-    //             description: $scope.youtube.descrizione,
-    //             tags: $scope.youtube.keyword.split(','),
-    //             title: $scope.youtube.titolo,
-    //         },
-    //         status :{
-    //             privacyStatus: "public",
-    //         }              
-    //     };
-    //     var params = {'part': 'snippet,status'};
-    //     // $scope.clipSrc = 'img/video.mp4';
-    //     console.log($scope.clipSrc);
-       
-    //     Youtube.gapiSetToken($scope.user.accessToken);
-    //     var uploader = new MediaUploader({
-    //         baseUrl: 'https://www.googleapis.com/upload/youtube/v3/videos',
-    //         file: $scope.clipSrc,
-    //         token: $scope.user.accessToken,
-    //         metadata: metadata,
-    //         params: params,
-    //         onError: function(data) {
-    //             var message = data;
-    //             try {
-    //                 var errorResponse = JSON.parse(data);
-    //                 message = errorResponse.error.message;
-    //             } finally {
-    //                 console.log(JSON.stringify(message));
-    //             }
-    //         },
-    //         onProgress: function(data) {
-    //             var currentTime = Date.now();
-    //             console.log('Progress: ' + data.loaded + ' bytes loaded out of ' + data.total);
-    //             var totalBytes = data.total;
-    //             $scope.uploadingLeng = data;
-    //             $scope.uploaded = Math.round((data.loaded * 100)/data.total);
-    //             $scope.remaining = 100 - $scope.uploaded;
-    //             console.log('Progress: ' + $scope.uploaded);                
-    //         },
-    //         onComplete: function(data) {
-    //             // $scope.uploaded
-    //             var uploadResponse = JSON.parse(data);
-    //             console.log('Upload complete for video ' + uploadResponse.id);
-    //             $ionicLoading.hide();
-    //             console.log("Upload complete ");
-    //             $scope.uploaded = 0;
-    //             $ionicHistory.goBack();
-    //         }
-    //     });
-
-    //     uploader.upload();
-    // }
     function postVideo(accessToken, fileURI) {
-        // var metadata = {
-        //   snippet: {
-        //     title: $scope.youtube.titolo,
-        //     description: $scope.youtube.descrizione,
-        //     tags: $scope.youtube.keyword.split(','),
-        //     categoryId: 25
-        //   },
-        //   status: {
-        //     privacyStatus: "public"
-        //   }
-        // }
+    
         var params = {};
         params.snippet= {
             title: $scope.youtube.titolo,
@@ -466,7 +381,7 @@ angular.module('youtube.controllers', [])
                                 //    alert("Successfully Saved");
                                 var myPopup = $ionicPopup.alert({
                                     title: 'Successo',
-                                    template: "Caricato con successo il video"
+                                    template: "Aggiornato con successo"
                                  });  
                                }, function(error){ 
                                    $ionicLoading.hide();
@@ -476,7 +391,12 @@ angular.module('youtube.controllers', [])
       }
       
       function fail(error) {
-        console.log(error)
+        console.log(error);
+        var myPopup = $ionicPopup.alert({
+            title: 'Errore',
+            template: "Qualcosa è andato storto. Per favore riprova più tardi"
+        });
+         $ionicLoading.hide();
           // alert("An error has occurred: Code = " + error.code);
         console.log("upload error source " + error.source);
         console.log("upload error target " + error.target);
@@ -518,6 +438,7 @@ angular.module('youtube.controllers', [])
 }])
 .controller('YoutubeOperationEditCtrl', function($scope, $stateParams, $ionicHistory,$cordovaCamera, $ionicPopup, $ionicLoading, $cordovaToast, Youtube) {
     $ionicLoading.show();
+    $scope.pageTitle = "Modifica video";
     $scope.user = Youtube.getUser();
     Youtube.gapiSetToken($scope.user.accessToken);
     Youtube.buildApiRequest('GET',
@@ -575,7 +496,7 @@ angular.module('youtube.controllers', [])
                                     $ionicLoading.hide();
                                     var myPopup = $ionicPopup.alert({
                                         title: 'Successo',
-                                        template: "Caricato con successo il video"
+                                        template: "Video caricato con successo"
                                     });
                                     $ionicHistory.goBack();
                                 }, function(error){ 
@@ -600,7 +521,7 @@ angular.module('youtube.controllers', [])
     }
 }).filter('youtubeTrusted', ['$sce', function ($sce) {
     return function(id) {
-        return $sce.trustAsResourceUrl("https://www.youtube.com/embed/" + id);
+        return $sce.trustAsResourceUrl("https://www.youtube.com/embed/"+id+"?enablejsapi=1&rel=0");
     };
 }]);;
  

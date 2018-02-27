@@ -36,7 +36,7 @@
          </div> -->
          <div class="row" ng-show="user">
         	<div class="col col-50 col-offset-25">
-				<a class="button button-assertive button-block button-outline" ng-click="showLogOutMenu()">Log Out</a>
+				<a class="button button-assertive button-block button-outline" ng-click="showLogOutMenu()">Esci</a>
         	</div>
          </div>
         <ion-list can-swipe="true" show-delete="showDelete" ng-show="youtubeChannelList.items.length > 0 && user" >
@@ -46,7 +46,8 @@
                 <!-- <p>{{list.id.videoId}}</p> -->
                 <p>{{list.snippet.description}}</p>                
                 <p>{{list.snippet.publishedAt | date:"dd/MM/yyyy 'at' h:mma"}}</p>                
-                <p>Social: <i class="fa fa-youtube-play original"></i></p>                                
+                <p>Social: <i class="fa fa-youtube-play original"></i></p>
+                <i class="icon ion-chevron-right icon-accessory"></i>                                                              
                 <ion-option-button class="button-energized ion-edit" ng-click="edit(list)"></ion-option-button>
                 <ion-option-button class="button-assertive ion-trash-a" ng-click="delVideo(list.id.videoId,$index)"></ion-option-button>
             </ion-item>

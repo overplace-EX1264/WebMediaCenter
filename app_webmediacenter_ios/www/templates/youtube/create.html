@@ -1,4 +1,4 @@
-<ion-view view-title="Crea un Video">
+<ion-view view-title="{{pageTitle}}">
     <ion-content class="news-operation-content" afkl-image-container>
     	<form name="$parent.newsForm" class="news-form" unsaved-warning-form novalidate>
     	    
@@ -80,8 +80,9 @@
 				<span class="input-label">Video</span>
 				<!-- <div afkl-lazy-image="{{youtube.filename}}" class="afkl-lazy-wrapper image-loader-container" ng-if="defaultIcon"></div> -->
 				<div style="width: 100%;" class="afkl-lazy-wrapper image-loader-container" ng-if="!defaultIcon">
-					<iframe  ng-src="{{id| youtubeTrusted}}" 
-					frameborder="0" allowfullscreen style="width:100%"></iframe>
+					<!-- <iframe  ng-src="{{id| youtubeTrusted}}" 
+					frameborder="0" allowfullscreen style="width:100%"></iframe> -->
+					<iframe id="existing-iframe-example" src="{{id| youtubeTrusted}}" frameborder="0"  allowfullscreen style="width:100%"></iframe>
 					<!-- <img src="{{thumb}}" class="afkl-lazy-wrapper image-loader-container withMax" > -->
 					
 				   <!-- <p>Display output for control reasons: {{id | youtubeTrusted}}</p> -->
@@ -105,7 +106,7 @@
 	       	</div>
 			<div id="box-gallery-action" class="row" ng-hide="id">
 	          		<div class="col col-50">
-	              		<button class="button button-block button-calm icon-left ion-videocamera" ng-click="takeVideo()">Scatta</button>
+	              		<button class="button button-block button-calm icon-left ion-videocamera" ng-click="takeVideo()">Registra</button>
 	          		</div>
 	          		<div class="col col-50">
 	              		<button class="button button-block button-calm icon-left ion-image" ng-click="getVideoAlbum()">Gallery</button>
@@ -137,7 +138,7 @@
 			</div>
 			<div id="box-action" class="row" ng-show="id">
 		        <div class="col col-50 col-offset-25">
-		        	<button type="submit" class="button button-full button-balanced icon-left ion-android-checkmark-circle" ng-click="updateData()" ng-disabled="newsForm.$invalid || (newsForm.$dirty && newsForm.$invalid) ">Aggiornare</button> 
+		        	<button type="submit" class="button button-full button-balanced icon-left ion-android-checkmark-circle" ng-click="updateData()" ng-disabled="newsForm.$invalid || (newsForm.$dirty && newsForm.$invalid) ">Aggiorna</button> 
 		        </div>
 			</div>
 			<!-- <progress max="100" value="{{uploaded}}" ng-show="uploaded > 0"></progress> -->

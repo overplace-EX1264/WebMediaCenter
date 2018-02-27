@@ -264,9 +264,37 @@
         }
 
         // iOS 4.0
+//        if ([pickerController respondsToSelector:@selector(cameraCaptureMode)]) {
+//            pickerController.cameraCaptureMode = UIImagePickerControllerCameraCaptureModeVideo;
+//            // pickerController.videoQuality = UIImagePickerControllerQualityTypeHigh;
+//            // pickerController.cameraDevice = UIImagePickerControllerCameraDeviceRear;
+//            // pickerController.cameraFlashMode = UIImagePickerControllerCameraFlashModeAuto;
+//        }
         if ([pickerController respondsToSelector:@selector(cameraCaptureMode)]) {
             pickerController.cameraCaptureMode = UIImagePickerControllerCameraCaptureModeVideo;
-            // pickerController.videoQuality = UIImagePickerControllerQualityTypeHigh;
+            
+            NSNumber* quality = [options objectForKey:@"ios_quality"];
+            
+             if ([quality isEqual:@("compression_none_640x480")]){ //Compression none
+                 pickerController.videoQuality = UIImagePickerControllerQualityType640x480;
+             }
+             else if ([quality isEqual:@("compression_none_960x540")]){ //Compression none
+                 pickerController.videoQuality = UIImagePickerControllerQualityTypeIFrame960x540;
+             }
+             else if ([quality isEqual:@("compression_none_1280x720")]){ //Compression none
+                 pickerController.videoQuality = UIImagePickerControllerQualityTypeIFrame1280x720;
+             }
+             else if ([quality isEqual:@("high")]){ //Compression low
+                 pickerController.videoQuality = UIImagePickerControllerQualityTypeHigh;
+             }
+             else if ([quality isEqual:@("medium")]){ //Compression medium
+                 pickerController.videoQuality = UIImagePickerControllerQualityTypeMedium;
+             }
+             else if ([quality isEqual:@("low")]){ //strongest compression, resolution 192x144
+                 pickerController.videoQuality = UIImagePickerControllerQualityTypeLow;
+             }
+            
+//            pickerController.videoQuality = UIImagePickerControllerQualityTypeHigh;
             // pickerController.cameraDevice = UIImagePickerControllerCameraDeviceRear;
             // pickerController.cameraFlashMode = UIImagePickerControllerCameraFlashModeAuto;
         }

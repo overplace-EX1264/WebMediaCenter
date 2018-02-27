@@ -155,6 +155,8 @@ angular.module('youtube.controllers', [])
 
 .controller('YoutubeOperationCtrl', function($scope, $stateParams, $ionicHistory,$cordovaCamera, $ionicPopup, $ionicLoading, $cordovaToast, Youtube) {
     $scope.defaultIcon = true;
+    $scope.pageTitle = "Crea un Video";
+    
     document.addEventListener("deviceready", onDeviceReady, false);
     function onDeviceReady() {
         console.log(navigator.device.capture);
@@ -187,7 +189,12 @@ angular.module('youtube.controllers', [])
                 $ionicLoading.hide();
                 navigator.notification.console.log('Error code: ' + error.code, null, 'Capture Error');
             };
-            navigator.device.capture.captureVideo(captureSuccess, captureError, {limit:2});
+            navigator.device.capture.captureVideo(captureSuccess, captureError,{ 
+                limit: 1, 
+                duration: 20,
+                ios_quality: 'high',
+                quality: 1 
+            });
     }
    $scope.getVideoAlbum  = function () {
     $ionicLoading.show();
@@ -391,7 +398,7 @@ angular.module('youtube.controllers', [])
                                 //    alert("Successfully Saved");
                                 var myPopup = $ionicPopup.alert({
                                     title: 'Successo',
-                                    template: "Caricato con successo il video"
+                                    template: "Video caricato con successo"
                                  });  
                                    $ionicHistory.goBack();
                                }, function(error){ 
@@ -402,7 +409,12 @@ angular.module('youtube.controllers', [])
       }
       
       function fail(error) {
-        console.log(error)
+        console.log(error);
+        var myPopup = $ionicPopup.alert({
+            title: 'Errore',
+            template: "Qualcosa è andato storto. Per favore riprova più tardi"
+        });
+         $ionicLoading.hide();
           // alert("An error has occurred: Code = " + error.code);
         console.log("upload error source " + error.source);
         console.log("upload error target " + error.target);
@@ -443,6 +455,7 @@ angular.module('youtube.controllers', [])
     };
 }])
 .controller('YoutubeOperationEditCtrl', function($scope, $stateParams, $ionicHistory,$cordovaCamera, $ionicPopup, $ionicLoading, $cordovaToast, Youtube) {
+    $scope.pageTitle = "Modifica video";
     $ionicLoading.show();
     $scope.user = Youtube.getUser();
     Youtube.gapiSetToken($scope.user.accessToken);
@@ -491,23 +504,36 @@ angular.module('youtube.controllers', [])
                                 'privacyStatus': $scope.youtube.privacy,
                             }      
                     }).then(function(response){ 
-                                    $ionicLoading.hide();
-                                    alert("Successfully Updated");
-                                    $ionicHistory.goBack();
-                                }, function(error){ 
-                                    $ionicLoading.hide();
-                                    console.log(JSON.stringify(error));
-                                });
-            },
-            function (err) {
-                $ionicLoading.hide();
-                console.log(JSON.stringify(err));
-            });       
-        
+                        $ionicLoading.hide();
+                        var myPopup = $ionicPopup.alert({
+                            title: 'Successo',
+                            template: "Video caricato con successo"
+                        });
+                        $ionicHistory.goBack();
+                    }, function(error){ 
+                        $ionicLoading.hide();
+                        var myPopup = $ionicPopup.alert({
+                            title: 'Errore',
+                            template: "Qualcosa è andato storto. Per favore riprova più tardi"
+                        });
+                        console.log(JSON.stringify(error));
+                        $ionicHistory.goBack();
+                    });
+                },
+                function (err) {
+                    $ionicLoading.hide();
+                    var myPopup = $ionicPopup.alert({
+                        title: 'Errore',
+                        template: "Qualcosa è andato storto. Per favore riprova più tardi"
+                    });
+                    $ionicHistory.goBack();
+                    console.log(JSON.stringify(err));
+                });   
     }
+   
 }).filter('youtubeTrusted', ['$sce', function ($sce) {
     return function(id) {
-        return $sce.trustAsResourceUrl("https://www.youtube.com/embed/" + id);
+        return $sce.trustAsResourceUrl("https://www.youtube.com/embed/"+id+"?enablejsapi=1&rel=0");
     };
 }]);;
  
