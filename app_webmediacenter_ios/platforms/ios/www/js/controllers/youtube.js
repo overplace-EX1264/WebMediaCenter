@@ -127,7 +127,7 @@ angular.module('youtube.controllers', [])
         // $scope.template = '<ion-item class="item-remove-animate item-thumbnail-left item-icon-right" ><div afkl-lazy-image="'+list.snippet.thumbnails.default.url+'" class="afkl-lazy-wrapper" style="margin-top: 10px;" item-thumbnail-img"></div><h2 style="margin-left: 10px;">'+list.snippet.title+'</h2><p  style="margin-left: 10px;">'+list.snippet.description+'</p><p  style="margin-left: 10px;">'+list.snippet.publishedAt +'| date:"dd/MM/yyyy "at" h:mma"</p></ion-item>';
         var myPopup = $ionicPopup.show({
         template: $scope.template,
-        title: 'Scegliere',
+        title: 'Gestisci video',
         scope: $scope,
         buttons: [
        { text: '<i class="icon ion-close-round"></i> ' 
