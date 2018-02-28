@@ -1,6 +1,6 @@
 angular.module('youtube.controllers', [])
 
-.controller('YoutubeCtrl', function($timeout, $scope, Youtube, $ionicPopup, $ionicLoading, $cordovaCamera, $cordovaCapture, $cordovaToast, $location, $timeout,$http,ApiConfig, $state, Youtube,$ionicActionSheet){
+.controller('YoutubeCtrl', function($timeout, $scope,$rootScope, Youtube, $ionicPopup, $ionicLoading, $cordovaCamera, $cordovaCapture, $cordovaToast, $location, $timeout,$http,ApiConfig, $state, Youtube,$ionicActionSheet){
     $scope.news_list = [];
     $scope.isAvailable = true;
     
@@ -122,38 +122,46 @@ angular.module('youtube.controllers', [])
         // .id.videoId
     }
     $scope.popOver = function (list){
-        $scope.data = {};
-        $scope.template = '<div class="row"><div class="col col-50"><div afkl-lazy-image="'+list.snippet.thumbnails.default.url+'" class="afkl-lazy-wrapper item-thumbnail-img"></div></div><div class="col col-50"><h3>'+list.snippet.title+'</h3><p>'+list.snippet.description+'</p></div></div>';
-        // $scope.template = '<ion-item class="item-remove-animate item-thumbnail-left item-icon-right" ><div afkl-lazy-image="'+list.snippet.thumbnails.default.url+'" class="afkl-lazy-wrapper" style="margin-top: 10px;" item-thumbnail-img"></div><h2 style="margin-left: 10px;">'+list.snippet.title+'</h2><p  style="margin-left: 10px;">'+list.snippet.description+'</p><p  style="margin-left: 10px;">'+list.snippet.publishedAt +'| date:"dd/MM/yyyy "at" h:mma"</p></ion-item>';
-        var myPopup = $ionicPopup.show({
-        template: $scope.template,
-        title: 'Gestisci video',
-        scope: $scope,
-        buttons: [
-       { text: '<i class="icon ion-close-round"></i> ' 
-         //close popup and do nothing
-       },
-       {
-        text: '<i class="icon ion-trash-a"></i>',
-        type: 'button-assertive',
-        onTap: function(e) {  
-           $scope.delVideo(list.id.videoId);
-        }
-       },
-       {
-        text: '<i class="icon ion-edit"></i> ',
-        type: 'button-energized',
-        onTap: function(e) { 
-          $scope.edit(list);
-        }
-       }]
-      });
-     
-    
+        $rootScope.list = list;
+        $location.path("/app/youtube/view/"+list.id.videoId);
     }
+    $rootScope.getList = $scope.getList;
 })
 
-.controller('YoutubeOperationCtrl', function($scope, $stateParams, $ionicHistory,$cordovaCamera, $ionicPopup, $ionicLoading, $cordovaToast, Youtube) {
+.controller('YoutubeViewCtrl', function($scope,$rootScope, $stateParams, $ionicHistory,$cordovaCamera, $ionicPopup, $ionicLoading, $cordovaToast, Youtube) {
+    if ($rootScope.list.id.videoId == $stateParams.id) {
+        $rootScope.list = $scope.list;   
+    }
+    $scope.delVideo = function (id){
+        var confirmPopup = $ionicPopup.confirm({
+            title: 'Attenzione',
+            template: "Sei sicuro di voler eliminare il video dal canale Youtube?",
+            okText: 'Elimina',
+            cancelText : 'Annulla'
+        });
+        confirmPopup.then(function(ok){
+            if(ok) {
+                $ionicLoading.show();
+                Youtube.buildApiRequest('DELETE',
+                '/youtube/v3/videos',
+                {'id': id}).then(function(msg){ 
+                        $ionicLoading.hide();                    
+                        var myPopup = $ionicPopup.alert({
+                            title: 'Successo',
+                            template: "Video caricato con successo"
+                        });  
+                            $rootScope.getList();
+                            $ionicHistory.goBack();
+                        }, function(error){ 
+                            console.log(JSON.stringify(error));
+                            $ionicLoading.hide();
+                    });
+            };
+        });
+      }
+})
+
+.controller('YoutubeOperationCtrl', function($scope,$rootScope, $stateParams, $ionicHistory,$cordovaCamera, $ionicPopup, $ionicLoading, $cordovaToast, Youtube) {
     $scope.defaultIcon = true;
     $scope.pageTitle = "Crea un Video";
     
@@ -241,13 +249,6 @@ angular.module('youtube.controllers', [])
             $ionicLoading.hide();
         });
     });
-    // $scope.openFile = function (){
-    //     setTimeout(function() {
-    //         var element = angular.element(document.getElementById('input'));
-    //         element.triggerHandler('click');
-    //         $scope.clicked = true;
-    //       }, 0);
-    // }
     $scope.removeVideo = function () {
         $scope.clipSrc  = null;
         $scope.videoPath = null;
@@ -261,78 +262,7 @@ angular.module('youtube.controllers', [])
         console.log($scope.user.accessToken, $scope.clipSrc);
         postVideo($scope.user.accessToken, $scope.clipSrc);
     }
-
-    // $scope.nowTimeToRock = function () {
-    //     $ionicLoading.show();
-    //     $scope.uploaded = 0;
-        
-    //     $scope.user = Youtube.getUser();
-    //     var metadata = {
-    //         snippet : {
-    //             categoryId: '25',
-    //             defaultLanguage: 'en',
-    //             description: $scope.youtube.descrizione,
-    //             tags: $scope.youtube.keyword.split(','),
-    //             title: $scope.youtube.titolo,
-    //         },
-    //         status :{
-    //             privacyStatus: "public",
-    //         }              
-    //     };
-    //     var params = {'part': 'snippet,status'};
-    //     // $scope.clipSrc = 'img/video.mp4';
-    //     console.log($scope.clipSrc);
-       
-    //     Youtube.gapiSetToken($scope.user.accessToken);
-    //     var uploader = new MediaUploader({
-    //         baseUrl: 'https://www.googleapis.com/upload/youtube/v3/videos',
-    //         file: $scope.clipSrc,
-    //         token: $scope.user.accessToken,
-    //         metadata: metadata,
-    //         params: params,
-    //         onError: function(data) {
-    //             var message = data;
-    //             try {
-    //                 var errorResponse = JSON.parse(data);
-    //                 message = errorResponse.error.message;
-    //             } finally {
-    //                 console.log(JSON.stringify(message));
-    //             }
-    //         },
-    //         onProgress: function(data) {
-    //             var currentTime = Date.now();
-    //             console.log('Progress: ' + data.loaded + ' bytes loaded out of ' + data.total);
-    //             var totalBytes = data.total;
-    //             $scope.uploadingLeng = data;
-    //             $scope.uploaded = Math.round((data.loaded * 100)/data.total);
-    //             $scope.remaining = 100 - $scope.uploaded;
-    //             console.log('Progress: ' + $scope.uploaded);                
-    //         },
-    //         onComplete: function(data) {
-    //             // $scope.uploaded
-    //             var uploadResponse = JSON.parse(data);
-    //             console.log('Upload complete for video ' + uploadResponse.id);
-    //             $ionicLoading.hide();
-    //             console.log("Upload complete ");
-    //             $scope.uploaded = 0;
-    //             $ionicHistory.goBack();
-    //         }
-    //     });
-
-    //     uploader.upload();
-    // }
     function postVideo(accessToken, fileURI) {
-        // var metadata = {
-        //   snippet: {
-        //     title: $scope.youtube.titolo,
-        //     description: $scope.youtube.descrizione,
-        //     tags: $scope.youtube.keyword.split(','),
-        //     categoryId: 25
-        //   },
-        //   status: {
-        //     privacyStatus: "public"
-        //   }
-        // }
         var params = {};
         params.snippet= {
             title: $scope.youtube.titolo,
@@ -400,6 +330,7 @@ angular.module('youtube.controllers', [])
                                     title: 'Successo',
                                     template: "Video caricato con successo"
                                  });  
+                                 $rootScope.getList();
                                    $ionicHistory.goBack();
                                }, function(error){ 
                                    $ionicLoading.hide();
@@ -454,7 +385,7 @@ angular.module('youtube.controllers', [])
         return $sce.trustAsResourceUrl(url);
     };
 }])
-.controller('YoutubeOperationEditCtrl', function($scope, $stateParams, $ionicHistory,$cordovaCamera, $ionicPopup, $ionicLoading, $cordovaToast, Youtube) {
+.controller('YoutubeOperationEditCtrl', function($scope,$rootScope, $stateParams, $ionicHistory,$cordovaCamera, $ionicPopup, $ionicLoading, $cordovaToast, Youtube) {
     $scope.pageTitle = "Modifica video";
     $ionicLoading.show();
     $scope.user = Youtube.getUser();
@@ -509,6 +440,9 @@ angular.module('youtube.controllers', [])
                             title: 'Successo',
                             template: "Video caricato con successo"
                         });
+                        $rootScope.getList();
+                        $rootScope.list.snippet.title = response.snippet.title;
+                        $rootScope.list.snippet.description = response.snippet.description;
                         $ionicHistory.goBack();
                     }, function(error){ 
                         $ionicLoading.hide();
@@ -535,7 +469,7 @@ angular.module('youtube.controllers', [])
     return function(id) {
         return $sce.trustAsResourceUrl("https://www.youtube.com/embed/"+id+"?enablejsapi=1&rel=0");
     };
-}]);;
+}]);
  
 // curl 'https://googleads.g.doubleclick.net/pagead/id?exp=nomnom' \
 // -XGET \

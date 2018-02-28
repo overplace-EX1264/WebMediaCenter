@@ -1,64 +1,6 @@
-// angular.module('youtube.controllers', [])
-
-// .controller('YoutubeCtrl', function($timeout, $scope, Youtube, $ionicPopup, $ionicLoading, $cordovaCamera, $cordovaCapture, $cordovaToast, $location, $timeout,$http,ApiConfig, $state, Youtube,$ionicActionSheet){
-//     console.log("YoutubeOperationCtrl");
-//     $scope.googleSignIn = function() {
-//         $ionicLoading.show({
-//           template: 'Logging in...'
-//         });
-//         window.plugins.googleplus.login(
-//             {
-//                 'scopes': ApiConfig.gPScopes,
-//                 'webClientId': '343547022633-rdrasefvqaf7l9snfs3o85biesg1gemc.apps.googleusercontent.com',
-//                 'offline': false
-//             },
-//           function (user_data) {
-//             localStorage.setItem("starter_google_user",user_data)
-//             alert(JSON.stringify(user_data));
-//             $scope.user = user_data;
-//             $ionicLoading.hide();
-//           },
-//           function (msg) {
-//             alert(JSON.stringify(msg));              
-//             $ionicLoading.hide();
-//           }
-//         );
-//       };
-//     $scope.showLogOutMenu = function () {
-//         window.plugins.googleplus.logout(
-//             function (msg) {
-//               alert(JSON.stringify(msg)); 
-//             }
-//           );
-//     }
-// })
-
-// .controller('YoutubeOperationCtrl', function($scope, $stateParams, $ionicHistory,$cordovaCamera, $ionicPopup, $ionicLoading, $cordovaToast, Youtube) {
-//     console.log("YoutubeOperationCtrl");
-
-// }).filter('trusted', ['$sce', function ($sce) {
-//     return function(url) {
-//         return $sce.trustAsResourceUrl(url);
-//     };
-// }])
-// .controller('YoutubeOperationEditCtrl', function($scope, $stateParams, $ionicHistory,$cordovaCamera, $ionicPopup, $ionicLoading, $cordovaToast, Youtube) {
-//     console.log("YoutubeOperationEditCtrl");
-// }).filter('youtubeTrusted', ['$sce', function ($sce) {
-//     return function(id) {
-//         return $sce.trustAsResourceUrl("https://www.youtube.com/embed/" + id);
-//     };
-// }]);;
- 
-// // curl 'https://googleads.g.doubleclick.net/pagead/id?exp=nomnom' \
-// // -XGET \
-// // -H 'Referer: https://www.youtube.com/embed/DmeVCVpG0bw' \
-// // -H 'User-Agent: Mozilla/5.0 (iPhone; CPU iPhone OS 11_2 like Mac OS X) AppleWebKit/604.4.7 (KHTML, like Gecko) Mobile/15C107' \
-// // -H 'Origin: https://www.youtube.com' \
-// // -H 'Accept: */*'
-
 angular.module('youtube.controllers', [])
 
-.controller('YoutubeCtrl', function($timeout, $scope, Youtube, $ionicPopup, $ionicLoading, $cordovaCamera, $cordovaCapture, $cordovaToast, $location, $timeout,$http,ApiConfig, $state, Youtube,$ionicActionSheet){
+.controller('YoutubeCtrl', function($timeout, $scope, $rootScope,Youtube, $ionicPopup, $ionicLoading, $cordovaCamera, $cordovaCapture, $cordovaToast, $location, $timeout,$http,ApiConfig, $state, Youtube,$ionicActionSheet){
     $scope.news_list = [];
     $scope.isAvailable = true;
     
@@ -160,7 +102,6 @@ angular.module('youtube.controllers', [])
                 {'id': id}).then(function(msg){ 
                             // $scope.youtubeChannelList.splice(index,1);
                             $scope.getList();
-
                         }, function(error){ 
                             console.log(JSON.stringify(error));
                             $ionicLoading.hide();
@@ -183,36 +124,44 @@ angular.module('youtube.controllers', [])
         // .id.videoId
     }
     $scope.popOver = function (list){
-        $scope.data = {};
-        $scope.template = '<div class="row"><div class="col col-50"><div afkl-lazy-image="'+list.snippet.thumbnails.default.url+'" class="afkl-lazy-wrapper item-thumbnail-img"></div></div><div class="col col-50"><h3>'+list.snippet.title+'</h3><p>'+list.snippet.description+'</p></div></div>';
-        // $scope.template = '<ion-item class="item-remove-animate item-thumbnail-left item-icon-right" ><div afkl-lazy-image="'+list.snippet.thumbnails.default.url+'" class="afkl-lazy-wrapper" style="margin-top: 10px;" item-thumbnail-img"></div><h2 style="margin-left: 10px;">'+list.snippet.title+'</h2><p  style="margin-left: 10px;">'+list.snippet.description+'</p><p  style="margin-left: 10px;">'+list.snippet.publishedAt +'| date:"dd/MM/yyyy "at" h:mma"</p></ion-item>';
-        var myPopup = $ionicPopup.show({
-        template: $scope.template,
-        title: 'Gestisci video',
-        scope: $scope,
-        buttons: [
-       { text: '<i class="icon ion-close-round"></i> ' 
-         //close popup and do nothing
-       },
-       {
-        text: '<i class="icon ion-trash-a"></i>',
-        type: 'button-assertive',
-        onTap: function(e) {  
-           $scope.delVideo(list.id.videoId);
-        }
-       },
-       {
-        text: '<i class="icon ion-edit"></i> ',
-        type: 'button-energized',
-        onTap: function(e) { 
-          $scope.edit(list);
-        }
-       }]
-      });
+        $rootScope.list = list;
+        $location.path("/app/youtube/view/"+list.id.videoId);
     }
+    $rootScope.getList = $scope.getList;
 })
-
-.controller('YoutubeOperationCtrl', function($scope, $stateParams, $ionicHistory,$cordovaCamera, $ionicPopup, $ionicLoading, $cordovaToast, Youtube) {
+.controller('YoutubeViewCtrl', function($scope,$rootScope, $stateParams, $ionicHistory,$cordovaCamera, $ionicPopup, $ionicLoading, $cordovaToast, Youtube) {
+    if ($rootScope.list.id.videoId == $stateParams.id) {
+        $rootScope.list = $scope.list;   
+    }
+    $scope.delVideo = function (id){
+        var confirmPopup = $ionicPopup.confirm({
+            title: 'Attenzione',
+            template: "Sei sicuro di voler eliminare il video dal canale Youtube?",
+            okText: 'Elimina',
+            cancelText : 'Annulla'
+        });
+        confirmPopup.then(function(ok){
+            if(ok) {
+                $ionicLoading.show();
+                Youtube.buildApiRequest('DELETE',
+                '/youtube/v3/videos',
+                {'id': id}).then(function(msg){ 
+                        $ionicLoading.hide();                    
+                        var myPopup = $ionicPopup.alert({
+                            title: 'Successo',
+                            template: "Video caricato con successo"
+                        });  
+                            $rootScope.getList();
+                            $ionicHistory.goBack();
+                        }, function(error){ 
+                            console.log(JSON.stringify(error));
+                            $ionicLoading.hide();
+                    });
+            };
+        });
+      }
+})
+.controller('YoutubeOperationCtrl', function($scope,$rootScope, $stateParams, $ionicHistory,$cordovaCamera, $ionicPopup, $ionicLoading, $cordovaToast, Youtube) {
     $scope.defaultIcon = true;
     $scope.loadProgress = false;
     $scope.pageTitle = "Crea un Video";
@@ -376,6 +325,7 @@ angular.module('youtube.controllers', [])
                                'privacyStatus': "public",
                            }      
                    }).then(function(response){ 
+                                   $rootScope.getList();
                                    $ionicHistory.goBack();
                                    $ionicLoading.hide();
                                 //    alert("Successfully Saved");
@@ -436,7 +386,7 @@ angular.module('youtube.controllers', [])
         return $sce.trustAsResourceUrl(url);
     };
 }])
-.controller('YoutubeOperationEditCtrl', function($scope, $stateParams, $ionicHistory,$cordovaCamera, $ionicPopup, $ionicLoading, $cordovaToast, Youtube) {
+.controller('YoutubeOperationEditCtrl', function($scope,$rootScope, $stateParams, $ionicHistory,$cordovaCamera, $ionicPopup, $ionicLoading, $cordovaToast, Youtube) {
     $ionicLoading.show();
     $scope.pageTitle = "Modifica video";
     $scope.user = Youtube.getUser();
@@ -494,6 +444,9 @@ angular.module('youtube.controllers', [])
                             }      
                     }).then(function(response){ 
                                     $ionicLoading.hide();
+                                    $rootScope.getList();
+                                    $rootScope.list.snippet.title = response.snippet.title;
+                                    $rootScope.list.snippet.description = response.snippet.description;
                                     var myPopup = $ionicPopup.alert({
                                         title: 'Successo',
                                         template: "Video caricato con successo"

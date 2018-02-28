@@ -550,7 +550,15 @@ angular.module('starter',
             }
         }
     })
-
+	.state('app.youtube-view', {
+        url: '/youtube/view/:id',
+        views: {
+            'navContent': {
+            	templateUrl: 'templates/youtube/view.html',
+            	controller: 'YoutubeViewCtrl'
+            }
+        }
+	})
 	.state('app.youtube-create', {
         url: '/youtube/create',
         views: {
