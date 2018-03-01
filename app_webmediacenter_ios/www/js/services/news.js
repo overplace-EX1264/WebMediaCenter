@@ -115,7 +115,7 @@ angular.module('news.services', [])
 							if(ok) {
 								$ionicLoading.show();
 								_this.camera(options).then(function (response) {
-									deferred.resolve("data:image/jpeg;base64,"+imageData);
+									deferred.resolve(response);
 								},function (err) {
 									if(err != "Selection cancelled." && err != "Camera cancelled."){
 										$ionicPopup.alert({
