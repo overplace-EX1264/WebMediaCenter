@@ -1,6 +1,6 @@
 angular.module('news.controllers', [])
 
-.controller('NewsCtrl', function($scope, $ionicPopup, $ionicLoading, $cordovaToast, $location, News, $timeout) {
+.controller('NewsCtrl', function($scope,$rootScope, $ionicPopup, $ionicLoading, $cordovaToast, $location, News, $timeout) {
 
 	$scope.news_list = [];
 	$scope.isAvailable = true;
@@ -9,6 +9,7 @@ angular.module('news.controllers', [])
 		News.loadMore().then(function(response){
 			$scope.news_list = response;
 			$scope.isAvailable = News.getMoreStatus();
+			console.log($scope.isAvailable,$scope.news_list);
 			$scope.$broadcast('scroll.infiniteScrollComplete');
 		}, function(error){
 			$cordovaToast.show('Attenzione! Si è verificato un errore durante il caricamento','short','bottom');
@@ -61,6 +62,8 @@ angular.module('news.controllers', [])
     	News.refreshList().then(function(response){
 			$scope.news_list = response;
 			$scope.isAvailable = News.getMoreStatus();
+			console.log("refresh");			
+			console.log($scope.isAvailable,$scope.news_list);			
 			$scope.$broadcast('scroll.refreshComplete');
 		}, function(error){
 			$cordovaToast.show('Errore nel recupero delle news!','short','bottom');
@@ -68,7 +71,8 @@ angular.module('news.controllers', [])
 		});
 
     };
-
+	$rootScope.loadNews = $scope.loadNews;
+	$rootScope.loadNews();
 })
 
 .controller('NewsDetailCtrl', function($scope, $stateParams, $ionicHistory, $ionicPopup, $ionicLoading, $cordovaToast, News) {
@@ -173,7 +177,7 @@ angular.module('news.controllers', [])
     };
             
     $scope.takePhoto = function(){
-    	
+    	$ionicLoading.show();
     	var options_camera = {
 			quality: 100,
 			correctOrientation: true,
@@ -187,11 +191,15 @@ angular.module('news.controllers', [])
     	
     	News.useCamera(options_camera)
     		.then(function(response){
-    			$scope.news.filename = response;
-    			formDirty = true;
-    			$scope.newsForm.$dirty = true;
+				setTimeout(() => {
+					$ionicLoading.hide();	
+					$scope.news.filename = response;
+					formDirty = true;
+					$scope.newsForm.$dirty = true;
+				}, 100);    						
     		}, function(error){
-    			$scope.newsForm.$dirty = formDirty;
+				$scope.newsForm.$dirty = formDirty;
+				$ionicLoading.hide();
     		});
     };
     

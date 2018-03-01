@@ -1,6 +1,6 @@
 angular.module('news.services', [])
 
-.factory('News', function($http, $q, $cordovaCamera, $ionicPopup, ApiConfig, Cache) {
+.factory('News', function($http, $q, $cordovaCamera, $ionicPopup, $ionicLoading, ApiConfig, Cache) {
 
     var _this = this;
 
@@ -97,7 +97,7 @@ angular.module('news.services', [])
 				img.src = "data:image/jpeg;base64,"+imageData;
 				img.onload = function(){
 					if(this.width < this.height){
-
+						$ionicLoading.hide();
 						var tmpl;
 						if (options.hasOwnProperty("mediaType") && options.mediaType == 0){
 							tmpl = 'La larghezza dell\'immagine deve essere superiore alla sua altezza!<br>Scegli un\'altra immagine.';
@@ -112,7 +112,21 @@ angular.module('news.services', [])
 			                cancelText : 'Annulla'
 			            });
 			            confirmPopup.then(function(ok){
-			                if(ok) _this.camera(options);
+							if(ok) {
+								$ionicLoading.show();
+								_this.camera(options).then(function (response) {
+									deferred.resolve("data:image/jpeg;base64,"+imageData);
+								},function (err) {
+									if(err != "Selection cancelled." && err != "Camera cancelled."){
+										$ionicPopup.alert({
+											title: 'Attenzione',
+											template: 'L\'immagine non pu&ograve; essere utilizzata in quanto non risiede fisicamente sul tuo device.'
+										});
+									}
+									deferred.reject();							
+								});
+								return deferred.promise;
+							}
 			            });
 		    	    }else{
 		    	    	deferred.resolve("data:image/jpeg;base64,"+imageData);
@@ -131,7 +145,8 @@ angular.module('news.services', [])
 	    
 	    return deferred.promise;
 	    
-    };
+	};
+	
     
     return {
 
@@ -381,7 +396,6 @@ angular.module('news.services', [])
         },
         
         useCamera: function(options){
-        	alert(JSON.stringify(options))
         	var deferred = $q.defer();
         	
         	_this.camera(options)
