@@ -1,6 +1,6 @@
 angular.module("coupon.services", [])
 
-.factory("Coupon", function($http, $q, $cordovaCamera, $ionicPopup, ApiConfig, Cache){
+.factory("Coupon", function($http, $q, $cordovaCamera, $ionicPopup, ApiConfig, Cache, $ionicLoading){
 
     var _this = this;
 
@@ -108,7 +108,21 @@ angular.module("coupon.services", [])
                         cancelText : 'Annulla'
                     });
                     confirmPopup.then(function(ok){
-                        if(ok) _this.camera(options);
+                        if(ok) {
+							$ionicLoading.show();
+							_this.camera(options).then(function (response) {
+								deferred.resolve(response);
+							},function (err) {
+								if(err != "Selection cancelled." && err != "Camera cancelled."){
+									$ionicPopup.alert({
+										title: 'Attenzione',
+										template: 'L\'immagine non pu&ograve; essere utilizzata in quanto non risiede fisicamente sul tuo device.'
+									});
+								}
+								deferred.reject();							
+							});
+							return deferred.promise;
+						}
                     });
                 }else{
                     deferred.resolve("data:image/jpeg;base64,"+imageData);

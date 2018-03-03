@@ -193,11 +193,15 @@ angular.module('eventi.controllers', [])
     	
     	Eventi.useCamera(options_camera)
     		.then(function(response){
-    			$scope.evento.filename = response;
-    			formDirty = true;
-    			$scope.eventoForm.$dirty = true;
+    			setTimeout(() => {
+					$ionicLoading.hide();	
+					$scope.evento.filename = response;
+					formDirty = true;
+					$scope.eventoForm.$dirty = true;
+				}, 100);  
     		}, function(error){
-    			$scope.eventoForm.$dirty = formDirty;
+				$scope.eventoForm.$dirty = formDirty;
+				$ionicLoading.hide();
     		});
     };
     

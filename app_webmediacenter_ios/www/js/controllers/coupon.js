@@ -291,11 +291,15 @@ angular.module("coupon.controllers", [])
 		};
 
     	Coupon.useCamera(options_camera).then(function(response){
-    	    $scope.coupon.filename = response;
-    	    couponDirty = true;
-    	    $scope.couponForm.$dirty = true;
+			setTimeout(() => {
+				$ionicLoading.hide();	
+				$scope.coupon.filename = response;
+				couponDirty = true;
+				$scope.couponForm.$dirty = true;
+			}, 100);   
     	}, function(error){
-    		$scope.couponForm.$dirty = couponDirty;
+			$scope.couponForm.$dirty = couponDirty;
+			$ionicLoading.hide();
     	});
     };
 

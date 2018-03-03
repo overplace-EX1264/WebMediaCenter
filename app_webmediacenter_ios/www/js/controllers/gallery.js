@@ -121,11 +121,16 @@ angular.module('gallery.controllers', [])
     	
     	Gallery.useCamera(options_camera)
     		.then(function(response){
-    			$scope.galleryForm.$dirty = true;
-    			$scope.gallery.filename = response;
-    			$scope.formInvalid = $scope.gallery.moduli_selezionati.length == 0;
+    			setTimeout(() => {
+					$ionicLoading.hide();	
+					$scope.galleryForm.$dirty = true;
+					$scope.gallery.filename = response;
+					$scope.formInvalid = $scope.gallery.moduli_selezionati.length == 0;
+				}, 100);  
     		}, function(error){
-    			
+				// $scope.galleryForm.$dirty = formDirty;
+				console.log(error);
+				$ionicLoading.hide();
     		});
     };
     
